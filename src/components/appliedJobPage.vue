@@ -282,12 +282,12 @@
 <script>
   import * as util from "../common/utils/util"
   import store from "../vuex/store"
-  import {addAppealAPI, getAllCollectionJobAPI, tGetAppealAPI} from "../api/job";
+  import {addAppealAPI, getAllCollectionJobAPI, tGetAppealAPI} from "../api/api";
   import {getPositionOption} from "../common/js/position";
-  import {getJobTypeAPI} from "../api/job";
-  import {getAllSignUpJobAPI} from "../api/job";
-  import {addEvaluationAPI} from "../api/job";
-  import {tGetEvaluationAPI} from "../api/job";
+  import {getJobTypeAPI} from "../api/api";
+  import {getAllSignUpJobAPI} from "../api/api";
+  import {addEvaluationAPI} from "../api/api";
+  import {tGetEvaluationAPI} from "../api/api";
   import {VueEditor} from 'vue2-editor'
 
   export default {

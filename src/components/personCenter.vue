@@ -554,7 +554,7 @@
     dropListOneGetApi, getCompanyAPI,
     getJobTypeAPI,
     getOnlineResumeAPI, sendToMQ
-  } from "../api/job";
+  } from "../api/api";
   import {VueEditor} from 'vue2-editor'
   import {getPositionOption} from "../common/js/position";
   import pdf from 'vue-pdf'
@@ -828,7 +828,7 @@
     },
       mounted(){
 
-        this.api = process.env.JOB_URL;
+        this.api = process.env.SERVER_URL;
 
         if (this.user.roleId.indexOf(2) > -1){
           //公司

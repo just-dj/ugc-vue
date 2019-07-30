@@ -23,7 +23,7 @@
   import * as util from "../common/utils/util"
   import store from "../vuex/store"
   import {VueEditor} from 'vue2-editor'
-  import {getJobTypeAnalyseApi, getJobTypeHotAnalyseApi} from "../api/job";
+  import {getJobTypeAnalyseApi, getJobTypeHotAnalyseApi} from "../api/api";
 
   export default {
     name: "dataAnalysePage",

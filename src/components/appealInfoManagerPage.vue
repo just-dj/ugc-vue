@@ -74,7 +74,7 @@
   import * as util from "../common/utils/util"
   import store from "../vuex/store"
   import {VueEditor} from 'vue2-editor'
-  import {pageFindAppealAPI} from "../api/job";
+  import {pageFindAppealAPI} from "../api/api";
 
   export default {
     name: "appealInfoManagerPage",

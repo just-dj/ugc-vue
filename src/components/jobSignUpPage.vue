@@ -187,11 +187,11 @@
   import * as util from "../common/utils/util"
   import {VueEditor} from 'vue2-editor'
   import {getPositionOption} from "../common/js/position";
-  import {dropListOneGetApi, getGroupUserAPI} from "../api/job";
-  import {selectUserAPI} from "../api/job";
-  import {getUserAPI} from "../api/job";
-  import {getOnlineResumeAPI} from "../api/job";
-  import {getOnlineResumeByUserIdAPI} from "../api/job";
+  import {dropListOneGetApi, getGroupUserAPI} from "../api/api";
+  import {selectUserAPI} from "../api/api";
+  import {getUserAPI} from "../api/api";
+  import {getOnlineResumeAPI} from "../api/api";
+  import {getOnlineResumeByUserIdAPI} from "../api/api";
   import pdf from 'vue-pdf'
 
     export default {

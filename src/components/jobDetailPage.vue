@@ -78,7 +78,7 @@
 </template>
 
 <script>
-  import {collectionJobAPI, dropListOneGetApi, getCompanyAPI, getJobAPI, getJobTypeAPI, jobSignUpAPI} from "../api/job";
+  import {collectionJobAPI, dropListOneGetApi, getCompanyAPI, getJobAPI, getJobTypeAPI, jobSignUpAPI} from "../api/api";
   import store from "../vuex/store"
   import * as util from "../common/utils/util"
 

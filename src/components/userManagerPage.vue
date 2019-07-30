@@ -268,7 +268,7 @@
 </template>
 
 <script>
-  import {deleteUserAPI, dropListOneGetApi, getCompanyAPI, updateUserAPI, userPageFindAPI} from "../api/job";
+  import {deleteUserAPI, dropListOneGetApi, getCompanyAPI, updateUserAPI, userPageFindAPI} from "../api/api";
   import store from "../vuex/store"
   import * as util from "../common/utils/util"
 

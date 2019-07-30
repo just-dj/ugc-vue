@@ -149,7 +149,7 @@
     addJobAPI, deleteJobAPI,
     dropListOneGetApi, getCompanyListAPI,
     getJobTypeAPI, personJobPageAPI, sendToMQ
-  } from "../api/job";
+  } from "../api/api";
   import store from "../vuex/store"
   import * as util from "../common/utils/util"
   import {VueEditor} from 'vue2-editor'

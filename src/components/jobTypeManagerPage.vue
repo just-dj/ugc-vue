@@ -31,7 +31,7 @@
   import * as util from "../common/utils/util"
   import store from "../vuex/store"
   import {VueEditor} from 'vue2-editor'
-  import {addJobTypeAPI, deleteJobTypeAPI, getJobTypeAPI, updateJobAPI, updateJobTypeAPI} from "../api/job";
+  import {addJobTypeAPI, deleteJobTypeAPI, getJobTypeAPI, updateJobAPI, updateJobTypeAPI} from "../api/api";
 
     export default {
       name: "jobTypeManagerPage",

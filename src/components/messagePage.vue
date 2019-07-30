@@ -90,7 +90,7 @@
   import store from "../vuex/store"
   import * as util from "../common/utils/util"
   import {VueEditor} from 'vue2-editor'
-  import {getGroupUserAPI, getRecentUserList, getToFromMessage, getUnReadNumAPI, getUserAPI} from "../api/job";
+  import {getGroupUserAPI, getRecentUserList, getToFromMessage, getUnReadNumAPI, getUserAPI} from "../api/api";
 
   export default {
     name: "messagePage",

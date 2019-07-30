@@ -1,6 +1,6 @@
 import fetch from '../common/js/fetch.js';
 
-let jobServer = process.env.JOB_URL;
+let jobServer = process.env.SERVER_URL;
 let collectionService = process.env.COLLECTION_URL;
 
 /***********************登陆注册************************/

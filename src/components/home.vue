@@ -305,7 +305,7 @@
     getCodeAPI, getUnReadNumAPI, personSignUpAPI,
     signInAPI,
     signOutAPI
-  } from "../api/job";
+  } from "../api/api";
   import * as util from "../common/utils/util"
   import store from "../vuex/store"
 
