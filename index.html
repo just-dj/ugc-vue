@@ -23,11 +23,8 @@
           var width = docEle.clientWidth;
           width && (docEle.style.fontSize = 16 * (width / 1920) + "px"); //设置html的fontSize，随着event的改变而改变。
         };
-
       win.addEventListener(event, fn, false);
       doc.addEventListener("DOMContentLoaded", fn, false);
-      console.log(121343)
-
     }(document, window));
   </script>
 </html>
