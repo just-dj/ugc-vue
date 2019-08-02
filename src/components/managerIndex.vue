@@ -84,7 +84,9 @@
       </el-container>
 
       <div style="height: 100%;width: calc(100% - 180px)">
-        <router-view  style="height: 100%"></router-view>
+        <transition name="el-zoom-in-top">
+          <router-view  style="height: 100%"></router-view>
+        </transition>
       </div>
 
     </div>
