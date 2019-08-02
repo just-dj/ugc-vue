@@ -17,49 +17,49 @@
               <span style="color: #ebb563">返回博客</span>
             </template>
           </el-menu-item>
-          <el-menu-item index="/accountManager" key="accountManager">
+          <el-menu-item index="/accountManager" key="5d429edbbb9fe01c646d1fd7">
             <template slot="title">
               <i class="el-icon-document"></i>
               <span>账号管理</span>
             </template>
           </el-menu-item>
-          <el-menu-item index="/roleManager" key="roleManager">
+          <el-menu-item index="/roleManager" key="5d4450bc910a3fdc04c7b1b6">
             <template slot="title">
               <i class="el-icon-document"></i>
               <span>角色管理</span>
             </template>
           </el-menu-item>
-          <el-menu-item index="/moduleManager" key="moduleManager">
+          <el-menu-item index="/moduleManager" key="5d44512d910a3fdc04c7b21d">
             <template slot="title">
               <i class="el-icon-document"></i>
               <span>模块管理</span>
             </template>
           </el-menu-item>
-          <el-menu-item index="/bbsManager" key="bbsManager">
+          <el-menu-item index="/bbsManager" key="5d445124910a3fdc04c7b216">
             <template slot="title">
               <i class="el-icon-document"></i>
               <span>论坛管理</span>
             </template>
           </el-menu-item>
-          <el-menu-item index="/blogManager" key="blogManager">
+          <el-menu-item index="/blogManager" key="5d44511b910a3fdc04c7b209">
             <template slot="title">
               <i class="el-icon-document"></i>
               <span>博客管理</span>
             </template>
           </el-menu-item>
-          <el-menu-item index="/articleManager" key="articleManager">
+          <el-menu-item index="/articleManager" key="5d445111910a3fdc04c7b1ff">
             <template slot="title">
               <i class="el-icon-document"></i>
               <span>文章管理</span>
             </template>
           </el-menu-item>
-          <el-menu-item index="/announcementManager" key="announcementManager">
+          <el-menu-item index="/announcementManager" key="5d445108910a3fdc04c7b1f7">
             <template slot="title">
               <i class="el-icon-bell"></i>
               <span>登录公告</span>
             </template>
           </el-menu-item>
-          <el-menu-item index="/reportManager" key="reportManager">
+          <el-menu-item index="/reportManager" key="5d445100910a3fdc04c7b1f0">
             <template slot="title">
               <i class="el-icon-bell"></i>
               <span>举报处理</span>
@@ -71,10 +71,10 @@
               <span>数据统计</span>
             </template>
             <el-menu-item-group >
-              <el-menu-item index="/userCount" key="userCount" style="min-width: 180px">用户统计</el-menu-item>
-              <el-menu-item index="/blogCount" key="blogCount" style="min-width: 180px">博客统计</el-menu-item>
-              <el-menu-item index="/articleCount" key="articleCount" style="min-width: 180px">发帖统计</el-menu-item>
-              <el-menu-item index="/meetingCount" key="meetingCount" style="min-width: 180px">会议统计</el-menu-item>
+              <el-menu-item index="/userCount" key="5d4450f7910a3fdc04c7b1e8" style="min-width: 180px">用户统计</el-menu-item>
+              <el-menu-item index="/blogCount" key="5d4450ec910a3fdc04c7b1e0" style="min-width: 180px">博客统计</el-menu-item>
+              <el-menu-item index="/articleCount" key="5d4450e1910a3fdc04c7b1d1" style="min-width: 180px">发帖统计</el-menu-item>
+              <el-menu-item index="/meetingCount" key="5d4450d4910a3fdc04c7b1c7" style="min-width: 180px">会议统计</el-menu-item>
             </el-menu-item-group>
           </el-submenu>
 
@@ -128,8 +128,17 @@
     },
 
     created:function(){
+      if (!util.isEmpty(localStorage.getItem("token"))) {
+        console.log("已经登录 ");
+        this.isLogin = true;
+        this.managerIndex = this.contains(JSON.parse(localStorage.getItem("module")),"5d429e79bb9fe01c646d1fd6");
+        this.$store.commit('setHeadImg', {name: 'stark', user: JSON.parse(localStorage.getItem("user"))});
 
+      }else {
+        console.log("还未登录 ");
+      }
     },
+
 
     mounted() {
 
