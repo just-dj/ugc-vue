@@ -51,6 +51,7 @@
       </el-header>
 
       <el-main style="margin: 15px 8.1rem 15px 8.1rem;padding: 10px 0.9rem 10px 0.9rem;background-color: red">
+        博客
         <keep-alive>
           <router-view v-if="$route.meta.keepAlive" style="height: 100%"></router-view>
         </keep-alive>
@@ -123,6 +124,7 @@
   import * as util from "../common/utils/util"
 
   export default {
+    "name":"blogPage",
     data() {
 
       const validateEmail = (rule, value, callback) => {

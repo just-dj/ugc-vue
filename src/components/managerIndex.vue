@@ -1,61 +1,127 @@
 <template>
   <section style="height: 100%">
-    <el-container class="el-container main-page" style="background-color: rgb(238,238,238)">
-      <el-header style="position: relative;background-color: #545c64;padding: 0 9rem;">
-        <div class="home-log" style="background-color: #545c64;color: #fff;box-sizing: border-box;">
-          UGC
-          <!--<span style="font-size: 1rem;margin-left: 10px;color: #ffffff" @click="cityDialogVisible = true">-->
-          <!--<i class="el-icon-location-outline"></i>-->
-          <!--北京-->
-          <!--</span>-->
-        </div>
-        <el-menu :default-active="this.$route.path"
-                 class="el-menu-demo"
-                 mode="horizontal"
-                 router
-                 background-color="#545c64"
-                 text-color="#fff"
-                 active-text-color="#409EFF"
-                 @select="handleSelect">
-          <el-menu-item index="/blogPage" key="1">博客</el-menu-item>
-          <el-menu-item index="/bbsPage" key="2">论坛</el-menu-item>
-          <el-menu-item index="/meetingPage" key="3">会议纪要</el-menu-item>
-          <el-menu-item index="/managerIndex" key="4" v-if="managerIndex">系统管理</el-menu-item>
-        </el-menu>
 
-        <div class="main-signIn">
-          <el-button type="text" style="color: #fff" @click="signInDialogVisible = true" v-show="!isLogin">登录</el-button>
+    <el-container class="el-container page-left" style="background-color: rgb(238,238,238)">
+      <el-menu :default-active="this.$route.path"
+               style="width: 180px"
+               class="el-menu-demo"
+               mode="vertical"
+               router
+               background-color="#545c64"
+               text-color="#fff"
+               active-text-color="#409EFF"
+               @select="handleSelect">
+        <el-menu-item index="/indexPage" key="indexPage">
+          <template slot="title">
+            <i class="el-icon-document"></i>
+            <span>账号管理</span>
+          </template>
+          </el-menu-item>
+        <el-menu-item index="/indexPage" key="">
+          <template slot="title">
+            <i class="el-icon-document"></i>
+            <span>角色管理</span>
+          </template>
+        </el-menu-item>
+        <el-menu-item index="/indexPage" key="">
+          <template slot="title">
+            <i class="el-icon-document"></i>
+            <span>模块管理</span>
+          </template>
+        </el-menu-item>
+        <el-menu-item index="/indexPage" key="">
+          <template slot="title">
+            <i class="el-icon-document"></i>
+            <span>论坛管理</span>
+          </template>
+        </el-menu-item>
+        <el-menu-item index="/indexPage" key="">
+          <template slot="title">
+            <i class="el-icon-document"></i>
+            <span>博客管理</span>
+          </template>
+        </el-menu-item>
+        <el-menu-item index="/indexPage" key="">
+          <template slot="title">
+            <i class="el-icon-document"></i>
+            <span>文章管理</span>
+          </template>
+        </el-menu-item>
+        <el-menu-item index="/indexPage" key="">
+          <template slot="title">
+            <i class="el-icon-bell"></i>
+            <span>登陆公告</span>
+          </template>
+        </el-menu-item>
+        <el-menu-item index="/indexPage" key="">
+          <template slot="title">
+            <i class="el-icon-bell"></i>
+            <span>举报处理</span>
+          </template>
+        </el-menu-item>
+        <el-submenu index="1" >
+          <template slot="title">
+            <i class="el-icon-location"></i>
+            <span>数据统计</span>
+          </template>
+          <el-menu-item-group >
+            <el-menu-item style="min-width: 180px">用户统计</el-menu-item>
+            <el-menu-item style="min-width: 180px">博客统计</el-menu-item>
+            <el-menu-item style="min-width: 180px">发帖统计</el-menu-item>
+            <el-menu-item style="min-width: 180px">会议统计</el-menu-item>
+          </el-menu-item-group>
+        </el-submenu>
+        <!--<el-menu-item  index="/messagePage" style="position: relative">-->
+        <!--<el-badge :value="unReadNum" class="item" :hidden="unReadNum <= 0" style="position: absolute;top: -10px;left: 50px">-->
+        <!--</el-badge>-->
+        <!--<span>消息</span>-->
+        <!--</el-menu-item>-->
 
-          <el-dropdown v-show="isLogin">
-            <div style="display: flex;justify-content: flex-end;align-items: center">
-                <span style="color: #fff;margin-right: 10px">
-                  {{this.user.name}}<i class="el-icon-arrow-down el-icon--right"></i>
-                </span>
-              <img v-show="isEmpty(user.headImg)"
-                   src="https://justdj-umbrella.oss-cn-hangzhou.aliyuncs.com/default_header_img.png"
-                   style="width: 45px;height: 45px"/>
-              <img v-show="!isEmpty(user.headImg)" :src="user.headImg"
-                   style="width: 45px;height: 45px;border-radius: 50%"/>
-            </div>
+      </el-menu>
 
-            <el-dropdown-menu slot="dropdown">
-              <router-link to="/personCenter">
-                <el-dropdown-item style="text-align: center">个人中心</el-dropdown-item>
-              </router-link>
-              <!--<el-dropdown-item>修改资料</el-dropdown-item>-->
-              <el-dropdown-item @click.native="updatePasswordVisible = true">修改密码</el-dropdown-item>
-              <el-dropdown-item @click.native="signOut">退出登录</el-dropdown-item>
-            </el-dropdown-menu>
-          </el-dropdown>
-        </div>
-      </el-header>
+      <!--<el-header style="position: relative;background-color: #545c64;padding: 0 9rem;">-->
+        <!--<div class="home-log" style="background-color: #545c64;color: #fff;box-sizing: border-box">-->
+          <!--UGC-->
+          <!--&lt;!&ndash;<span style="font-size: 1rem;margin-left: 10px;color: #ffffff" @click="cityDialogVisible = true">&ndash;&gt;-->
+          <!--&lt;!&ndash;<i class="el-icon-location-outline"></i>&ndash;&gt;-->
+          <!--&lt;!&ndash;北京&ndash;&gt;-->
+          <!--&lt;!&ndash;</span>&ndash;&gt;-->
+        <!--</div>-->
+       <!---->
 
-      <el-main style="margin: 15px 8.1rem 15px 8.1rem;padding: 10px 0.9rem 10px 0.9rem;background-color: red">
-        <keep-alive>
-          <router-view v-if="$route.meta.keepAlive" style="height: 100%"></router-view>
-        </keep-alive>
-        <router-view v-if="!$route.meta.keepAlive" style="height: 100%"></router-view>
-      </el-main>
+        <!--<div class="main-signIn">-->
+          <!--<el-button type="text" style="color: #fff" @click="signInDialogVisible = true" v-show="!isLogin">登录-->
+          <!--</el-button>-->
+
+          <!--<el-dropdown v-show="isLogin">-->
+            <!--<div style="display: flex;justify-content: flex-end;align-items: center">-->
+                <!--<span style="color: #fff;margin-right: 10px">-->
+                  <!--{{this.user.name}}<i class="el-icon-arrow-down el-icon&#45;&#45;right"></i>-->
+                <!--</span>-->
+              <!--<img v-show="isEmpty(user.headImg)"-->
+                   <!--src="https://justdj-umbrella.oss-cn-hangzhou.aliyuncs.com/default_header_img.png"-->
+                   <!--style="width: 45px;height: 45px"/>-->
+              <!--<img v-show="!isEmpty(user.headImg)" :src="user.headImg"-->
+                   <!--style="width: 45px;height: 45px;border-radius: 50%"/>-->
+            <!--</div>-->
+
+            <!--<el-dropdown-menu slot="dropdown">-->
+              <!--<router-link to="/personCenter">-->
+                <!--<el-dropdown-item style="text-align: center">个人中心</el-dropdown-item>-->
+              <!--</router-link>-->
+              <!--&lt;!&ndash;<el-dropdown-item>修改资料</el-dropdown-item>&ndash;&gt;-->
+              <!--<el-dropdown-item @click.native="updatePasswordVisible = true">修改密码</el-dropdown-item>-->
+              <!--<el-dropdown-item @click.native="signOut">退出登录</el-dropdown-item>-->
+            <!--</el-dropdown-menu>-->
+          <!--</el-dropdown>-->
+        <!--</div>-->
+      <!--</el-header>-->
+      <!--<el-main style="margin: 15px 8.1rem 15px 8.1rem;padding: 10px 0.9rem 10px 0.9rem;background-color: #fff">-->
+        <!--<keep-alive>-->
+          <!--<router-view v-if="$route.meta.keepAlive" style="height: 100%"></router-view>-->
+        <!--</keep-alive>-->
+        <!--<router-view v-if="!$route.meta.keepAlive" style="height: 100%"></router-view>-->
+      <!--</el-main>-->
 
       <!--修改密码弹窗-->
       <el-dialog title="修改密码" :visible.sync="updatePasswordVisible"
@@ -115,14 +181,16 @@
   import {
     changePWDAPI,
     checkCodeAPI,
-    checkEmailAPI,
-    getCodeAPI, getUnReadNumAPI,
+    checkEmailAPI, companySignUpAPI, dropListOneGetApi,
+    getCodeAPI, getUnReadNumAPI, personSignUpAPI,
     signInAPI,
     signOutAPI
   } from "../api/api";
   import * as util from "../common/utils/util"
+  import store from "../vuex/store"
 
   export default {
+    "name":"managerIndex",
     data() {
 
       const validateEmail = (rule, value, callback) => {
@@ -244,7 +312,6 @@
         activeIndex: '1',
         activeIndex2: '1',
         isLogin: false,
-        managerIndex:false
       };
     },
     computed: {
@@ -259,10 +326,8 @@
             this.$store.commit('signInDialogVisibleFalse');
           }
 
-        },
-
+        }
       },
-
       user: {
         get: function () {
           return this.$store.state.user;
@@ -323,19 +388,15 @@
         return false;
       },
 
-      contains: function(arr, val) {
-        console.log("调用比较函数 arr" + JSON.stringify(arr) + "      " + val + "   empty " + this.isEmpty(arr));
-        if (this.isEmpty(arr)) {
-          console.log("为空")
-          return false;
-        }
-        return arr.indexOf(val) != -1 ? true : false;
-      },
-
-      // 登录弹窗打开
       signInDialogOpen: function () {
+        this.$router.push({path: '/indexPage'});
       },
 
+      clearAll: function () {
+        this.$refs["signUpFormPerson"].resetFields();
+        this.$refs["signUpFormCompany"].resetFields();
+        this.labelPosition = "person";
+      },
 
       sendCode: function () {
         let email = "";
@@ -403,8 +464,7 @@
             this.$message.success("退出登录成功");
             sessionStorage.clear();
             localStorage.clear();
-            this.managerIndex = false;
-            this.$router.push({path: '/blogPage'})
+            this.$router.push({path: '/indexPage'})
           } else {
             this.$message.error({message: res.msg});
             this.isLogin = false;
@@ -418,16 +478,23 @@
       loginSucceed: function (res) {
         this.$store.commit('setHeadImg', {name: 'stark', user: res.data.u});
         sessionStorage.setItem('token', res.data.t);
-        sessionStorage.setItem('user', JSON.stringify(res.data.u));
         localStorage.setItem('token', res.data.t);
+        sessionStorage.setItem('user', JSON.stringify(res.data.u));
         localStorage.setItem('user', JSON.stringify(res.data.u));
-        localStorage.setItem("module",JSON.stringify(res.data.m));
-        localStorage.setItem("permission",JSON.stringify(res.data.p));
-        //this.getUnReadMessage();
-        console.log("比较结果 " + this.contains(JSON.parse(localStorage.getItem("module")),"5d429e79bb9fe01c646d1fd6"))
-        this.managerIndex = this.contains(JSON.parse(localStorage.getItem("module")),"5d429e79bb9fe01c646d1fd6");
+        this.getUnReadMessage();
         this.signInDialogVisible = false;
         this.isLogin = true;
+      }
+    },
+
+    beforeCreate:function(){
+      if (!util.isEmpty(localStorage.getItem("token"))) {
+        console.log("已经登录 ");
+        this.isLogin = true;
+        this.$store.commit('setHeadImg', {name: 'stark', user: JSON.parse(localStorage.getItem("user"))});
+
+      }else {
+        console.log("还未登录 ");
       }
     },
 
@@ -435,7 +502,6 @@
       if (!util.isEmpty(localStorage.getItem("token"))) {
         console.log("已经登录 ");
         this.isLogin = true;
-        this.managerIndex = this.contains(JSON.parse(localStorage.getItem("module")),"5d429e79bb9fe01c646d1fd6");
         this.$store.commit('setHeadImg', {name: 'stark', user: JSON.parse(localStorage.getItem("user"))});
 
       }else {
@@ -444,10 +510,11 @@
     },
 
     mounted() {
+
       if (!this.isEmpty(this.user)) {
-        //用户已经登录
         this.getUnReadMessage();
       }
+
     }
   }
 
@@ -459,7 +526,7 @@
     min-width: 1024px;
   }
 
-  .main-page {
+  .page-left {
     /*padding: 0 9rem;*/
   }
 
@@ -479,7 +546,7 @@
   }
 
   .home-log {
-    width: 160px;
+    width: 200px;
     height: 100%;
     background-color: #eee;
     margin-right: 15px;
@@ -507,5 +574,16 @@
     height: calc(100% - 60px);
   }
 
+
+  .el-menu-item, .el-submenu__title{
+    height: 50px;
+    line-height: 50px;
+  }
+
+  /*>>> .el-menu-item{*/
+    /*width: 200px;*/
+    /*min-width: 200px;*/
+    /*max-width: 200px;*/
+  /*}*/
 
 </style>

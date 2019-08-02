@@ -254,6 +254,9 @@ export function formatTime(time, cFormat) {
 
 /*判断一个元素是否在数组中*/
 export function contains(arr, val) {
+  if (isEmpty(arr)) {
+    return false;
+  }
   return arr.indexOf(val) != -1 ? true : false;
 }
 

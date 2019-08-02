@@ -17,10 +17,10 @@
                  text-color="#fff"
                  active-text-color="#409EFF"
                  @select="handleSelect">
-          <el-menu-item index="/blogPage" key="1">博客</el-menu-item>
-          <el-menu-item index="/bbsPage" key="2">论坛</el-menu-item>
-          <el-menu-item index="/meetingPage" key="3">会议纪要</el-menu-item>
-          <el-menu-item index="/managerIndex" key="4" v-if="managerIndex">系统管理</el-menu-item>
+          <el-menu-item index="/blogPage" key="blogPage1">博客</el-menu-item>
+          <el-menu-item index="/bbsPage" key="bbsPage2">论坛</el-menu-item>
+          <el-menu-item index="/meetingPage" key="meetingPage3">会议纪要</el-menu-item>
+          <el-menu-item index="/managerIndex" key="managerIndex4" v-if="managerIndex">系统管理</el-menu-item>
         </el-menu>
 
         <div class="main-signIn">
@@ -50,7 +50,8 @@
         </div>
       </el-header>
 
-      <el-main style="margin: 15px 8.1rem 15px 8.1rem;padding: 10px 0.9rem 10px 0.9rem;background-color: red">
+      <el-main style="margin: 15px 8.1rem 15px 8.1rem;padding: 10px 0.9rem 10px 0.9rem;background-color: green">
+        论坛
         <keep-alive>
           <router-view v-if="$route.meta.keepAlive" style="height: 100%"></router-view>
         </keep-alive>
@@ -123,6 +124,7 @@
   import * as util from "../common/utils/util"
 
   export default {
+    "name":"forumPage",
     data() {
 
       const validateEmail = (rule, value, callback) => {

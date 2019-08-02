@@ -26,6 +26,7 @@ const mutations = {
   setUnReadNum(state,stark){
     state.unReadNum = stark.num;
   }
+
 };
 
 // 创建 store 实例
