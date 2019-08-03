@@ -411,7 +411,7 @@
           }
         }).catch((err) => {
           console.log(err);
-          this.$message.error('登录失败，网络异常,请重试');
+          this.$message.error('退出登录失败，网络异常,请重试');
         });
       },
 
