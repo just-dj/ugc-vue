@@ -14,6 +14,8 @@ import routes from './router/router.js'
 import store from './vuex/store'
 import Vuex from 'vuex'
 
+import 'swiper/dist/css/swiper.css'
+
 Vue.config.productionTip = false;
 
 Vue.use(VueRouter);

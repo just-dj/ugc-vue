@@ -1,7 +1,7 @@
 <template>
-  <section style="height: 100%">
-    <el-container class="el-container main-page" style="background-color: rgb(238,238,238)">
-      <el-header style="position: relative;background-color: #545c64;padding: 0 9rem;">
+  <section style="height: 100%;display: flex;justify-content: center;width: 100%">
+    <el-container class="el-container main-page" style="background-color: #ffffff">
+      <el-header style="position: relative;background-color: #545c64;padding: 0 1rem;">
         <div class="home-log" style="background-color: #545c64;color: #fff;box-sizing: border-box;">
           UGC
           <!--<span style="font-size: 1rem;margin-left: 10px;color: #ffffff" @click="cityDialogVisible = true">-->
@@ -24,7 +24,10 @@
         </el-menu>
 
         <div class="main-signIn">
-          <el-button type="text" style="color: #fff" @click="signInDialogVisible = true" v-show="!isLogin">登录</el-button>
+          <el-button type="text" style="color: #fff" v-show="!isLogin">写文章</el-button>
+
+          <el-button type="text" style="color: #fff" @click="signInDialogVisible = true" v-show="!isLogin">登录
+          </el-button>
 
           <el-dropdown v-show="isLogin">
             <div style="display: flex;justify-content: flex-end;align-items: center">
@@ -40,7 +43,8 @@
 
             <el-dropdown-menu slot="dropdown">
               <router-link to="/personCenter">
-                <el-dropdown-item @click=" this.$router.push({path: '/personCenter'})" style="text-align: center">个人中心</el-dropdown-item>
+                <el-dropdown-item @click=" this.$router.push({path: '/personCenter'})" style="text-align: center">个人中心
+                </el-dropdown-item>
               </router-link>
               <!--<el-dropdown-item>修改资料</el-dropdown-item>-->
               <el-dropdown-item @click.native="updatePasswordVisible = true">修改密码</el-dropdown-item>
@@ -50,12 +54,12 @@
         </div>
       </el-header>
 
-      <el-main style="margin: 15px 8.1rem 15px 8.1rem;padding: 10px 0.9rem 10px 0.9rem;background-color: #cccccc">
-        <keep-alive>
-          <router-view v-if="$route.meta.keepAlive" style="height: 100%"></router-view>
-        </keep-alive>
-        <router-view v-if="!$route.meta.keepAlive" style="height: 100%"></router-view>
-      </el-main>
+
+      <keep-alive>
+        <router-view v-if="$route.meta.keepAlive"></router-view>
+      </keep-alive>
+      <router-view v-if="!$route.meta.keepAlive"></router-view>
+
 
       <!--修改密码弹窗-->
       <el-dialog title="修改密码" :visible.sync="updatePasswordVisible"
@@ -178,7 +182,7 @@
           callback(new Error('请输入密码'));
         } else {
           if (value.length >= 6 && value.length <= 18) {
-            if (this.signUpDialogVisible !== true){
+            if (this.signUpDialogVisible !== true) {
               if (this.changePwdForm.newPassword === this.changePwdForm.oldPassword) {
                 callback(new Error('新旧密码不能相同'));
               }
@@ -244,7 +248,7 @@
         activeIndex: '1',
         activeIndex2: '1',
         isLogin: false,
-        managerIndex:false
+        managerIndex: false
       };
     },
     computed: {
@@ -294,7 +298,7 @@
           if (res.code === 200) {
             this.$message.success("密码修改成功,请重新登录");
             this.signOut();
-          }else if (res.code === 2){
+          } else if (res.code === 2) {
             this.$store.commit('signInDialogVisibleTrue');
           } else {
             this.$message.error(res.msg);
@@ -325,7 +329,7 @@
         return false;
       },
 
-      contains: function(arr, val) {
+      contains: function (arr, val) {
         console.log("调用比较函数 arr" + JSON.stringify(arr) + "      " + val + "   empty " + this.isEmpty(arr));
         if (this.isEmpty(arr)) {
           console.log("为空")
@@ -413,7 +417,7 @@
           }
         }).catch((err) => {
           console.log(err);
-          this.$message.error( '退出登录失败，网络异常,请重试');
+          this.$message.error('退出登录失败，网络异常,请重试');
         });
       },
 
@@ -423,24 +427,24 @@
         sessionStorage.setItem('user', JSON.stringify(res.data.u));
         localStorage.setItem('token', res.data.t);
         localStorage.setItem('user', JSON.stringify(res.data.u));
-        localStorage.setItem("module",JSON.stringify(res.data.m));
-        localStorage.setItem("permission",JSON.stringify(res.data.p));
+        localStorage.setItem("module", JSON.stringify(res.data.m));
+        localStorage.setItem("permission", JSON.stringify(res.data.p));
         //this.getUnReadMessage();
-        console.log("比较结果 " + this.contains(JSON.parse(localStorage.getItem("module")),"5d429e79bb9fe01c646d1fd6"))
-        this.managerIndex = this.contains(JSON.parse(localStorage.getItem("module")),"5d429e79bb9fe01c646d1fd6");
+        console.log("比较结果 " + this.contains(JSON.parse(localStorage.getItem("module")), "5d429e79bb9fe01c646d1fd6"))
+        this.managerIndex = this.contains(JSON.parse(localStorage.getItem("module")), "5d429e79bb9fe01c646d1fd6");
         this.signInDialogVisible = false;
         this.isLogin = true;
       }
     },
 
-    created:function(){
+    created: function () {
       if (!util.isEmpty(localStorage.getItem("token"))) {
         console.log("已经登录 ");
         this.isLogin = true;
-        this.managerIndex = this.contains(JSON.parse(localStorage.getItem("module")),"5d429e79bb9fe01c646d1fd6");
+        this.managerIndex = this.contains(JSON.parse(localStorage.getItem("module")), "5d429e79bb9fe01c646d1fd6");
         this.$store.commit('setHeadImg', {name: 'stark', user: JSON.parse(localStorage.getItem("user"))});
 
-      }else {
+      } else {
         console.log("还未登录 ");
       }
     },
@@ -456,8 +460,6 @@
 </script>
 <style scoped>
   .el-container {
-    width: 100%;
-    height: 100%;
     min-width: 1024px;
   }
 
@@ -494,7 +496,7 @@
   .main-signIn {
     position: absolute;
     top: 0;
-    right: 9rem;
+    right: 1rem;
     height: 100%;
     width: 120px;
     display: flex;
