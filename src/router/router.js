@@ -30,6 +30,14 @@ let routes = [
         meta: {keepAlive: false},
         name: '会议纪要',
         hidden: true
+      },
+      {
+        path: '/personCenter',
+        component: (resolve) => require(['../components/personCenter.vue'], resolve),
+        // component: meetingPage,
+        meta: {keepAlive: false},
+        name: '个人中心',
+        hidden: true
       }
     ]
   },

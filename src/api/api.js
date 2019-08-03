@@ -19,3 +19,6 @@ export const dropListOneGetApi= data=>{return fetch(jobServer+'/api/drop/one', d
 /***********************聊天消息相关接口********************************/
 export const getUnReadNumAPI = data=>{return fetch(collectionService +'/tApi/message/all', data, 'GET')};//获取最近联系人列表
 
+/***********************博客相关接口********************************/
+export const addBlogAPI= data=>{return fetch(jobServer+'/api/blog/', data, 'POST')}; //登录
+

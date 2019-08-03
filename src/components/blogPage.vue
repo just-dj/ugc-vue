@@ -10,12 +10,6 @@
 <script>
 
   import {
-    changePWDAPI,
-    checkCodeAPI,
-    checkEmailAPI,
-    getCodeAPI, getUnReadNumAPI,
-    signInAPI,
-    signOutAPI
   } from "../api/api";
   import * as util from "../common/utils/util"
 
@@ -32,6 +26,9 @@
     },
     methods: {
       openFullScreen() {
+
+
+
         this.fullscreenLoading = true;
         setTimeout(() => {
           this.fullscreenLoading = false;

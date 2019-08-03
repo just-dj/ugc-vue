@@ -40,7 +40,7 @@
 
             <el-dropdown-menu slot="dropdown">
               <router-link to="/personCenter">
-                <el-dropdown-item style="text-align: center">个人中心</el-dropdown-item>
+                <el-dropdown-item @click=" this.$router.push({path: '/personCenter'})" style="text-align: center">个人中心</el-dropdown-item>
               </router-link>
               <!--<el-dropdown-item>修改资料</el-dropdown-item>-->
               <el-dropdown-item @click.native="updatePasswordVisible = true">修改密码</el-dropdown-item>
@@ -294,6 +294,8 @@
           if (res.code === 200) {
             this.$message.success("密码修改成功,请重新登录");
             this.signOut();
+          }else if (res.code === 2){
+            this.$store.commit('signInDialogVisibleTrue');
           } else {
             this.$message.error(res.msg);
           }
@@ -411,7 +413,7 @@
           }
         }).catch((err) => {
           console.log(err);
-          this.$message.error('退出登录失败，网络异常,请重试');
+          this.$message.error( '退出登录失败，网络异常,请重试');
         });
       },
 
