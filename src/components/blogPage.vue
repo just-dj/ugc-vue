@@ -32,7 +32,7 @@
       </div>
       <div class="list-article">
         <div class="list-article-operate">
-          <el-radio-group v-model="labelPosition" size="medium">
+          <el-radio-group v-model="labelPosition" size="medium" @change="labelChange">
             <el-radio-button label="new">最新发表</el-radio-button>
             <el-radio-button label="hot">最近热门</el-radio-button>
           </el-radio-group>
@@ -42,7 +42,7 @@
         <!--文章列表-->
         <div class="list-item" v-for="(item,index) in articleList">
           <div class="list-item-left">
-            <div class="item-left-title">
+            <div class="item-left-title" @click="toReadPage(item.id)">
               <span style="font-size: 18px;font-weight: bold">{{item.title}}</span>
             </div>
             <div class="item-left-introduce">
@@ -88,6 +88,8 @@
     data() {
       return {
         articleLoading:false,
+        pageNum: 1,
+        pageSize: 10,
         articleList:[{
           id:'21312',
           articleId:'',
@@ -196,6 +198,12 @@
     computed: {
     },
     methods: {
+      labelChange:function(){
+        this.openFullScreen();
+      },
+      toReadPage:function(id){
+        this.$router.push({path: '/readBlogPage', query: {id: id}})
+      },
       orderScroll: function(){
         console.log("滚动")
       },
@@ -211,24 +219,34 @@
               return;
             }
             this.articleLoading = true;
+            this.pageNum += 1;
 
+
+            let requestPara = {
+              "pageNum": this.pageNum,
+              "pageSize":this.pageSize,
+              "kind": this.selectNowKind,
+              "label":this.labelPosition
+            };
             setTimeout(() => {
               this.articleLoading = false;
+              for (let i = 0; i < 5; i++) {
+                this.articleList.push({
+                  id:'21312',
+                  articleId:'',
+                  title:'程序员养发秘籍',
+                  subTitle:'多吃饭，多运动，然而没有什么用',
+                  authorId:'',
+                  authorName:'强仔',
+                  likeCount:852,
+                  readCount:8858,
+                  presentTime:'',
+                  url:'https://c2liantong.oss-cn-beijing.aliyuncs.com/12797375-239fdb759f575719.png'
+                });
+              }
             }, 1000 + Math.random() * 150);
             //调用分页函数
-            console.log("123")
-            this.articleList.push({
-              id:'21312',
-              articleId:'',
-              title:'程序员养发秘籍',
-              subTitle:'多吃饭，多运动，然而没有什么用',
-              authorId:'',
-              authorName:'强仔',
-              likeCount:852,
-              readCount:8858,
-              presentTime:'',
-              url:'https://c2liantong.oss-cn-beijing.aliyuncs.com/12797375-239fdb759f575719.png'
-            });
+
           }
         }
       },
@@ -408,6 +426,10 @@
     height: 30%;
     display: flex;
     justify-content: flex-start;
+  }
+
+  .item-left-title:hover{
+    color: rgb(64,158,255);
   }
 
   .list-article .list-item .list-item-left .item-left-introduce{
