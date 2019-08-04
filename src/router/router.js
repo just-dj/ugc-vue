@@ -16,6 +16,14 @@ let routes = [
         hidden: true
       },
       {
+        path: '/readBlogPage',
+        component: (resolve) => require(['../components/readBlogPage.vue'], resolve),
+        // component: blogPage,
+        meta: {keepAlive: false},
+        name: '查看博客',
+        hidden: true
+      },
+      {
         path: '/bbsPage',
         component: (resolve) => require(['../components/bbsPage.vue'], resolve),
         // component: bbsPage,
@@ -24,11 +32,27 @@ let routes = [
         hidden: true
       },
       {
+        path: '/readBBSPage',
+        component: (resolve) => require(['../components/readBBSPage.vue'], resolve),
+        // component: blogPage,
+        meta: {keepAlive: false},
+        name: '查看论坛',
+        hidden: true
+      },
+      {
         path: '/meetingPage',
         component: (resolve) => require(['../components/meetingPage.vue'], resolve),
         // component: meetingPage,
         meta: {keepAlive: false},
         name: '会议纪要',
+        hidden: true
+      },
+      {
+        path: '/readMeetingPage',
+        component: (resolve) => require(['../components/readMeetingPage.vue'], resolve),
+        // component: blogPage,
+        meta: {keepAlive: false},
+        name: '查看会议纪要',
         hidden: true
       },
       {

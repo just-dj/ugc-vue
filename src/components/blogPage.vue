@@ -15,7 +15,7 @@
 
     </el-aside>
 
-    <el-main class="main-right" style="width: 70%; padding-bottom: 40px;">
+    <el-main class="main-right" style="height: auto">
       <div class="top-article">
         <swiper v-if="swiperData.length > 0" :options = "swiperOption">
           <swiper-slide v-for="(item,index) in swiperData" :key="index">
@@ -32,17 +32,17 @@
       </div>
       <div class="list-article">
         <div class="list-article-operate">
-          <el-radio-group v-model="labelPosition" size="medium">
+          <el-radio-group v-model="labelPosition" size="medium" @change="labelChange">
             <el-radio-button label="new">最新发表</el-radio-button>
             <el-radio-button label="hot">最近热门</el-radio-button>
           </el-radio-group>
 
           <el-input style="width: 218px" v-model="searchInput" placeholder="请输入关键字"></el-input>
         </div>
-
+        <!--文章列表-->
         <div class="list-item" v-for="(item,index) in articleList">
           <div class="list-item-left">
-            <div class="item-left-title">
+            <div class="item-left-title" @click="toReadPage(item.id)">
               <span style="font-size: 18px;font-weight: bold">{{item.title}}</span>
             </div>
             <div class="item-left-introduce">
@@ -59,7 +59,15 @@
                :src="item.url"/>
         </div>
 
+        <!--loading标志-->
+        <div class="loading"
+             v-loading="articleLoading"
+             element-loading-spinner="el-icon-loading"
+             element-loading-background="rgba(0, 0, 0, 0.8)"
+             element-loading-text="拼命加载中"
+             style="width: 100%;height: 300px"></div>
       </div>
+
 
     </el-main>
   </el-container>
@@ -79,7 +87,9 @@
     },
     data() {
       return {
-        selectNowKind:'dsj',
+        articleLoading:false,
+        pageNum: 1,
+        pageSize: 10,
         articleList:[{
           id:'21312',
           articleId:'',
@@ -141,7 +151,11 @@
             url:'https://c2liantong.oss-cn-beijing.aliyuncs.com/12797375-239fdb759f575719.png'
           }],
         fullScreenLoading: false,
+        // 当前选中模块
+        selectNowKind:'dsj',
+        // new or hot
         labelPosition: "new",
+        // 搜索关键词
         searchInput: '',
         swiperData:[
           {
@@ -184,14 +198,70 @@
     computed: {
     },
     methods: {
+      labelChange:function(){
+        this.openFullScreen();
+      },
+      toReadPage:function(id){
+        this.$router.push({path: '/readBlogPage', query: {id: id}})
+      },
+      orderScroll: function(){
+        console.log("滚动")
+      },
+      scroll:function() {
+        const el = document.querySelector('.main-right');
+        const offsetHeight = el.offsetHeight;
+        el.onscroll = () => {
+          const scrollTop = el.scrollTop;
+          const scrollHeight = el.scrollHeight;
+          console.log("相减 " + ((offsetHeight + scrollTop) - scrollHeight))
+          if ((offsetHeight + scrollTop) - scrollHeight >= -100) {
+            if (this.articleLoading === true){
+              return;
+            }
+            this.articleLoading = true;
+            this.pageNum += 1;
+
+
+            let requestPara = {
+              "pageNum": this.pageNum,
+              "pageSize":this.pageSize,
+              "kind": this.selectNowKind,
+              "label":this.labelPosition
+            };
+            setTimeout(() => {
+              this.articleLoading = false;
+              for (let i = 0; i < 5; i++) {
+                this.articleList.push({
+                  id:'21312',
+                  articleId:'',
+                  title:'程序员养发秘籍',
+                  subTitle:'多吃饭，多运动，然而没有什么用',
+                  authorId:'',
+                  authorName:'强仔',
+                  likeCount:852,
+                  readCount:8858,
+                  presentTime:'',
+                  url:'https://c2liantong.oss-cn-beijing.aliyuncs.com/12797375-239fdb759f575719.png'
+                });
+              }
+            }, 1000 + Math.random() * 150);
+            //调用分页函数
+
+          }
+        }
+      },
+
       getData:function(kind){
+        if (this.selectNowKind === kind){
+          return;
+        }
           this.selectNowKind = kind;
-
-
+          this.labelPosition;
+          this.searchInput;
+          this.openFullScreen();
+        this.$message.success(this.selectNowKind + "   " + this.labelPosition +  "   " + this.searchInput);
       },
       openFullScreen() {
-
-
         this.fullScreenLoading = true;
         setTimeout(() => {
           this.fullScreenLoading = false;
@@ -233,11 +303,11 @@
     },
 
     created: function () {
-
     },
 
     mounted() {
       this.openFullScreen();
+      this.scroll();
     }
   }
 
@@ -277,11 +347,11 @@
   }
 
   .main-right {
+    width: 70%;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-
   }
 
   .el-scrollbar {
@@ -310,6 +380,8 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
+    margin-bottom: 500px;
+    background-color: red;
   }
 
   .main-right .list-article .list-article-operate {
@@ -354,6 +426,10 @@
     height: 30%;
     display: flex;
     justify-content: flex-start;
+  }
+
+  .item-left-title:hover{
+    color: rgb(64,158,255);
   }
 
   .list-article .list-item .list-item-left .item-left-introduce{
