@@ -6,14 +6,18 @@
       mode="horizontal"
       @select="handleSelect"
       background-color="#545c64"
-      text-color="#fff"
-      active-text-color="#ffd04b">
+      text-color="#fff">
       <el-menu-item index="1">未处理消息:<span style="font-size: 30px;color: #FFD640;"> 32 </span>条</el-menu-item>
     </el-menu>
     <el-table
       :data="tableData"
-      border
       style="width: 100%">
+      <el-table-column
+        prop="select"
+        label=""
+        width="50">
+        <el-checkbox v-model="checked"></el-checkbox>
+      </el-table-column>
       <el-table-column
         prop="id"
         label="编号"
@@ -44,7 +48,7 @@
         label="审核"
         wideth="180">
         <template slot-scope="scope">
-          <el-button type="text" size="small">进入查看</el-button>
+          <el-button @click="checkArticle()" type="text" size="small">进入查看</el-button>
         </template>
       </el-table-column>
       <el-table-column
@@ -52,8 +56,8 @@
         label="操作"
         width="180">
         <template slot-scope="scope">
-          <el-button type="text" size="small">删除</el-button>
-          <el-button type="text" size="small">忽略</el-button>
+          <el-button @click="deleteArticle()" type="text" size="small">删除</el-button>
+          <el-button @click="ignoreItem()" type="text" size="small">忽略</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -79,61 +83,78 @@
       components: {ElTag},
       data() {
         return {
+          activeIndex2:'',
+          handleSelect:'',
+          checked:'',
+          currentPage3:'',
+          handleSizeChange:'',
+          handleCurrentChange:'',
+
           tableData: [{
+            checked: true,
             id: '0001',
             date: '2016-05-03',
             name: '王小虎',
             articleName: '程序员的养生秘籍',
             reason: '涉黄，反动'
           },{
+            checked: true,
             id: '0001',
             date: '2016-05-03',
             name: '王小虎',
             articleName: '程序员的养生秘籍',
             reason: '涉黄，反动'
           },{
+            checked: true,
             id: '0001',
             date: '2016-05-03',
             name: '王小虎',
             articleName: '程序员的养生秘籍',
             reason: '涉黄，反动'
           },{
+            checked: true,
             id: '0001',
             date: '2016-05-03',
             name: '王小虎',
             articleName: '程序员的养生秘籍',
             reason: '涉黄，反动'
           }, {
+            checked: true,
             id: '0001',
             date: '2016-05-03',
             name: '王小虎',
             articleName: '程序员的养生秘籍',
             reason: '涉黄，反动'
           },{
+            checked: true,
             id: '0001',
             date: '2016-05-03',
             name: '王小虎',
             articleName: '程序员的养生秘籍',
             reason: '涉黄，反动'
           },{
+            checked: true,
             id: '0001',
             date: '2016-05-03',
             name: '王小虎',
             articleName: '程序员的养生秘籍',
             reason: '涉黄，反动'
           },{
+            checked: true,
             id: '0001',
             date: '2016-05-03',
             name: '王小虎',
             articleName: '程序员的养生秘籍',
             reason: '涉黄，反动'
           }, {
+            checked: true,
             id: '0001',
             date: '2016-05-03',
             name: '王小虎',
             articleName: '程序员的养生秘籍',
             reason: '涉黄，反动'
           }, {
+            checked: true,
             id: '0001',
             date: '2016-05-03',
             name: '王小虎',
@@ -143,10 +164,27 @@
           ]
         }
       },
+
+      methods:{
+        checkArticle(){
+
+        },
+        ignoreItem(){
+
+        },
+        deleteArticle(){
+
+        }
+      },
       name: "reportManager"
     }
 </script>
 
 <style scoped>
+  .block{
+    position: absolute;
+    top: 700px;
+    right: 15px;
 
+  }
 </style>

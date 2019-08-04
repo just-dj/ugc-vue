@@ -61,8 +61,7 @@
           </el-menu-item>
           <el-menu-item index="/reportManager" key="5d445100910a3fdc04c7b1f0">
             <template slot="title">
-              <i class="el-icon-bell"></i>
-              <span>举报处理</span>
+              <span > <i class="el-icon-bell"></i><el-badge is-dot class="item">举报处理</el-badge></span>
             </template>
           </el-menu-item>
           <el-submenu index="/" >
@@ -156,6 +155,12 @@
   .page-left {
     /*padding: 0 9rem;*/
   }
+
+   .item {
+     margin-top: 7px;
+     /*margin-right: 10px;*/
+   }
+
 
 
 </style>
