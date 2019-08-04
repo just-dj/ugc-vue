@@ -398,7 +398,6 @@
     justify-content: flex-start;
     align-items: center;
     margin-bottom: 500px;
-    background-color: red;
   }
 
   .main-right .list-article .list-article-operate {
