@@ -85,7 +85,7 @@
         </el-menu>
       </div>
 
-      <div style="max-height:100%;height: 100%;overflow:hidden;width: calc(100% - 180px);margin-left:180px;background-color: blue">
+      <div style="max-height:100%;height: 100%;overflow:hidden;width: calc(100% - 180px);margin-left:180px;">
         <transition name="el-zoom-in-top">
           <router-view style="height: 100%"></router-view>
         </transition>
