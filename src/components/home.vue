@@ -21,7 +21,7 @@
           <el-menu-item index="/bbsPage" key="2">论坛</el-menu-item>
           <el-menu-item index="/meetingPage" key="3">会议纪要</el-menu-item>
           <!--<el-menu-item index="/accountManager" key="4" v-if="managerIndex">系统管理</el-menu-item>-->
-          <el-menu-item index="/accountManager" key="4" v-if="managerIndex">系统管理</el-menu-item>
+          <el-menu-item index="/accountManager" key="4" >系统管理</el-menu-item>
 
         </el-menu>
 
