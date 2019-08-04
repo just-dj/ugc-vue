@@ -5,12 +5,12 @@
     <el-aside class="main-left" style="width: 21%;margin: 0">
 
       <div class="left-menu" style="position: fixed;left: 140px;top: 81px">
-        <el-button class="left-menu-item">大数据</el-button>
-        <el-button class="left-menu-item">人工智能</el-button>
-        <el-button class="left-menu-item">后端开发</el-button>
-        <el-button class="left-menu-item">前端开发</el-button>
-        <el-button class="left-menu-item">图像识别</el-button>
-        <el-button class="left-menu-item">机器学习</el-button>
+        <el-button @click="getData('dsj')" class="left-menu-item">大数据</el-button>
+        <el-button @click="getData('rgzn') " class="left-menu-item">人工智能</el-button>
+        <el-button @click="getData('hdkf') " class="left-menu-item">后端开发</el-button>
+        <el-button @click="getData('qdkf') " class="left-menu-item">前端开发</el-button>
+        <el-button @click="getData('txsb') " class="left-menu-item">图像识别</el-button>
+        <el-button @click="getData('jqxx') " class="left-menu-item">机器学习</el-button>
       </div>
 
     </el-aside>
@@ -79,6 +79,7 @@
     },
     data() {
       return {
+        selectNowKind:'dsj',
         articleList:[{
           id:'21312',
           articleId:'',
@@ -152,7 +153,8 @@
             nickname:"强子"
           },
           {
-            headImg:"https://c2liantong.oss-cn-beijing.aliyuncs.com/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0.jpg",
+            headImg:"\n" +
+            "https://c2liantong.oss-cn-beijing.aliyuncs.com/12797375-239fdb759f575719.png",
             nickname:"强强"
           }
         ],
@@ -182,6 +184,11 @@
     computed: {
     },
     methods: {
+      getData:function(kind){
+          this.selectNowKind = kind;
+
+
+      },
       openFullScreen() {
 
 

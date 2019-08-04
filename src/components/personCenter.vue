@@ -1,12 +1,30 @@
 <template>
-    <section style="width: 100%;height: 100%;">
+    <section style="width: 100%;height: 100%;" v-loading.fullscreen.lock="fullScreenLoading">
       个人中心
     </section>
 </template>
 
 <script>
     export default {
-        name: "personCenter"
+        name: "personCenter",
+      data(){
+          return {
+            fullScreenLoading:false
+          }
+      },
+      methods:{
+
+
+        openFullScreen() {
+          this.fullScreenLoading = true;
+          setTimeout(() => {
+            this.fullScreenLoading = false;
+          }, 200 + Math.random() * 150);
+        },
+      },
+      mounted(){
+          this.openFullScreen();
+      }
     }
 </script>
 
