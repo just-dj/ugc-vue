@@ -17,18 +17,15 @@
 
     <el-main class="main-right" style="height: auto">
       <div class="top-article">
-        <swiper v-if="swiperData.length > 0" :options = "swiperOption">
-          <swiper-slide v-for="(item,index) in swiperData" :key="index">
+
+        <el-carousel :interval="2000" type="card" height="200px">
+          <el-carousel-item v-for="item in swiperData" :key="item">
             <div class="infoText">
               <img  style="width: 100%;height: 100%" :src="item.headImg"/>
-              <span class="spanOne"> {{item.nickname}}</span>
-              <span></span>
+              <!--<span class="spanOne"> {{item.nickname}}</span>-->
             </div>
-          </swiper-slide>
-          <div class="swiper-pagination"  slot="pagination"></div>
-          <div class="swiper-button-prev swiper-button-black" slot="button-prev"></div>
-          <div class="swiper-button-next swiper-button-black" slot="button-next"></div>
-        </swiper>
+          </el-carousel-item>
+        </el-carousel>
       </div>
       <div class="list-article">
         <div class="list-article-operate">
@@ -77,14 +74,9 @@
 
   import {} from "../api/api";
   import * as util from "../common/utils/util"
-  import { swiper, swiperSlide } from 'vue-awesome-swiper'
 
   export default {
     "name": "blogPage",
-    components: {
-      swiper,
-      swiperSlide
-    },
     data() {
       return {
         articleLoading:false,
@@ -159,7 +151,7 @@
         searchInput: '',
         swiperData:[
           {
-            headImg:"https://c2liantong.oss-cn-beijing.aliyuncs.com/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0.png",
+            headImg:"https://c2liantong.oss-cn-beijing.aliyuncs.com/18652432-61146d3b3189d83b.jpg",
             nickname:"强仔"
           },
           {
@@ -171,28 +163,7 @@
             "https://c2liantong.oss-cn-beijing.aliyuncs.com/12797375-239fdb759f575719.png",
             nickname:"强强"
           }
-        ],
-        swiperOption:{
-          direction : 'horizontal',
-          slidesPerView: 1,
-          loop: true,//需要数据渲染之后才起作用，用v-if控制数据渲染完在加载组件
-          observeParents:true,
-          observer:true,
-          autoplay: {
-            disableOnInteraction: false,
-            delay:3000
-          },
-          //左右点击
-          navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
-          },
-          //分页器设置
-          pagination: {
-            el: '.swiper-pagination',
-            clickable :true
-          }
-        }
+        ]
       }
     },
     computed: {
