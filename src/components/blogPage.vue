@@ -15,7 +15,7 @@
 
     </el-aside>
 
-    <el-main class="main-right" style="width: 70%; padding-bottom: 40px;">
+    <el-main class="main-right" style="height: auto">
       <div class="top-article">
         <swiper v-if="swiperData.length > 0" :options = "swiperOption">
           <swiper-slide v-for="(item,index) in swiperData" :key="index">
@@ -39,7 +39,7 @@
 
           <el-input style="width: 218px" v-model="searchInput" placeholder="请输入关键字"></el-input>
         </div>
-
+        <!--文章列表-->
         <div class="list-item" v-for="(item,index) in articleList">
           <div class="list-item-left">
             <div class="item-left-title">
@@ -59,7 +59,15 @@
                :src="item.url"/>
         </div>
 
+        <!--loading标志-->
+        <div class="loading"
+             v-loading="articleLoading"
+             element-loading-spinner="el-icon-loading"
+             element-loading-background="rgba(0, 0, 0, 0.8)"
+             element-loading-text="拼命加载中"
+             style="width: 100%;height: 300px"></div>
       </div>
+
 
     </el-main>
   </el-container>
@@ -79,7 +87,7 @@
     },
     data() {
       return {
-        selectNowKind:'dsj',
+        articleLoading:false,
         articleList:[{
           id:'21312',
           articleId:'',
@@ -141,7 +149,11 @@
             url:'https://c2liantong.oss-cn-beijing.aliyuncs.com/12797375-239fdb759f575719.png'
           }],
         fullScreenLoading: false,
+        // 当前选中模块
+        selectNowKind:'dsj',
+        // new or hot
         labelPosition: "new",
+        // 搜索关键词
         searchInput: '',
         swiperData:[
           {
@@ -184,14 +196,54 @@
     computed: {
     },
     methods: {
+      orderScroll: function(){
+        console.log("滚动")
+      },
+      scroll:function() {
+        const el = document.querySelector('.main-right');
+        const offsetHeight = el.offsetHeight;
+        el.onscroll = () => {
+          const scrollTop = el.scrollTop;
+          const scrollHeight = el.scrollHeight;
+          console.log("相减 " + ((offsetHeight + scrollTop) - scrollHeight))
+          if ((offsetHeight + scrollTop) - scrollHeight >= -100) {
+            if (this.articleLoading === true){
+              return;
+            }
+            this.articleLoading = true;
+
+            setTimeout(() => {
+              this.articleLoading = false;
+            }, 1000 + Math.random() * 150);
+            //调用分页函数
+            console.log("123")
+            this.articleList.push({
+              id:'21312',
+              articleId:'',
+              title:'程序员养发秘籍',
+              subTitle:'多吃饭，多运动，然而没有什么用',
+              authorId:'',
+              authorName:'强仔',
+              likeCount:852,
+              readCount:8858,
+              presentTime:'',
+              url:'https://c2liantong.oss-cn-beijing.aliyuncs.com/12797375-239fdb759f575719.png'
+            });
+          }
+        }
+      },
+
       getData:function(kind){
+        if (this.selectNowKind === kind){
+          return;
+        }
           this.selectNowKind = kind;
-
-
+          this.labelPosition;
+          this.searchInput;
+          this.openFullScreen();
+        this.$message.success(this.selectNowKind + "   " + this.labelPosition +  "   " + this.searchInput);
       },
       openFullScreen() {
-
-
         this.fullScreenLoading = true;
         setTimeout(() => {
           this.fullScreenLoading = false;
@@ -233,11 +285,11 @@
     },
 
     created: function () {
-
     },
 
     mounted() {
       this.openFullScreen();
+      this.scroll();
     }
   }
 
@@ -277,11 +329,11 @@
   }
 
   .main-right {
+    width: 70%;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-
   }
 
   .el-scrollbar {
@@ -310,6 +362,8 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
+    margin-bottom: 500px;
+    background-color: red;
   }
 
   .main-right .list-article .list-article-operate {
