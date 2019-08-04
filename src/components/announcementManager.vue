@@ -1,13 +1,6 @@
 <template>
   <section style="width: 100%;height: 100%;">
     <div class="body-main">
-      <div class="breadcrumb-container">
-        <strong class="title">公告管理</strong>
-        <el-breadcrumb separator-class="el-icon-arrow-right" style="float:right">
-          <el-breadcrumb-item :to="{ path: '/' }">公告管理</el-breadcrumb-item>
-          <el-breadcrumb-item>公告列表</el-breadcrumb-item>
-        </el-breadcrumb>
-      </div>
       <!--工具条-->
       <el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
         <el-form :inline="true" class="demo-form-inline">
@@ -56,22 +49,41 @@
           label="公告标题"
           width="380">
         </el-table-column>
+
         <el-table-column
           prop="content"
           label="公告内容"
           show-overflow-tooltip>
         </el-table-column>
+
+        <el-table-column
+          prop="istop"
+          label="置顶"
+          width="50">
+          <template slot-scope="scope">
+            <el-switch
+              active-color="#13ce66"
+              inactive-color="#ff4949"
+              v-model="scope.row.topNotice"
+              on-text ="是"
+              off-text = "否"
+              @change=change(scope.$index,scope.row)>
+            </el-switch>
+          </template>
+        </el-table-column>
+
         <el-table-column
           fixed="right"
           label="操作"
-          width="100">
+          width="150">
           <template slot-scope="scope">
-            <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
+            <el-button @click="handleDetails(scope.row)" type="text" size="small">查看</el-button>
             <el-button type="text" size="small" @click="handleEdit(scope.$index,scope.row)">编辑</el-button>
+            <el-button type="text" @click="handleDelete">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
-      <div class="block pagination">
+      <div class="block pagination" style="float: right">
         <el-pagination
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
@@ -85,14 +97,15 @@
     </div>
     <!-- 弹窗-->
     <el-dialog
-      :title="titleMap[dialogStatus]"
-      :visible.sync="dialogFormVisible">
+      :title="dialogStatus"
+      :visible.sync="dialogFormVisible"
+      center>
       <el-form :model="form">
         <el-form-item label="公告标题" :label-width="formLabelWidth">
           <el-input v-model="form.title" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item label="发布人" :label-width="formLabelWidth">
-          <el-input v-model="form.name" disabled="disabled"></el-input>
+          <el-input v-model="form.announcer" disabled="disabled"></el-input>
         </el-form-item>
         <el-form-item label="公告内容" :label-width="formLabelWidth">
           <el-input type="textarea" v-model="form.content"></el-input>
@@ -104,22 +117,27 @@
       </div>
     </el-dialog>
 
-    <!--新增公告界面-->
-    <el-dialog title="新增公告" :visible.sync="dialogFormVisible">
-      <el-form :model="form">
-        <el-form-item label="公告标题" :label-width="formLabelWidth">
-          <el-input v-model="form.title" autocomplete="off"></el-input>
-        </el-form-item>
-        <el-form-item label="发布人" :label-width="formLabelWidth">
-          <el-input v-model="form.name" disabled="disabled"></el-input>
-        </el-form-item>
-        <el-form-item label="公告内容" :label-width="formLabelWidth">
-          <el-input type="textarea" v-model="form.content"></el-input>
-        </el-form-item>
-      </el-form>
+    <!--公告详情弹窗-->
+    <el-dialog
+      title="公告详情"
+      :visible.sync="dialogDetailVisible">
+      <el-row>
+        <el-col :span="24" style="text-align:center"><h3>{{selectRow.title}}</h3></el-col>
+      </el-row>
+      <el-row :gutter="20" style="color: #8c939d">
+        <el-col :span="8"><p>作者：<span style="font-weight: bold">{{selectRow.announcer}}</span></p></el-col>
+        <el-col :span="16"><p>发布时间：<span style="font-weight: bold">{{selectRow.date}}</span></p></el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="24">
+          <div style="text-indent: 2em">
+            {{selectRow.content}}
+          </div>
+        </el-col>
+      </el-row>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogFormVisible = false">取 消</el-button>
-        <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
+        <el-button @click="dialogDetailVisible = false">取 消</el-button>
+        <el-button type="primary" @click="dialogDetailVisible = false">确 定</el-button>
       </div>
     </el-dialog>
   </section>
@@ -131,60 +149,107 @@
         name: "announcementManager",
         data() {
             return {
+                selectRow:{},
                 tableData: [{
                     date: '2019-08-04',
+                    announcer:'单总',
+                    title: '关于5G资费套餐调整的公告标题1',
+                    content: '5G流量统统不要钱走过路过不要错过15926',
+                    topNotice:true
+                }, {
+                    date: '2019-08-04',
+                    announcer:'强哥',
+                    title: '关于5G资费套餐调整的公告标题1',
+                    content: '5G流量统统不要钱走过路过不要错过15926',
+                    topNotice:true
+                }, {
+                    date: '2019-08-04',
+                    announcer:'王大锤',
+                    title: '关于5G资费套餐调整的公告标题1',
+                    content: '5G流量统统不要钱走过路过不要错过15926',
+                    topNotice:false
+                }, {
+                    date: '2019-08-04',
+                    announcer:'毛老板',
                     title: '关于5G资费套餐调整的公告标题1',
                     content: '5G流量统统不要钱走过路过不要错过15926'
                 }, {
                     date: '2019-08-04',
-                    title: '关于5G资费套餐调整的公告标题1',
-                    content: '5G流量统统不要钱走过路过不要错过15926'
-                }, {
-                    date: '2019-08-04',
-                    title: '关于5G资费套餐调整的公告标题1',
-                    content: '5G流量统统不要钱走过路过不要错过15926'
-                }, {
-                    date: '2019-08-04',
-                    title: '关于5G资费套餐调整的公告标题1',
-                    content: '5G流量统统不要钱走过路过不要错过15926'
-                }, {
-                    date: '2019-08-04',
+                    announcer:'亮仔',
                     title: '关于5G资费套餐调整的公告标题1',
                     content: '5G流量统统不要钱走过路过不要错过15926'
                 }],
                 dialogFormVisible: false,
+                dialogDetailVisible:false,
                 form: {
                     title: '', //公告标题
-                    name: '强哥',//发布者
-                    desc: '',//公告内容
+                    announcer: '强哥',//发布者
+                    content: '',//公告内容
 
                 },
                 formLabelWidth: '120px',
                 //新增or编辑弹框标题(根据点击的新增or编辑按钮显示不同的标题)
-                titleMap: {
-                    addEquipment: '新增公告',
-                    editEquipment: "编辑公告"
-                },
-                //新增和编辑弹框标题
-                dialogStatus: "",
+                dialogStatus: '',
+                handleSizeChange:'',
+                currentPage3:'',
+                handleSelectionChange:'',
+                handleCurrentChange:'',
 
             }
         },
         methods: {
-            //新增
-            addEquipment() {
-                //显示弹框
+            //初始化弹窗表单
+            dialogOpen: function (type, row) {
                 this.dialogFormVisible = true;
-                //新增弹框标题
-                this.dialogStatus = "添加公告";
+                console.log(type);
+                if (type === 'add') {
+                    //新增弹框标题
+                    this.dialogStatus = "新增公告 ";
+                    this.form = {
+                        announcer: '强哥',
+                        content: '',
+                        title: '',
+                    };
+                } else if (type === "edit") {
+                    //编辑弹框标题
+                    this.dialogStatus = "编辑公告";
+                    //表单回填
+                    this.form = JSON.parse(JSON.stringify(row));
+                }
+            },
+            //新增
+            addAnnouncement() {
+                this.dialogOpen("add", '');
             },
             //编辑
-            handelEdit() {
-                //显示弹框
-                this.dialogFormVisible = true;
-                //编辑弹框标题
-                this.dialogStatus = "编辑公告"
+            handleEdit(index, row) {
+                this.dialogOpen("edit", row);
             },
+            handleDelete() {
+                this.$confirm('此操作将永久删除该记录, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    this.$message({
+                        type: 'success',
+                        message: '删除成功!'
+                    });
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消删除'
+                    });
+                });
+            },
+            //查看详情
+            handleDetails(row){
+                this.selectRow = row;
+                this.dialogDetailVisible=true;
+
+                //this.dialogStatus=row.title;
+            }
+
         }
     }
 
@@ -206,18 +271,8 @@
 
   .pagination {
     margin-top: 20px;
-    text-align: center;
-
+    /*text-align: center;*/
   }
 
-  .breadcrumb-container {
-
-  }
-
-  .breadcrumb-container .title {
-    width: 200px;
-    float: left;
-    color: #475669;
-  }
 
 </style>
