@@ -16,7 +16,7 @@
       <el-table-column
         prop="id"
         label="编号"
-        width="100">
+        width="80">
       </el-table-column>
       <el-table-column
         prop="date"
@@ -26,7 +26,7 @@
       <el-table-column
         prop="name"
         label="举报人昵称"
-        width="180">
+        width="140">
       </el-table-column>
       <el-table-column
         prop="articleName"
@@ -58,10 +58,11 @@
       </el-table-column>
     </el-table>
 
+    <!--查看文章弹窗-->
     <el-dialog
       title="文章内容"
       :visible.sync="dialogVisible"
-      width="30%"
+      width="50%"
       :before-close="handleClose">
       <span>这是一段信息</span>
       <span slot="footer" class="dialog-footer"></span>
