@@ -22,3 +22,6 @@ export const getUnReadNumAPI = data=>{return fetch(collectionService +'/tApi/mes
 /***********************博客相关接口********************************/
 export const addBlogAPI= data=>{return fetch(jobServer+'/api/blog/', data, 'POST')}; //登录
 
+/***********************通用接口********************************/
+export const uploadFile= data=>{return fetch(jobServer+'/api/universal/upload', data, 'POST')}; //登录
+
