@@ -39,14 +39,21 @@
           wideth="50">
         </el-table-column>
         <el-table-column
-          fixed="right"
-          label="处理"
-          width="180">
-          <template slot-scope="scope">
-            <el-button @click="deleteArticle()" type="text"><i style="font-size: large" class="el-icon-delete"></i></el-button>
-            <el-button @click="ignoreItem()" type="text">忽略</el-button>
-          </template>
+          prop="infoUpdate"
+          label="信息修改"
+          wideth="50">
         </el-table-column>
+        <el-table-column
+          prop="rootControl"
+          label="权限控制"
+          wideth="50">
+        </el-table-column>
+        <el-table-column
+          prop="accountState"
+          label="启用/停用"
+          wideth="50">
+        </el-table-column>
+
       </el-table>
 
       <!--分页-->
