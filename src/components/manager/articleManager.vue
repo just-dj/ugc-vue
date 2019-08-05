@@ -29,6 +29,7 @@
           </el-form-item>
         </el-form>
       </el-col>
+      <!--列表-->
       <el-table
         ref="multipleTable"
         :data="tableData"
@@ -100,12 +101,12 @@
           label="操作"
           width="150">
           <template slot-scope="scope">
-            <el-button @click="handleDetails(scope.row)" type="text">查看</el-button>
+            <el-button @click="handleViewDetails(scope.row)" type="text">查看</el-button>
             <el-button type="text" @click="handleDelete">隐藏</el-button>
           </template>
         </el-table-column>
       </el-table>
-
+      <!--分页-->
       <div class="block pagination">
         <el-pagination
           @size-change="handleSizeChange"
@@ -116,35 +117,34 @@
           layout="prev, pager, next, jumper"
           :total="1000">
         </el-pagination>
+      </div></div>
+    <!--会议文章详情弹窗-->
+    <el-dialog
+      :visible.sync="dialogArticleVisible">
+      <el-row>
+        <el-col :span="24" style="text-align:center"><h3>{{selectRow.title}}</h3></el-col>
+      </el-row>
+      <el-row :gutter="20" style="color: #8c939d">
+        <el-col :span="8"><p>作者：<span style="font-weight: bold">{{selectRow.author}}</span></p></el-col>
+        <el-col :span="8"><p>发布时间：<span style="font-weight: bold">{{selectRow.date}}</span></p></el-col>
+        <el-col :span="8"><p>分类：<span style="font-weight: bold">{{selectRow.categories}}</span></p></el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="24">
+          <div style="text-indent: 2em">
+            {{selectRow.content}}
+          </div>
+        </el-col>
+      </el-row>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogArticleVisible = false">取 消</el-button>
+        <el-button type="primary" @click="dialogArticleVisible = false">确 定</el-button>
       </div>
-    </div>
+    </el-dialog>
   </section>
-</template>
-文章详情弹窗
 
-<el-dialog
-  title="会议详情"
-  :visible.sync="dialogArticleVisible">
-  <el-row>
-    <el-col :span="24" style="text-align:center"><h3>{{selectRow.title}}</h3></el-col>
-  </el-row>
-  <el-row :gutter="20" style="color: #8c939d">
-    <el-col :span="8"><p>作者：<span style="font-weight: bold">{{selectRow.author}}</span></p></el-col>
-    <el-col :span="8"><p>发布时间：<span style="font-weight: bold">{{selectRow.date}}</span></p></el-col>
-    <el-col :span="8"><p>分类：<span style="font-weight: bold">{{selectRow.categories}}</span></p></el-col>
-  </el-row>
-  <el-row>
-    <el-col :span="24">
-      <div style="text-indent: 2em">
-        {{selectRow.content}}
-      </div>
-    </el-col>
-  </el-row>
-  <div slot="footer" class="dialog-footer">
-    <el-button @click="dialogArticleVisible = false">取 消</el-button>
-    <el-button type="primary" @click="dialogArticleVisible = false">确 定</el-button>
-  </div>
-</el-dialog>
+</template>
+
 
 <script>
     export default {
@@ -252,10 +252,9 @@
                 });
             },
             //查看详情
-            handleDetails:function (row) {
+            handleViewDetails(row) {
                 this.selectRow = row;
                 this.dialogArticleVisible = true;
-                //this.dialogStatus=row.title;
             }
 
         }
