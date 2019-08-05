@@ -2,17 +2,19 @@
   <section style="width: 100%;height: 100%">
     <div style="background-color: #708090;height: 75px;line-height: 75px;font-size: 20px;color: #fff">未处理消息:<span style="font-size: 30px;color: #FFD640"> 32 </span>条</div>
     <el-table
-      :data="tableData"
+      :data="reportData"
       border
       style="width: 100%">
       <el-table-column
         prop="id"
         label="编号"
+        sortable
         width="80">
       </el-table-column>
       <el-table-column
         prop="date"
         label="提交日期"
+        sortable
         width="180">
       </el-table-column>
       <el-table-column
@@ -95,7 +97,7 @@
           handleCurrentChange:'',
           dialogVisible: false,
 
-          tableData: [{
+          reportData: [{
             id: '0001',
             date: '2016-05-03',
             name: '王小虎',
@@ -115,13 +117,13 @@
             reason: '涉黄，反动'
           },{
             id: '0001',
-            date: '2016-05-03',
+            date: '2016-05-04',
             name: '王小虎',
             articleName: '程序员的养生秘籍',
             reason: '涉黄，反动xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
           }, {
             id: '0001',
-            date: '2016-05-03',
+            date: '2016-05-02',
             name: '王小虎',
             articleName: '程序员的养生秘籍',
             reason: '涉黄，反动'
@@ -139,12 +141,11 @@
             reason: '涉黄，反动'
           },{
             id: '0001',
-            date: '2016-05-03',
+            date: '2016-05-01',
             name: '王小虎',
             articleName: '程序员的养生秘籍',
             reason: '涉黄，反动'
-          }
-          ]
+          }]
         }
       },
 
