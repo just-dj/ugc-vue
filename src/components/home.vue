@@ -1,6 +1,6 @@
 <template>
   <section style="height: 100%;display: flex;justify-content: center;width: 100%">
-    <el-container class="el-container main-page" style="background-color: #ffffff">
+    <el-container class="el-container main-page" style="background-color: #ffffff" v-loading.fullscreen.lock="this.$store.state.fullScreenLoading">
       <el-header style="position: relative;background-color: #545c64;padding: 0 1rem;">
         <div class="home-log" style="background-color: #545c64;color: #fff;box-sizing: border-box;">
           UGC
@@ -517,8 +517,8 @@
 
 
   .editIcon{
-    width:31px;
-    height:31px;
+    width:25px;
+    height:25px;
     margin: 0 15px 0 0;
 
   }

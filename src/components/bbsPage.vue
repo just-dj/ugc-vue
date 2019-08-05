@@ -1,6 +1,6 @@
 <template>
 
-  <el-container v-loading.fullscreen.lock="fullScreenLoading"
+  <el-container
                 style="width: 100%;display: flex;justify-content: space-between">
     <el-aside class="main-left" style="width: 21%;margin: 0">
 
@@ -158,7 +158,6 @@
             presentTime:'',
             url:'https://c2liantong.oss-cn-beijing.aliyuncs.com/12797375-239fdb759f575719.png'
           }],
-        fullScreenLoading: false,
         // 当前选中模块
         selectNowKind:'dsj',
         // new or hot
@@ -249,9 +248,9 @@
         this.$message.success(this.selectNowKind + "   " + this.labelPosition +  "   " + this.searchInput);
       },
       openFullScreen() {
-        this.fullScreenLoading = true;
+        this.$store.commit('openFullScreenLoading');
         setTimeout(() => {
-          this.fullScreenLoading = false;
+          this.$store.commit('closeFullScreenLoading');
         }, 200 + Math.random() * 150);
       },
 

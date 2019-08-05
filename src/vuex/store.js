@@ -9,7 +9,8 @@ Vue.use(Vuex)
 const state = {
   signInDialogVisible: false,
   user:{},
-  unReadNum:0
+  unReadNum:0,
+  fullScreenLoading: false,
 }
 
 // 定义所需的 mutations
@@ -25,8 +26,13 @@ const mutations = {
   },
   setUnReadNum(state,stark){
     state.unReadNum = stark.num;
+  },
+  openFullScreenLoading(state){
+    state.fullScreenLoading = true;
+  },
+  closeFullScreenLoading(state){
+    state.fullScreenLoading = false;
   }
-
 };
 
 // 创建 store 实例

@@ -13,15 +13,17 @@ import VueRouter from 'vue-router'
 import routes from './router/router.js'
 import store from './vuex/store'
 import Vuex from 'vuex'
-
+import VueResource from 'vue-resource';
 
 Vue.config.productionTip = false;
 
 Vue.use(VueRouter);
 Vue.use(ElementUI);
 Vue.use(Vuex)
+Vue.use(VueResource)
 
-Vue.prototype.$echarts = echarts;
+Vue.prototype.$echarts =
+  echarts;
 
 // 如果使用模块化机制编程，导入Vue和VueRouter，要调用 Vue.use(VueRouter)
 export const router = new VueRouter({
