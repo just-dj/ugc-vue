@@ -74,7 +74,7 @@
 </template>
 
 <script>
-  import ElTag from "../../node_modules/element-ui/packages/tag/src/tag";
+  import ElTag from "../../../node_modules/element-ui/packages/tag/src/tag";
     export default {
       components: {ElTag},
       data() {
