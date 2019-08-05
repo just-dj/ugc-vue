@@ -5,23 +5,18 @@
       class="el-menu-demo"
       mode="horizontal"
       @select="handleSelect"
-      background-color="#545c64"
+      background-color="#708090"
       text-color="#fff">
       <el-menu-item index="1">未处理消息:<span style="font-size: 30px;color: #FFD640;"> 32 </span>条</el-menu-item>
     </el-menu>
     <el-table
       :data="tableData"
+      border
       style="width: 100%">
-      <el-table-column
-        prop="select"
-        label=""
-        width="50">
-        <el-checkbox v-model="checked"></el-checkbox>
-      </el-table-column>
       <el-table-column
         prop="id"
         label="编号"
-        width="180">
+        width="100">
       </el-table-column>
       <el-table-column
         prop="date"
@@ -36,19 +31,20 @@
       <el-table-column
         prop="articleName"
         label="被举报文章"
-        wideth="180">
+        wideth="200">
       </el-table-column>
       <el-table-column
         prop="reason"
         label="举报原因"
-        wideth="180">
+        wideth="200">
       </el-table-column>
       <el-table-column
         prop="check"
         label="审核"
-        wideth="180">
+        wideth="50">
         <template slot-scope="scope">
-          <el-button @click="checkArticle()" type="text" size="small">进入查看</el-button>
+          <!--<el-button type="text" @click="checkArticle()" size="small">进入查看</el-button>-->
+          <el-button type="text" @click="dialogVisible = true">进入查看</el-button>
         </template>
       </el-table-column>
       <el-table-column
@@ -61,6 +57,15 @@
         </template>
       </el-table-column>
     </el-table>
+
+    <el-dialog
+      title="文章内容"
+      :visible.sync="dialogVisible"
+      width="30%"
+      :before-close="handleClose">
+      <span>这是一段信息</span>
+      <span slot="footer" class="dialog-footer"></span>
+    </el-dialog>
 
     <!--分页-->
     <div class="block" align="center" >
@@ -89,72 +94,51 @@
           currentPage3:'',
           handleSizeChange:'',
           handleCurrentChange:'',
+          dialogVisible: false,
 
           tableData: [{
-            checked: true,
             id: '0001',
             date: '2016-05-03',
             name: '王小虎',
             articleName: '程序员的养生秘籍',
             reason: '涉黄，反动'
           },{
-            checked: true,
             id: '0001',
             date: '2016-05-03',
             name: '王小虎',
             articleName: '程序员的养生秘籍',
             reason: '涉黄，反动'
           },{
-            checked: true,
             id: '0001',
             date: '2016-05-03',
             name: '王小虎',
             articleName: '程序员的养生秘籍',
             reason: '涉黄，反动'
           },{
-            checked: true,
             id: '0001',
             date: '2016-05-03',
             name: '王小虎',
             articleName: '程序员的养生秘籍',
             reason: '涉黄，反动'
           }, {
-            checked: true,
             id: '0001',
             date: '2016-05-03',
             name: '王小虎',
             articleName: '程序员的养生秘籍',
             reason: '涉黄，反动'
           },{
-            checked: true,
             id: '0001',
             date: '2016-05-03',
             name: '王小虎',
             articleName: '程序员的养生秘籍',
             reason: '涉黄，反动'
           },{
-            checked: true,
             id: '0001',
             date: '2016-05-03',
             name: '王小虎',
             articleName: '程序员的养生秘籍',
             reason: '涉黄，反动'
           },{
-            checked: true,
-            id: '0001',
-            date: '2016-05-03',
-            name: '王小虎',
-            articleName: '程序员的养生秘籍',
-            reason: '涉黄，反动'
-          }, {
-            checked: true,
-            id: '0001',
-            date: '2016-05-03',
-            name: '王小虎',
-            articleName: '程序员的养生秘籍',
-            reason: '涉黄，反动'
-          }, {
-            checked: true,
             id: '0001',
             date: '2016-05-03',
             name: '王小虎',
@@ -166,8 +150,15 @@
       },
 
       methods:{
-        checkArticle(){
-
+//        checkArticle(){
+//
+//        },
+        handleClose(done) {
+          this.$confirm('确认关闭？')
+            .then(_ => {
+              done();
+            })
+            .catch(_ => {});
         },
         ignoreItem(){
 
@@ -184,7 +175,7 @@
   .block{
     position: absolute;
     top: 700px;
-    right: 15px;
+    right: 20px;
 
   }
 </style>

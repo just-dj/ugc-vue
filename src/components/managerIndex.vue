@@ -1,10 +1,10 @@
 <template>
   <section style="width:100%;height: 100%">
-    <div style="display: flex;justify-content: flex-start;align-items: center;height: 100%;width: 100%">
+    <div style="display: flex;justify-content: flex-start;align-items: center;height: 100%;width: 100%;">
 
-      <el-container class="el-container page-left" style="background-color: rgb(238,238,238)">
+      <div class="left" style="position: fixed;top: 0;left: 0;width: 180px;height: 100%;background-color: rgb(84,92,100) ">
         <el-menu :default-active="this.$route.path"
-                 style="width: 180px"
+                 style="width: 180px;"
                  class="el-menu-demo"
                  mode="vertical"
                  router
@@ -61,30 +61,33 @@
           </el-menu-item>
           <el-menu-item index="/reportManager" key="5d445100910a3fdc04c7b1f0">
             <template slot="title">
-              <span > <i class="el-icon-bell"></i><el-badge is-dot class="item">举报处理</el-badge></span>
+              <i class="el-icon-bell"></i>
+              <span>举报处理</span>
             </template>
           </el-menu-item>
-          <el-submenu index="/" >
+          <el-submenu index="/">
             <template slot="title">
               <i class="el-icon-location"></i>
               <span>数据统计</span>
             </template>
-            <el-menu-item-group >
-              <el-menu-item index="/userCount" key="5d4450f7910a3fdc04c7b1e8" style="min-width: 180px">用户统计</el-menu-item>
-              <el-menu-item index="/blogCount" key="5d4450ec910a3fdc04c7b1e0" style="min-width: 180px">博客统计</el-menu-item>
-              <el-menu-item index="/articleCount" key="5d4450e1910a3fdc04c7b1d1" style="min-width: 180px">发帖统计</el-menu-item>
-              <el-menu-item index="/meetingCount" key="5d4450d4910a3fdc04c7b1c7" style="min-width: 180px">会议统计</el-menu-item>
+            <el-menu-item-group>
+              <el-menu-item index="/userCount" key="5d4450f7910a3fdc04c7b1e8" style="min-width: 180px">用户统计
+              </el-menu-item>
+              <el-menu-item index="/blogCount" key="5d4450ec910a3fdc04c7b1e0" style="min-width: 180px">博客统计
+              </el-menu-item>
+              <el-menu-item index="/articleCount" key="5d4450e1910a3fdc04c7b1d1" style="min-width: 180px">发帖统计
+              </el-menu-item>
+              <el-menu-item index="/meetingCount" key="5d4450d4910a3fdc04c7b1c7" style="min-width: 180px">会议统计
+              </el-menu-item>
             </el-menu-item-group>
           </el-submenu>
 
         </el-menu>
+      </div>
 
-
-      </el-container>
-
-      <div style="height: 100%;width: calc(100% - 180px)">
+      <div style="max-height:100%;height: 100%;overflow:hidden;width: calc(100% - 180px);margin-left:180px;">
         <transition name="el-zoom-in-top">
-          <router-view  style="height: 100%"></router-view>
+          <router-view style="height: 100%"></router-view>
         </transition>
       </div>
 
@@ -107,33 +110,26 @@
   import store from "../vuex/store"
 
   export default {
-    "name":"managerIndex",
+    "name": "managerIndex",
     data() {
 
-      return {
-
-      };
+      return {};
     },
-    computed: {
+    computed: {},
+    methods: {},
 
-    },
-    methods: {
-
+    beforeCreate: function () {
 
     },
 
-    beforeCreate:function(){
-
-    },
-
-    created:function(){
+    created: function () {
       if (!util.isEmpty(localStorage.getItem("token"))) {
         console.log("已经登录 ");
         this.isLogin = true;
-        this.managerIndex = this.contains(JSON.parse(localStorage.getItem("module")),"5d429e79bb9fe01c646d1fd6");
+        this.managerIndex = this.contains(JSON.parse(localStorage.getItem("module")), "5d429e79bb9fe01c646d1fd6");
         this.$store.commit('setHeadImg', {name: 'stark', user: JSON.parse(localStorage.getItem("user"))});
 
-      }else {
+      } else {
         console.log("还未登录 ");
       }
     },
@@ -156,11 +152,9 @@
     /*padding: 0 9rem;*/
   }
 
-   .item {
-     margin-top: 7px;
-     /*margin-right: 10px;*/
-   }
-
-
+  .el-menu-item, .el-submenu__title {
+    height: 48px;
+    line-height: 48px;
+  }
 
 </style>
