@@ -15,11 +15,11 @@
         label="提交日期"
         width="180">
       </el-table-column>
-      <el-table-colum
+      <el-table-column
         prop="name"
         label="举报人昵称"
         width="140">
-      </el-table-colum>
+      </el-table-column>
       <el-table-column
         prop="articleName"
         label="被举报文章"
