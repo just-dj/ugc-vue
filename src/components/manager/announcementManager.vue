@@ -1,3 +1,4 @@
+<!--登录公告页-->
 <template>
   <section style="width: 100%;height: 100%;">
     <div class="body-main">
@@ -66,8 +67,6 @@
               active-color="#13ce66"
               inactive-color="#ff4949"
               v-model="scope.row.topNotice"
-              on-text ="是"
-              off-text = "否"
               @change=change(scope.$index,scope.row)>
             </el-switch>
           </template>

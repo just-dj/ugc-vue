@@ -58,7 +58,7 @@
         <el-table-column
           prop="categories"
           label="分类"
-          width="150">
+          width="90">
         </el-table-column>
 
         <el-table-column
@@ -98,6 +98,14 @@
           label="状态"
           width="80"
           show-overflow-tooltip>
+          <template slot-scope="scope">
+            <el-switch
+              active-color="#13ce66"
+              inactive-color="#ff4949"
+              v-model="scope.row.status"
+              @change=change(scope.$index,scope.row)>
+            </el-switch>
+          </template>
         </el-table-column>
 
         <el-table-column
@@ -109,8 +117,6 @@
               active-color="#13ce66"
               inactive-color="#ff4949"
               v-model="scope.row.topNotice"
-              on-text="是"
-              off-text="否"
               @change=change(scope.$index,scope.row)>
             </el-switch>
           </template>
@@ -122,7 +128,7 @@
           width="150">
           <template slot-scope="scope">
             <el-button @click="handleViewDetails(scope.row)" type="text">查看</el-button>
-            <el-button type="text" @click="handleDelete">隐藏</el-button>
+<!--            <el-button type="text" @click="handleDelete">隐藏</el-button>-->
           </template>
         </el-table-column>
       </el-table>
@@ -156,7 +162,7 @@
                     cntCollect:'120',
                     cntView:'400',
                     topNotice: true,
-                    status:'正常'
+                    status:true
                 }, {
                     date: '2019-08-04',
                     author: '单小车',
@@ -166,7 +172,7 @@
                     cntCollect:'120',
                     cntView:'200',
                     topNotice: true,
-                    status:'隐藏',
+                    status:false,
                 }, {
                     date: '2019-08-04',
                     author: '单总',
@@ -176,7 +182,7 @@
                     cntCollect:'120',
                     cntView:'312',
                     topNotice: true,
-                    status:'正常',
+                    status:true,
                 }, {
                     date: '2019-08-04',
                     author: '单总',
@@ -186,7 +192,7 @@
                     cntCollect:'0',
                     cntView:'0',
                     topNotice: true,
-                    status:'正常',
+                    status:false,
                 }, {
                     date: '2019-08-04',
                     author: '单总',
@@ -196,7 +202,7 @@
                     cntCollect:'0',
                     cntView:'400',
                     topNotice: false,
-                    status:'正常'
+                    status:true
                 }, {
                     date: '2019-08-04',
                     author: '单总',
@@ -206,7 +212,7 @@
                     cntCollect:'120',
                     cntView:'400',
                     topNotice: false,
-                    status:'隐藏',
+                    status:false,
                 }, {
                     date: '2019-08-04',
                     author: '单总',
@@ -216,7 +222,7 @@
                     cntCollect:'120',
                     cntView:'400',
                     topNotice: false,
-                    status:'正常',
+                    status:true,
                 }, {
                     date: '2019-08-04',
                     author: '单总',
@@ -226,7 +232,7 @@
                     cntCollect:'120',
                     cntView:'400',
                     topNotice: false,
-                    status:'隐藏',
+                    status:true,
                 }],
                 dialogArticleVisible: false,
                 options: [{
