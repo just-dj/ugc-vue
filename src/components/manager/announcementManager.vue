@@ -3,26 +3,28 @@
   <section style="width: 100%;height: 100%;">
     <div class="body-main">
       <!--工具条-->
-        <el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
-          <el-form :inline="true" class="demo-form-inline">
-            <el-form-item label="标题">
-              <el-input placeholder="标题" v-model="searchTitle"></el-input>
-            </el-form-item>
-            <el-form-item label="发布时间">
-              <el-col :span="18">
-                <el-form-item prop="date1">
-                  <el-date-picker type="date" placeholder="选择日期" style="width: 100%;" v-model="createTime"></el-date-picker>
-                </el-form-item>
-              </el-col>
-            </el-form-item>
-            <el-form-item>
-              <el-button type="primary" icon="el-icon-search" title="查询"></el-button>
-            </el-form-item>
-            <el-form-item>
-              <el-button type="primary" icon="el-icon-plus" title="新增" @click="addAnnouncement"></el-button>
-            </el-form-item>
-          </el-form>
-        </el-col>
+      <el-col :span="24" class="toolbar" style="padding-bottom: 0px;text-align: left">
+        <el-dropdown placement="bottom-start">
+          <el-button type="primary" icon="el-icon-search" title="查询"><i class="el-icon-arrow-down el-icon--right"></i>
+          </el-button>
+          <el-dropdown-menu slot="dropdown">
+            <el-form :inline="true" class="demo-form-inline" style="padding: 10px">
+              <el-form-item label="标题">
+                <el-input placeholder="标题" v-model="searchTitle"></el-input>
+              </el-form-item>
+              <el-form-item label="发布时间">
+                <el-col :span="18">
+                  <el-form-item prop="date1">
+                    <el-date-picker type="date" placeholder="选择日期" style="width: 100%;"
+                                    v-model="createTime"></el-date-picker>
+                  </el-form-item>
+                </el-col>
+              </el-form-item>
+            </el-form>
+          </el-dropdown-menu>
+        </el-dropdown>
+        <el-button type="primary" icon="el-icon-plus" title="新增" @click="addAnnouncement"></el-button>
+      </el-col>
 
       <el-table
         ref="multipleTable"
@@ -30,10 +32,6 @@
         tooltip-effect="dark"
         style="width: 100%"
         @selection-change="handleSelectionChange">
-        <el-table-column
-          type="selection"
-          width="55">
-        </el-table-column>
         <el-table-column
           type="index"
           label="编号"
@@ -61,7 +59,8 @@
         <el-table-column
           prop="istop"
           label="置顶"
-          width="50">
+          width="80"
+          show-overflow-tooltip>
           <template slot-scope="scope">
             <el-switch
               active-color="#13ce66"
@@ -77,8 +76,8 @@
           label="操作"
           width="150">
           <template slot-scope="scope">
-            <el-button @click="handleDetails(scope.row)" type="text" size="small">查看</el-button>
-            <el-button type="text" size="small" @click="handleEdit(scope.$index,scope.row)">编辑</el-button>
+            <el-button @click="handleDetails(scope.row)" type="text">查看</el-button>
+            <el-button type="text" @click="handleEdit(scope.$index,scope.row)">编辑</el-button>
             <el-button type="text" @click="handleDelete">删除</el-button>
           </template>
         </el-table-column>
@@ -101,19 +100,19 @@
       :visible.sync="dialogFormVisible"
       center>
       <el-form :model="form">
-        <el-form-item label="公告标题" :label-width="formLabelWidth">
+        <el-form-item label="公告标题" :label-width="formLabelWidth" :required="true">
           <el-input v-model="form.title" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item label="发布人" :label-width="formLabelWidth">
           <el-input v-model="form.announcer" disabled="disabled"></el-input>
         </el-form-item>
-        <el-form-item label="公告内容" :label-width="formLabelWidth">
+        <el-form-item label="公告内容" :label-width="formLabelWidth" :required="true">
           <el-input type="textarea" v-model="form.content"></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">取 消</el-button>
-        <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
+        <el-button type="primary" @click="addConfirm('form')">确 定</el-button>
       </div>
     </el-dialog>
 
@@ -149,40 +148,40 @@
         name: "announcementManager",
         data() {
             return {
-                selectRow:{},
-                searchTitle:"",
-                createTime:"",
+                selectRow: {},
+                searchTitle: "",
+                createTime: "",
                 tableData: [{
                     date: '2019-08-04',
-                    announcer:'单总',
+                    announcer: '单总',
                     title: '关于5G资费套餐调整的公告标题1',
                     content: '5G流量统统不要钱走过路过不要错过15926',
-                    topNotice:true
+                    topNotice: true
                 }, {
                     date: '2019-08-04',
-                    announcer:'强哥',
+                    announcer: '强哥',
                     title: '关于5G资费套餐调整的公告标题2',
                     content: '5G流量统统不要钱走过路过不要错过15926',
-                    topNotice:true
+                    topNotice: true
                 }, {
                     date: '2019-08-04',
-                    announcer:'王大锤',
+                    announcer: '王大锤',
                     title: '关于5G资费套餐调整的公告标题3',
                     content: '5G流量统统不要钱走过路过不要错过15926',
-                    topNotice:false
+                    topNotice: false
                 }, {
                     date: '2019-08-04',
-                    announcer:'毛老板',
+                    announcer: '毛老板',
                     title: '关于5G资费套餐调整的公告标题4',
                     content: '5G流量统统不要钱走过路过不要错过15926'
                 }, {
                     date: '2019-08-04',
-                    announcer:'亮仔',
+                    announcer: '亮仔',
                     title: '关于5G资费套餐调整的公告标题1',
                     content: '5G流量统统不要钱走过路过不要错过15926'
                 }],
                 dialogFormVisible: false,
-                dialogDetailVisible:false,
+                dialogDetailVisible: false,
                 form: {
                     title: '', //公告标题
                     announcer: '强哥',//发布者
@@ -192,10 +191,10 @@
                 formLabelWidth: '120px',
                 //新增or编辑弹框标题(根据点击的新增or编辑按钮显示不同的标题)
                 dialogStatus: '',
-                handleSizeChange:'',
-                currentPage3:'',
-                handleSelectionChange:'',
-                handleCurrentChange:'',
+                handleSizeChange: '',
+                currentPage3: '',
+                handleSelectionChange: '',
+                handleCurrentChange: '',
 
             }
         },
@@ -245,13 +244,17 @@
                 });
             },
             //查看详情
-            handleDetails(row){
+            handleDetails(row) {
                 this.selectRow = row;
-                this.dialogDetailVisible=true;
+                this.dialogDetailVisible = true;
 
                 //this.dialogStatus=row.title;
-            }
+            },
 
+            //确认新增公告提交表单
+            addConfirm: function (form) {
+                console.log(this.form.title);
+            }
         }
     }
 
@@ -259,16 +262,13 @@
 </script>
 
 <style scoped>
-  .toolbar {
-    background: #f2f2f2;
-    padding: 10px;
-    margin: 10px 0;
-
-  }
-
   .body-main {
     /*padding: 20px;*/
     margin: 10px;
+  }
+
+  .toolbar {
+    margin-bottom: 10px;
   }
 
   .pagination {
