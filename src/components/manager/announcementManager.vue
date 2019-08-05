@@ -2,29 +2,30 @@
   <section style="width: 100%;height: 100%;">
     <div class="body-main">
       <!--工具条-->
-      <el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
-        <el-form :inline="true" class="demo-form-inline">
-          <el-form-item label="标题">
-            <el-input placeholder="标题"></el-input>
-          </el-form-item>
-          <el-form-item label="发布时间">
-            <el-col :span="18">
-              <el-form-item prop="date1">
-                <el-date-picker type="date" placeholder="选择日期" style="width: 100%;"></el-date-picker>
-              </el-form-item>
-            </el-col>
-          </el-form-item>
-          <el-form-item>
-            <el-button type="primary" icon="el-icon-search" title="查询"></el-button>
-          </el-form-item>
-          <el-form-item>
-            <el-button type="primary" icon="el-icon-plus" title="新增" @click="addAnnouncement"></el-button>
-          </el-form-item>
-        </el-form>
-      </el-col>
+        <el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
+          <el-form :inline="true" class="demo-form-inline">
+            <el-form-item label="标题">
+              <el-input placeholder="标题" v-model="searchTitle"></el-input>
+            </el-form-item>
+            <el-form-item label="发布时间">
+              <el-col :span="18">
+                <el-form-item prop="date1">
+                  <el-date-picker type="date" placeholder="选择日期" style="width: 100%;" v-model="createTime"></el-date-picker>
+                </el-form-item>
+              </el-col>
+            </el-form-item>
+            <el-form-item>
+              <el-button type="primary" icon="el-icon-search" title="查询"></el-button>
+            </el-form-item>
+            <el-form-item>
+              <el-button type="primary" icon="el-icon-plus" title="新增" @click="addAnnouncement"></el-button>
+            </el-form-item>
+          </el-form>
+        </el-col>
+
       <el-table
         ref="multipleTable"
-        :data="tableData"
+        :data="tableData.filter(data=>!searchTitle||!createTime)"
         tooltip-effect="dark"
         style="width: 100%"
         @selection-change="handleSelectionChange">
@@ -150,6 +151,8 @@
         data() {
             return {
                 selectRow:{},
+                searchTitle:"",
+                createTime:"",
                 tableData: [{
                     date: '2019-08-04',
                     announcer:'单总',
@@ -159,19 +162,19 @@
                 }, {
                     date: '2019-08-04',
                     announcer:'强哥',
-                    title: '关于5G资费套餐调整的公告标题1',
+                    title: '关于5G资费套餐调整的公告标题2',
                     content: '5G流量统统不要钱走过路过不要错过15926',
                     topNotice:true
                 }, {
                     date: '2019-08-04',
                     announcer:'王大锤',
-                    title: '关于5G资费套餐调整的公告标题1',
+                    title: '关于5G资费套餐调整的公告标题3',
                     content: '5G流量统统不要钱走过路过不要错过15926',
                     topNotice:false
                 }, {
                     date: '2019-08-04',
                     announcer:'毛老板',
-                    title: '关于5G资费套餐调整的公告标题1',
+                    title: '关于5G资费套餐调整的公告标题4',
                     content: '5G流量统统不要钱走过路过不要错过15926'
                 }, {
                     date: '2019-08-04',

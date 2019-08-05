@@ -1,7 +1,7 @@
 <template>
 
-  <el-container v-loading.fullscreen.lock="fullScreenLoading"
-                style="width: 100%;display: flex;justify-content: space-between">
+  <el-container
+    style="width: 100%;display: flex;justify-content: space-between">
     <el-aside class="main-left" style="width: 21%;margin: 0">
 
       <div class="left-menu" style="position: fixed;left: 140px;top: 81px">
@@ -79,7 +79,6 @@
     "name": "blogPage",
     data() {
       return {
-        articleLoading:false,
         pageNum: 1,
         pageSize: 10,
         articleList:[{
@@ -232,9 +231,9 @@
         this.$message.success(this.selectNowKind + "   " + this.labelPosition +  "   " + this.searchInput);
       },
       openFullScreen() {
-        this.fullScreenLoading = true;
+        this.$store.commit('openFullScreenLoading');
         setTimeout(() => {
-          this.fullScreenLoading = false;
+          this.$store.commit('closeFullScreenLoading');
         }, 200 + Math.random() * 150);
       },
 
