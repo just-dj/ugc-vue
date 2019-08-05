@@ -68,7 +68,7 @@
         <el-table-column
           prop="content"
           label="简介"
-          width="380"
+          width="300"
           show-overflow-tooltip>
         </el-table-column>
 
@@ -78,6 +78,13 @@
           sortable
           width="120">
           <template slot-scope="scope">{{ scope.row.date }}</template>
+        </el-table-column>
+
+        <el-table-column
+          prop="status"
+          label="状态"
+          width="80"
+          show-overflow-tooltip>
         </el-table-column>
 
         <el-table-column
@@ -142,7 +149,6 @@
       </div>
     </el-dialog>
   </section>
-
 </template>
 
 
@@ -158,56 +164,64 @@
                     title: '关于5G资费套餐调整的公告标题1',
                     categories: '好听的会议',
                     content: '5G流量统统不要钱走过路过不要错过15926',
-                    topNotice: true
+                    topNotice: true,
+                    status:'正常'
                 }, {
                     date: '2019-08-04',
                     author: '单总',
                     title: '关于5G资费套餐调整的公告标题1',
                     categories: '好听的会议',
                     content: '5G流量统统不要钱走过路过不要错过15926',
-                    topNotice: true
+                    topNotice: true,
+                    status:'隐藏',
                 }, {
                     date: '2019-08-04',
                     author: '单总',
                     title: '关于5G资费套餐调整的公告标题1',
                     categories: '好听的会议',
                     content: '5G流量统统不要钱走过路过不要错过15926',
-                    topNotice: true
+                    topNotice: true,
+                    status:'正常',
                 }, {
                     date: '2019-08-04',
                     author: '单总',
                     title: '关于5G资费套餐调整的公告标题1',
                     categories: '好听的会议',
                     content: '5G流量统统不要钱走过路过不要错过15926',
-                    topNotice: true
+                    topNotice: true,
+                    status:'正常',
                 }, {
                     date: '2019-08-04',
                     author: '单总',
                     title: '关于5G资费套餐调整的公告标题1',
                     categories: '好听的会议',
                     content: '5G流量统统不要钱走过路过不要错过15926',
-                    topNotice: true
+                    topNotice: false,
+                    status:'正常'
                 }, {
                     date: '2019-08-04',
                     author: '单总',
                     title: '关于5G资费套餐调整的公告标题1',
                     categories: '好听的会议',
                     content: '5G流量统统不要钱走过路过不要错过15926',
-                    topNotice: true
+                    topNotice: false,
+                    status:'隐藏',
                 }, {
                     date: '2019-08-04',
                     author: '单总',
                     title: '关于5G资费套餐调整的公告标题1',
                     categories: '好听的会议',
                     content: '5G流量统统不要钱走过路过不要错过15926',
-                    topNotice: true
+                    topNotice: false,
+                    status:'正常',
                 }, {
                     date: '2019-08-04',
                     author: '单总',
                     title: '关于5G资费套餐调整的公告标题1',
                     categories: '好听的会议',
                     content: '5G流量统统不要钱走过路过不要错过15926',
-                    topNotice: true
+                    topNotice: false,
+                    status:'隐藏',
                 }],
                 dialogArticleVisible: false,
                 options: [{
