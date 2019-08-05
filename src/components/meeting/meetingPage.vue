@@ -4,13 +4,12 @@
                 style="width: 100%;display: flex;justify-content: space-between">
     <el-aside class="main-left" style="width: 21%;margin: 0">
 
-      <div class="left-menu" style="position: fixed;left: 140px;top: 81px">
-        <el-button @click="getData('cwb')" class="left-menu-item">财务部</el-button>
-        <el-button @click="getData('rlzyb') " class="left-menu-item">人力资源部</el-button>
-        <el-button @click="getData('alaqb') " class="left-menu-item">网络安全部</el-button>
-        <el-button @click="getData('bgs') " class="left-menu-item">办公室</el-button>
-        <el-button @click="getData('djb') " class="left-menu-item">党建部</el-button>
-        <el-button @click="getData('yykfb') " class="left-menu-item">应用开发部</el-button>
+      <div class="left-menu" style="position: fixed;left: 140px;top: 81px;max-height: 770px;height: 593px">
+        <!--<div style="width: 100%;height: 100%">-->
+        <el-scrollbar>
+          <el-button v-for="(item ,index) in ugc_meeting_options" @click="getData(item.value)" class="left-menu-item">{{item.label}}</el-button>
+        </el-scrollbar>
+        <!--</div>-->
       </div>
 
     </el-aside>
@@ -76,9 +75,10 @@
         <div class="loading"
              v-loading="articleLoading"
              element-loading-spinner="el-icon-loading"
-             element-loading-background="rgba(0, 0, 0, 0.8)"
+             element-loading-background="rgba(0, 0, 0, 0)"
              element-loading-text="拼命加载中"
-             style="width: 100%;height: 300px"></div>
+             style="width: 100%;height: 300px;position: fixed;right: 0;bottom:-50px;">
+        </div>
       </div>
 
 
@@ -88,13 +88,15 @@
 
 <script>
 
-  import {} from "../api/api";
-  import * as util from "../common/utils/util"
+  import {} from "../../api/api";
+  import * as util from "../../common/utils/util"
+  import {dropListOneGetApi} from "../../api/api";
 
   export default {
     "name": "meetingPage",
     data() {
       return {
+        ugc_meeting_options:[],
         articleLoading:false,
         pageNum: 1,
         pageSize: 20,
@@ -294,6 +296,13 @@
     mounted() {
       this.openFullScreen();
       this.scroll();
+      dropListOneGetApi("ugc_meeting_options").then(res => {
+        if (res.code === 200) {
+          this.ugc_meeting_options = res.data;
+        } else {
+          console.error("博客类型下拉列表获取失败");
+        }
+      });
     }
   }
 
@@ -471,6 +480,19 @@
     display: flex;
     justify-content: flex-start;
     margin-top: 15px;
+  }
+
+  >>> .el-scrollbar{
+    width: 100%;
+    height: 593px;
+  }
+
+  >>> .el-scrollbar__view{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
   }
 
 </style>
