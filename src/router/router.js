@@ -9,7 +9,7 @@ let routes = [
     children: [
       {
         path: '/blogPage',
-        component: (resolve) => require(['../components/blogPage.vue'], resolve),
+        component: (resolve) => require(['../components/blog/blogPage.vue'], resolve),
         // component: blogPage,
         meta: {keepAlive: false},
         name: '博客',
@@ -17,7 +17,7 @@ let routes = [
       },
       {
         path: '/readBlogPage',
-        component: (resolve) => require(['../components/readBlogPage.vue'], resolve),
+        component: (resolve) => require(['../components/blog/readBlogPage.vue'], resolve),
         // component: blogPage,
         meta: {keepAlive: false},
         name: '查看博客',
@@ -25,15 +25,15 @@ let routes = [
       },
       {
         path: '/editBlogPage',
-        component: (resolve) => require(['../components/editBlogPage.vue'], resolve),
+        component: (resolve) => require(['../components/blog/editBlogPage.vue'], resolve),
         // component: blogPage,
-        meta: {keepAlive: false},
+        meta: {keepAlive: true},
         name: '编辑博客',
         hidden: true
       },
       {
         path: '/bbsPage',
-        component: (resolve) => require(['../components/bbsPage.vue'], resolve),
+        component: (resolve) => require(['../components/bbs/bbsPage.vue'], resolve),
         // component: bbsPage,
         meta: {keepAlive: false},
         name: '论坛',
@@ -41,7 +41,7 @@ let routes = [
       },
       {
         path: '/readBBSPage',
-        component: (resolve) => require(['../components/readBBSPage.vue'], resolve),
+        component: (resolve) => require(['../components/bbs/readBBSPage.vue'], resolve),
         // component: blogPage,
         meta: {keepAlive: false},
         name: '查看论坛',
@@ -49,7 +49,7 @@ let routes = [
       },
       {
         path: '/meetingPage',
-        component: (resolve) => require(['../components/meetingPage.vue'], resolve),
+        component: (resolve) => require(['../components/meeting/meetingPage.vue'], resolve),
         // component: meetingPage,
         meta: {keepAlive: false},
         name: '会议纪要',
@@ -57,7 +57,7 @@ let routes = [
       },
       {
         path: '/readMeetingPage',
-        component: (resolve) => require(['../components/readMeetingPage.vue'], resolve),
+        component: (resolve) => require(['../components/meeting/readMeetingPage.vue'], resolve),
         // component: blogPage,
         meta: {keepAlive: false},
         name: '查看会议纪要',
