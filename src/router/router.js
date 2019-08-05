@@ -24,6 +24,14 @@ let routes = [
         hidden: true
       },
       {
+        path: '/editBlogPage',
+        component: (resolve) => require(['../components/editBlogPage.vue'], resolve),
+        // component: blogPage,
+        meta: {keepAlive: false},
+        name: '编辑博客',
+        hidden: true
+      },
+      {
         path: '/bbsPage',
         component: (resolve) => require(['../components/bbsPage.vue'], resolve),
         // component: bbsPage,
@@ -67,7 +75,7 @@ let routes = [
   },
   {
     path: '/managerIndex',
-    component: (resolve) => require(['../components/managerIndex.vue'], resolve),
+    component: (resolve) => require(['../components/manager/managerIndex.vue'], resolve),
     // component: managerIndex,
     meta: {keepAlive: false},
     name: '管理首页',
@@ -75,7 +83,7 @@ let routes = [
     children: [
       {
         path: '/accountManager',
-        component: (resolve) => require(['../components/accountManager.vue'], resolve),
+        component: (resolve) => require(['../components/manager/accountManager.vue'], resolve),
         // component: blogPage,
         meta: {keepAlive: false},
         name: '账号管理',
@@ -83,7 +91,7 @@ let routes = [
       },
       {
         path: '/roleManager',
-        component: (resolve) => require(['../components/roleManager.vue'], resolve),
+        component: (resolve) => require(['../components/manager/roleManager.vue'], resolve),
         // component: blogPage,
         meta: {keepAlive: false},
         name: '角色管理',
@@ -91,7 +99,7 @@ let routes = [
       },
       {
         path: '/moduleManager',
-        component: (resolve) => require(['../components/moduleManager.vue'], resolve),
+        component: (resolve) => require(['../components/manager/moduleManager.vue'], resolve),
         // component: blogPage,
         meta: {keepAlive: false},
         name: '模块管理',
@@ -99,7 +107,7 @@ let routes = [
       },
       {
         path: '/bbsManager',
-        component: (resolve) => require(['../components/bbsManager.vue'], resolve),
+        component: (resolve) => require(['../components/manager/bbsManager.vue'], resolve),
         // component: blogPage,
         meta: {keepAlive: false},
         name: '论坛管理',
@@ -107,7 +115,7 @@ let routes = [
       },
       {
         path: '/blogManager',
-        component: (resolve) => require(['../components/blogManager.vue'], resolve),
+        component: (resolve) => require(['../components/manager/blogManager.vue'], resolve),
         // component: blogPage,
         meta: {keepAlive: false},
         name: '博客管理',
@@ -115,7 +123,7 @@ let routes = [
       },
       {
         path: '/articleManager',
-        component: (resolve) => require(['../components/articleManager.vue'], resolve),
+        component: (resolve) => require(['../components/manager/articleManager.vue'], resolve),
         // component: blogPage,
         meta: {keepAlive: false},
         name: '文章管理',
@@ -123,7 +131,7 @@ let routes = [
       },
       {
         path: '/announcementManager',
-        component: (resolve) => require(['../components/announcementManager.vue'], resolve),
+        component: (resolve) => require(['../components/manager/announcementManager.vue'], resolve),
         // component: blogPage,
         meta: {keepAlive: false},
         name: '登录公告',
@@ -131,7 +139,7 @@ let routes = [
       },
       {
         path: '/reportManager',
-        component: (resolve) => require(['../components/reportManager.vue'], resolve),
+        component: (resolve) => require(['../components/manager/reportManager.vue'], resolve),
         // component: blogPage,
         meta: {keepAlive: false},
         name: '举报处理',
@@ -139,7 +147,7 @@ let routes = [
       },
       {
         path: '/userCount',
-        component: (resolve) => require(['../components/userCount.vue'], resolve),
+        component: (resolve) => require(['../components/manager/dataAnalysis/userCount.vue'], resolve),
         // component: blogPage,
         meta: {keepAlive: false},
         name: '用户统计',
@@ -147,7 +155,7 @@ let routes = [
       },
       {
         path: '/blogCount',
-        component: (resolve) => require(['../components/blogCount.vue'], resolve),
+        component: (resolve) => require(['../components/manager/dataAnalysis/blogCount.vue'], resolve),
         // component: blogPage,
         meta: {keepAlive: false},
         name: '博客统计',
@@ -155,7 +163,7 @@ let routes = [
       },
       {
         path: '/articleCount',
-        component: (resolve) => require(['../components/articleCount.vue'], resolve),
+        component: (resolve) => require(['../components/manager/dataAnalysis/articleCount.vue'], resolve),
         // component: blogPage,
         meta: {keepAlive: false},
         name: '发帖统计',
@@ -163,7 +171,7 @@ let routes = [
       },
       {
         path: '/meetingCount',
-        component: (resolve) => require(['../components/meetingCount.vue'], resolve),
+        component: (resolve) => require(['../components/manager/dataAnalysis/meetingCount.vue'], resolve),
         // component: blogPage,
         meta: {keepAlive: false},
         name: '会议统计',

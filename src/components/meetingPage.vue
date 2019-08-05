@@ -18,7 +18,7 @@
     <el-main class="main-right" style="height: auto;padding: 20px 60px 0">
       <div class="top-article">
         <el-carousel :interval="2000" type="card" height="200px">
-          <el-carousel-item v-for="item in swiperData" :key="item">
+          <el-carousel-item v-for="(item,index) in swiperData" :key="index">
             <div class="infoText">
               <img  style="width: 100%;height: 100%" :src="item.headImg"/>
               <!--<span class="spanOne"> {{item.nickname}}</span>-->

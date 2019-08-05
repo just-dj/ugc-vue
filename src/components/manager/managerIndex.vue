@@ -105,9 +105,9 @@
     getCodeAPI, getUnReadNumAPI, personSignUpAPI,
     signInAPI,
     signOutAPI
-  } from "../api/api";
-  import * as util from "../common/utils/util"
-  import store from "../vuex/store"
+  } from "../../api/api";
+  import * as util from "../../common/utils/util"
+  import store from "../../vuex/store"
 
   export default {
     "name": "managerIndex",
