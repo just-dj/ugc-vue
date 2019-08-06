@@ -96,4 +96,12 @@
     padding-right: 0px;
   }
 
+  .special-hover:hover{
+    -webkit-transition: all .2s linear;
+    transition: all .2s linear;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    transform: translate3d(0, -2px, 0);
+
+  }
+
 </style>
