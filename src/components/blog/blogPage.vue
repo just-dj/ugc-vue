@@ -1,24 +1,24 @@
 <template>
 
   <el-container
-                style="width: 100%;display: flex;justify-content: space-between">
+    style="width: 100%;display: flex;justify-content: space-between">
     <el-aside class="main-left" style="width: 21%;margin: 0">
 
-      <div class="left-menu" style="position: fixed;left: 140px;top: 81px">
-        <el-button @click="getData('yldj')" class="left-menu-item">一流党建</el-button>
-        <el-button @click="getData('ylbg') " class="left-menu-item">娱乐八卦</el-button>
-        <el-button @click="getData('qzhd') " class="left-menu-item">亲子活动</el-button>
-        <el-button @click="getData('ysnv') " class="left-menu-item">饮食男女</el-button>
-        <el-button @click="getData('lyxx') " class="left-menu-item">旅游休闲</el-button>
-        <el-button @click="getData('jjld') " class="left-menu-item">经济论道</el-button>
+      <div class="left-menu" style="position: fixed;left: 140px;top: 81px;max-height: 770px;height: 593px">
+        <!--<div style="width: 100%;height: 100%">-->
+          <el-scrollbar>
+            <el-button v-for="(item ,index) in ugc_blog_options" @click="getData(item.value)" class="left-menu-item">{{item.label}}</el-button>
+          </el-scrollbar>
+        <!--</div>-->
       </div>
 
     </el-aside>
 
-    <el-main class="main-right" style="height: auto;padding: 20px 60px 0">
+    <el-main class="main-right" style="height: auto">
       <div class="top-article">
+
         <el-carousel :interval="2000" type="card" height="200px">
-          <el-carousel-item v-for="(item ,index) in swiperData" :key="index">
+          <el-carousel-item v-for="(item,index) in swiperData" :key="index">
             <div class="infoText">
               <img  style="width: 100%;height: 100%" :src="item.headImg"/>
               <!--<span class="spanOne"> {{item.nickname}}</span>-->
@@ -28,57 +28,42 @@
       </div>
       <div class="list-article">
         <div class="list-article-operate">
-          <el-radio-group v-model="labelPosition" size="medium"  @change="labelChange">
+          <el-radio-group v-model="labelPosition" size="medium" @change="labelChange">
             <el-radio-button label="new">最新发表</el-radio-button>
             <el-radio-button label="hot">最近热门</el-radio-button>
           </el-radio-group>
 
           <el-input style="width: 218px" v-model="searchInput" placeholder="请输入关键字"></el-input>
         </div>
-        <!--表头-->
-        <div class="list-item-title">
-          <div class="title center" style="font-size: 18px;font-weight: bold;">
-            标题
-          </div>
-          <div class="author center" style="font-size: 18px;font-weight: bold">
-            作者
-          </div>
-          <div class="readCount center" style="font-size: 18px;font-weight: bold">
-            点击量
-          </div>
-          <div class="presentTime center" style="font-size: 18px;font-weight: bold">
-            发表时间
-          </div>
-        </div>
-
         <!--文章列表-->
         <div class="list-item" v-for="(item,index) in articleList">
-          <div class="title "  @click="toReadPage(item.id)">
-            {{item.title}}
+          <div class="list-item-left">
+            <div class="item-left-title" @click="toReadPage(item.id)">
+              <span style="font-size: 18px;font-weight: bold">{{item.title}}</span>
+            </div>
+            <div class="item-left-introduce">
+              <span style="font-size: 16px;color: #cccccc">{{item.subTitle}}</span>
+            </div>
+            <div class="item-left-other">
+              <span style="margin-right: 70px;font-weight: bold">{{item.authorName}}</span>
+              <span style="margin-right: 70px">{{item.likeCount}}点赞</span>
+              <span style="margin-right: 70px">{{item.readCount}}阅读</span>
+              <span style="margin-right: 70px">一天前</span>
+            </div>
           </div>
-
-          <div class="author center">
-            {{item.authorName}}
-          </div>
-
-
-          <div class="readCount center">
-            {{item.readCount}} 点击
-          </div>
-
-          <div class="presentTime center">
-            发表时间
-          </div>
-
+          <img style="width: 219px;height: 100%;"
+               :src="item.url"/>
         </div>
 
         <!--loading标志-->
         <div class="loading"
              v-loading="articleLoading"
              element-loading-spinner="el-icon-loading"
-             element-loading-background="rgba(0, 0, 0, 0.8)"
+             element-loading-background="rgba(0, 0, 0, 0)"
              element-loading-text="拼命加载中"
-             style="width: 100%;height: 300px"></div>
+             style="width: 100%;height: 300px;position: fixed;right: 0;bottom:-50px;">
+
+        </div>
       </div>
 
 
@@ -88,20 +73,21 @@
 
 <script>
 
-  import {} from "../api/api";
-  import * as util from "../common/utils/util"
+  import {} from "../../api/api";
+  import * as util from "../../common/utils/util"
+  import {dropListOneGetApi} from "../../api/api";
 
   export default {
-    "name": "bbsPage",
+    "name": "blogPage",
     data() {
       return {
-        articleLoading:false,
+        ugc_blog_options:[],
         pageNum: 1,
-        pageSize: 20,
+        pageSize: 10,
         articleList:[{
           id:'21312',
           articleId:'',
-          title:'程序员养发秘籍XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX123514726',
+          title:'程序员养发秘籍',
           subTitle:'多吃饭，多运动，然而没有什么用',
           authorId:'',
           authorName:'强仔',
@@ -158,12 +144,14 @@
             presentTime:'',
             url:'https://c2liantong.oss-cn-beijing.aliyuncs.com/12797375-239fdb759f575719.png'
           }],
+        fullScreenLoading: false,
         // 当前选中模块
         selectNowKind:'dsj',
         // new or hot
         labelPosition: "new",
         // 搜索关键词
         searchInput: '',
+        articleLoading:false,
         swiperData:[
           {
             headImg:"https://c2liantong.oss-cn-beijing.aliyuncs.com/18652432-61146d3b3189d83b.jpg",
@@ -184,11 +172,11 @@
     computed: {
     },
     methods: {
-      toReadPage:function(id){
-        this.$router.push({path: '/readBBSPage', query: {id: id}})
-      },
       labelChange:function(){
         this.openFullScreen();
+      },
+      toReadPage:function(id){
+        this.$router.push({path: '/readBlogPage', query: {id: id}})
       },
       orderScroll: function(){
         console.log("滚动")
@@ -199,7 +187,6 @@
         el.onscroll = () => {
           const scrollTop = el.scrollTop;
           const scrollHeight = el.scrollHeight;
-          console.log("相减 " + ((offsetHeight + scrollTop) - scrollHeight))
           if ((offsetHeight + scrollTop) - scrollHeight >= -100) {
             if (this.articleLoading === true){
               return;
@@ -241,10 +228,10 @@
         if (this.selectNowKind === kind){
           return;
         }
-        this.selectNowKind = kind;
-        this.labelPosition = 'new';
-        this.searchInput;
-        this.openFullScreen();
+          this.selectNowKind = kind;
+          this.labelPosition;
+          this.searchInput;
+          this.openFullScreen();
         this.$message.success(this.selectNowKind + "   " + this.labelPosition +  "   " + this.searchInput);
       },
       openFullScreen() {
@@ -294,6 +281,14 @@
     mounted() {
       this.openFullScreen();
       this.scroll();
+      dropListOneGetApi("ugc_blog_options").then(res => {
+        if (res.code === 200) {
+          this.ugc_blog_options = res.data;
+        } else {
+          console.error("博客类型下拉列表获取失败");
+        }
+      });
+
     }
   }
 
@@ -312,12 +307,12 @@
 
   }
 
-  .left-menu .left-menu-item {
-    margin-bottom: 20px;
+   .left-menu .left-menu-item {
+    margin-bottom: 15px;
     min-width: 125px;
   }
 
-  .left-menu .left-menu-item:hover {
+   .left-menu .left-menu-item:hover {
     -webkit-transition: all .2s linear;
     transition: all .2s linear;
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
@@ -333,7 +328,7 @@
   }
 
   .main-right {
-    width: 60%;
+    width: 70%;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -349,7 +344,7 @@
     overflow-x: auto
   }
 
-  .main-right .top-article {
+   .main-right .top-article {
     width: 69%;
     height: 30%;
     margin-bottom: 45px;
@@ -381,19 +376,8 @@
 
   .main-right .list-article .list-item {
     width: 100%;
-    height: 40px;
-    min-height: 40px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 6px;
-    border-bottom: 1px solid #eeeeee;
-  }
-
-  .main-right .list-article .list-item-title{
-    width: 100%;
-    height: 40px;
-    min-height: 40px;
+    height: 120px;
+    min-height: 120px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -407,33 +391,6 @@
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
     transform: translate3d(0, -2px, 0);
   }
-
-  .center{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-   .title{
-    width: 50%;
-    overflow: hidden;
-    text-overflow:ellipsis;
-    white-space: nowrap;
-  }
-
-  .author {
-    width: 15%;
-  }
-
-  .readCount{
-    width: 10%;
-  }
-
-
-  .presentTime{
-    width: 25%;
-  }
-
 
   .list-article .list-item .list-item-left {
     height: 100%;
@@ -451,7 +408,7 @@
     justify-content: flex-start;
   }
 
-  .title:hover{
+  .item-left-title:hover{
     color: rgb(64,158,255);
   }
 
@@ -471,6 +428,19 @@
     display: flex;
     justify-content: flex-start;
     margin-top: 15px;
+  }
+
+  >>> .el-scrollbar{
+    width: 100%;
+    height: 593px;
+  }
+
+  >>> .el-scrollbar__view{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
   }
 
 </style>

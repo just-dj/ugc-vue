@@ -1,69 +1,70 @@
 <template>
   <section style="width: 100%;height: 100%">
-    <el-menu
-      :default-active="activeIndex2"
-      class="el-menu-demo"
-      mode="horizontal"
-      @select="handleSelect"
-      background-color="#708090"
-      text-color="#fff">
-      <el-menu-item index="1">未处理消息:<span style="font-size: 30px;color: #FFD640;"> 32 </span>条</el-menu-item>
-    </el-menu>
+    <div style="background-color: #708090;height: 75px;line-height: 75px;font-size: 20px;color: #fff">未处理消息:<span style="font-size: 30px;color: #FFD640"> 32 </span>条</div>
     <el-table
-      :data="tableData"
+      :data="reportData"
       border
       style="width: 100%">
       <el-table-column
         prop="id"
         label="编号"
-        width="100">
+        sortable
+        width="80">
       </el-table-column>
       <el-table-column
         prop="date"
         label="提交日期"
+        sortable
         width="180">
       </el-table-column>
       <el-table-column
         prop="name"
         label="举报人昵称"
-        width="180">
+        width="140">
       </el-table-column>
       <el-table-column
         prop="articleName"
         label="被举报文章"
         wideth="200">
+        <template slot-scope="scope">
+          <span class="overflow">{{scope.row.articleName}}</span>
+        </template>
       </el-table-column>
       <el-table-column
         prop="reason"
         label="举报原因"
         wideth="200">
+        <template slot-scope="scope">
+          <span class="overflow">{{scope.row.reason}}</span>
+        </template>
       </el-table-column>
       <el-table-column
         prop="check"
         label="审核"
         wideth="50">
         <template slot-scope="scope">
-          <!--<el-button type="text" @click="checkArticle()" size="small">进入查看</el-button>-->
-          <el-button type="text" @click="dialogVisible = true">进入查看</el-button>
+          <el-button type="text" @click="dialogVisible = true"><i style="font-size: large" class="el-icon-view"></i>文章预览</el-button>
         </template>
       </el-table-column>
       <el-table-column
         fixed="right"
-        label="操作"
+        label="处理"
         width="180">
         <template slot-scope="scope">
-          <el-button @click="deleteArticle()" type="text" size="small">删除</el-button>
-          <el-button @click="ignoreItem()" type="text" size="small">忽略</el-button>
+          <el-button @click="deleteArticle()" type="text"><i style="font-size: large" class="el-icon-delete"></i></el-button>
+          <el-button @click="ignoreItem()" type="text">忽略</el-button>
         </template>
       </el-table-column>
     </el-table>
 
+    <!--查看文章弹窗-->
     <el-dialog
-      title="文章内容"
+      title="标题"
+      center="true"
       :visible.sync="dialogVisible"
-      width="30%"
+      width="50%"
       :before-close="handleClose">
-      <span>这是一段信息</span>
+      <div style="height: 400px"></div>
       <span slot="footer" class="dialog-footer"></span>
     </el-dialog>
 
@@ -96,7 +97,7 @@
           handleCurrentChange:'',
           dialogVisible: false,
 
-          tableData: [{
+          reportData: [{
             id: '0001',
             date: '2016-05-03',
             name: '王小虎',
@@ -116,13 +117,13 @@
             reason: '涉黄，反动'
           },{
             id: '0001',
-            date: '2016-05-03',
+            date: '2016-05-04',
             name: '王小虎',
             articleName: '程序员的养生秘籍',
-            reason: '涉黄，反动'
+            reason: '涉黄，反动xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
           }, {
             id: '0001',
-            date: '2016-05-03',
+            date: '2016-05-02',
             name: '王小虎',
             articleName: '程序员的养生秘籍',
             reason: '涉黄，反动'
@@ -140,12 +141,11 @@
             reason: '涉黄，反动'
           },{
             id: '0001',
-            date: '2016-05-03',
+            date: '2016-05-01',
             name: '王小虎',
             articleName: '程序员的养生秘籍',
             reason: '涉黄，反动'
-          }
-          ]
+          }]
         }
       },
 
@@ -161,10 +161,18 @@
             .catch(_ => {});
         },
         ignoreItem(){
-
+          this.$confirm('忽略该举报信息？')
+            .then(_ => {
+              done();
+            })
+            .catch(_ => {});
         },
         deleteArticle(){
-
+          this.$confirm('确认删除该文章？')
+            .then(_ => {
+              done();
+            })
+            .catch(_ => {});
         }
       },
       name: "reportManager"
@@ -176,6 +184,11 @@
     position: absolute;
     top: 700px;
     right: 20px;
+  }
 
+  .overflow{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 </style>
