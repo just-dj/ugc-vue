@@ -4,26 +4,37 @@
     <div class="body-main">
       <!--工具条-->
       <el-col :span="24" class="toolbar" style="padding-bottom: 0px;text-align: left">
-        <el-dropdown placement="bottom-start">
-          <el-button type="primary" icon="el-icon-search" title="查询"><i class="el-icon-arrow-down el-icon--right"></i>
-          </el-button>
-          <el-dropdown-menu slot="dropdown">
-            <el-form :inline="true" class="demo-form-inline" style="padding: 10px">
-              <el-form-item label="标题">
-                <el-input placeholder="标题" v-model="searchTitle"></el-input>
+        <el-form :inline="true" class="demo-form-inline" style="padding: 10px">
+          <el-form-item label="标题">
+            <el-input placeholder="标题" v-model="searchTitle"></el-input>
+          </el-form-item>
+          <el-form-item label="发布时间">
+            <el-col :span="18">
+              <el-form-item prop="date1">
+                <el-date-picker
+                  type="date"
+                  placeholder="选择日期"
+                  style="width: 100%;"
+                  v-model="createTime">
+                </el-date-picker>
               </el-form-item>
-              <el-form-item label="发布时间">
-                <el-col :span="18">
-                  <el-form-item prop="date1">
-                    <el-date-picker type="date" placeholder="选择日期" style="width: 100%;"
-                                    v-model="createTime"></el-date-picker>
-                  </el-form-item>
-                </el-col>
-              </el-form-item>
-            </el-form>
-          </el-dropdown-menu>
-        </el-dropdown>
-        <el-button type="primary" icon="el-icon-plus" title="新增" @click="addAnnouncement"></el-button>
+            </el-col>
+          </el-form-item>
+          <el-form-item>
+            <el-button type="primary" icon="el-icon-search" title="查询"></el-button>
+          </el-form-item>
+          <el-form-item>
+            <el-button type="primary" icon="el-icon-plus" title="新增" @click="addAnnouncement"></el-button>
+          </el-form-item>
+        </el-form>
+<!--        <el-dropdown placement="bottom-start">-->
+<!--          <el-button type="primary" icon="el-icon-search" title="查询"><i class="el-icon-arrow-down el-icon&#45;&#45;right"></i>-->
+<!--          </el-button>-->
+<!--          <el-dropdown-menu slot="dropdown">-->
+<!--            -->
+<!--          </el-dropdown-menu>-->
+<!--        </el-dropdown>-->
+
       </el-col>
 
       <el-table
