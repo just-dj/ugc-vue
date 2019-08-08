@@ -123,7 +123,7 @@
     changePWDAPI,
     checkCodeAPI,
     checkEmailAPI,
-    getCodeAPI, getUnReadNumAPI,
+    getCodeAPI,
     signInAPI,
     signOutAPI
   } from "../api/api";
@@ -289,13 +289,13 @@
         this.$router.push({path: '/editBlogPage'})
       },
 
-      getUnReadMessage: function () {
-        getUnReadNumAPI().then(res => {
-          if (res.code === 200) {
-            this.$store.commit('setUnReadNum', {name: 'stark', num: res.data});
-          }
-        })
-      },
+      // getUnReadMessage: function () {
+      //   getUnReadNumAPI().then(res => {
+      //     if (res.code === 200) {
+      //       this.$store.commit('setUnReadNum', {name: 'stark', num: res.data});
+      //     }
+      //   })
+      // },
 
       changePWD: function () {
         changePWDAPI(this.changePwdForm).then(res => {
@@ -456,7 +456,7 @@
     mounted() {
       if (!this.isEmpty(this.user)) {
         //用户已经登录
-        this.getUnReadMessage();
+        // this.getUnReadMessage();
       }
     }
   }

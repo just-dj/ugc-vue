@@ -75,8 +75,29 @@ export function  isEmpty(v) {
   return false;
 }
 
+export function sort(arr,pram,direction) {
+  if (direction === 'asc'){
+    arr.sort(compareAsc(pram))
+  }else {
+    arr.sort(compareDesc(pram))
+  }
+}
 
+function compareDesc(property) {
+  return function (a, b) {
+    var value1 = a[property];
+    var value2 = b[property];
+    return value2 - value1;
+  }
+}
 
+function compareAsc(property) {
+  return function (a, b) {
+    var value1 = a[property];
+    var value2 = b[property];
+    return value1 - value2;
+  }
+}
 
 //获得通过value获得下拉列表中的label
 export function getLabel(value, OptionArr) {

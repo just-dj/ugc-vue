@@ -38,21 +38,21 @@
         <!--文章列表-->
         <div class="list-item" v-for="(item,index) in articleList">
           <div class="list-item-left">
-            <div class="item-left-title" @click="toReadPage(item.id)">
+            <div class="item-left-title" @click="toReadPage(item)">
               <span style="font-size: 18px;font-weight: bold">{{item.title}}</span>
             </div>
             <div class="item-left-introduce">
               <span style="font-size: 16px;color: #cccccc">{{item.subTitle}}</span>
             </div>
             <div class="item-left-other">
-              <span style="margin-right: 70px;font-weight: bold">{{item.authorName}}</span>
-              <span style="margin-right: 70px">{{item.likeCount}}点赞</span>
-              <span style="margin-right: 70px">{{item.readCount}}阅读</span>
-              <span style="margin-right: 70px">一天前</span>
+              <span style="text-align:right;width:60px;margin-right: 70px;font-weight: bold">{{item.authorName}}</span>
+              <span style="text-align:right;width:60px;margin-right: 70px">{{item.likeCount}}点赞</span>
+              <span style="text-align:right;width:70px;margin-right: 70px">{{item.readCount}}阅读</span>
+              <span style="text-align:right;width:100px;margin-right: 70px">{{getDuring(item.presentTime)}}</span>
             </div>
           </div>
           <img style="width: 219px;height: 100%;"
-               :src="item.url"/>
+               :src="item.cover"/>
         </div>
 
         <!--loading标志-->
@@ -61,7 +61,7 @@
              element-loading-spinner="el-icon-loading"
              element-loading-background="rgba(0, 0, 0, 0)"
              element-loading-text="拼命加载中"
-             style="width: 100%;height: 300px;position: fixed;right: 0;bottom:-50px;">
+             style="width: 5%;height: 30px;position: fixed;right: 47.5%;bottom:40px;">
 
         </div>
       </div>
@@ -69,6 +69,7 @@
 
     </el-main>
   </el-container>
+
 </template>
 
 <script>
@@ -76,81 +77,24 @@
   import {} from "../../api/api";
   import * as util from "../../common/utils/util"
   import {dropListOneGetApi} from "../../api/api";
+  import {blogSimplePageAPI} from "../../api/api";
 
   export default {
     "name": "blogPage",
     data() {
       return {
         ugc_blog_options:[],
-        pageNum: 1,
-        pageSize: 10,
-        articleList:[{
-          id:'21312',
-          articleId:'',
-          title:'程序员养发秘籍',
-          subTitle:'多吃饭，多运动，然而没有什么用',
-          authorId:'',
-          authorName:'强仔',
-          likeCount:852,
-          readCount:8858,
-          presentTime:'',
-          url:'https://c2liantong.oss-cn-beijing.aliyuncs.com/12797375-239fdb759f575719.png'
-        },
-          {
-            id:'21312',
-            articleId:'',
-            title:'程序员养发秘籍',
-            subTitle:'多吃饭，多运动，然而没有什么用',
-            authorId:'',
-            authorName:'强强',
-            likeCount:852,
-            readCount:8858,
-            presentTime:'',
-            url:'https://c2liantong.oss-cn-beijing.aliyuncs.com/18652432-61146d3b3189d83b.jpg'
-          },
-          {
-            id:'21312',
-            articleId:'',
-            title:'程序员养发秘籍',
-            subTitle:'多吃饭，多运动，然而没有什么用',
-            authorId:'',
-            authorName:'强东',
-            likeCount:852,
-            readCount:8858,
-            presentTime:'',
-            url:'https://c2liantong.oss-cn-beijing.aliyuncs.com/330475-160H1163G490.jpg'
-          },
-          {
-            id:'21312',
-            articleId:'',
-            title:'程序员养发秘籍',
-            subTitle:'多吃饭，多运动，然而没有什么用',
-            authorId:'',
-            authorName:'强仔',
-            likeCount:852,
-            readCount:8858,
-            presentTime:'',
-            url:'http://justdj-umbrella.oss-cn-hangzhou.aliyuncs.com/background.jpg'
-          },
-          {
-            id:'21312',
-            articleId:'',
-            title:'程序员养发秘籍',
-            subTitle:'多吃饭，多运动，然而没有什么用',
-            authorId:'',
-            authorName:'强仔',
-            likeCount:852,
-            readCount:8858,
-            presentTime:'',
-            url:'https://c2liantong.oss-cn-beijing.aliyuncs.com/12797375-239fdb759f575719.png'
-          }],
-        fullScreenLoading: false,
+        pageNum: 0,
+        pageSize: 8,
+        isLastPage:false,
         // 当前选中模块
         selectNowKind:'dsj',
         // new or hot
         labelPosition: "new",
         // 搜索关键词
         searchInput: '',
+        articleList:[],
+        fullScreenLoading: false,
         articleLoading:false,
         swiperData:[
           {
@@ -166,7 +110,9 @@
             "https://c2liantong.oss-cn-beijing.aliyuncs.com/12797375-239fdb759f575719.png",
             nickname:"强强"
           }
-        ]
+        ],
+        forbidScroll:false,
+        top:0,
       }
     },
     computed: {
@@ -174,9 +120,10 @@
     methods: {
       labelChange:function(){
         this.openFullScreen();
+        this.getPageData();
       },
-      toReadPage:function(id){
-        this.$router.push({path: '/readBlogPage', query: {id: id}})
+      toReadPage:function(item){
+        this.$router.push({path: '/readBlogPage', query: {article: JSON.stringify(item)}})
       },
       orderScroll: function(){
         console.log("滚动")
@@ -186,41 +133,35 @@
         const offsetHeight = el.offsetHeight;
         el.onscroll = () => {
           const scrollTop = el.scrollTop;
-          const scrollHeight = el.scrollHeight;
-          if ((offsetHeight + scrollTop) - scrollHeight >= -100) {
-            if (this.articleLoading === true){
-              return;
-            }
-            this.articleLoading = true;
-            this.pageNum += 1;
-
-
-            let requestPara = {
-              "pageNum": this.pageNum,
-              "pageSize":this.pageSize,
-              "kind": this.selectNowKind,
-              "label":this.labelPosition
-            };
-            setTimeout(() => {
-              this.articleLoading = false;
-              for (let i = 0; i < 5; i++) {
-                this.articleList.push({
-                  id:'21312',
-                  articleId:'',
-                  title:'程序员养发秘籍',
-                  subTitle:'多吃饭，多运动，然而没有什么用',
-                  authorId:'',
-                  authorName:'强仔',
-                  likeCount:852,
-                  readCount:8858,
-                  presentTime:'',
-                  url:'https://c2liantong.oss-cn-beijing.aliyuncs.com/12797375-239fdb759f575719.png'
-                });
-              }
-            }, 1000 + Math.random() * 150);
-            //调用分页函数
-
+          if (this.forbidScroll){
+            this.top = scrollTop;
+            return;
           }
+          //向下滚动
+          if (scrollTop > this.top){
+            console.log("下")
+            const scrollHeight = el.scrollHeight;
+            if ((offsetHeight + scrollTop) - scrollHeight >= -100) {
+              //防抖动
+              this.forbidScroll = true;
+              setTimeout(() => {
+                this.forbidScroll = false;
+              },5000);
+              //是否为空
+              if (this.isLastPage){
+                this.$message.info("没有更多！");
+                return;
+              }
+              //分页请求
+              this.articleLoading = true;
+              this.pageNum += 1;
+              //调用分页函数
+              this.getPageData();
+            }
+          }else{
+            console.log("上")
+          }
+          this.top = scrollTop;
         }
       },
 
@@ -229,11 +170,48 @@
           return;
         }
           this.selectNowKind = kind;
-          this.labelPosition;
-          this.searchInput;
+          this.pageNum = 0;
           this.openFullScreen();
-        this.$message.success(this.selectNowKind + "   " + this.labelPosition +  "   " + this.searchInput);
+        this.getPageData();
       },
+
+      getDuring:function(createTime){
+        let temp = Date.now() - createTime;
+        if (temp < 60 * 1000){
+          return "刚刚";
+        } else if (temp < 60 * 60 * 1000){
+          return parseInt(temp / (60 * 1000) )　 + "分钟前";
+        }else if (temp < 24 * 60 * 60 * 1000){
+          return parseInt(temp / (60 * 60 * 1000) ) + "小时前";
+        } else {
+          return parseInt(temp / (24 * 60 * 60 * 1000) ) + "天前";
+        }
+      },
+
+      getPageData:function(){
+        let param = {
+          pageNum:this.pageNum,
+          pageSize:this.pageSize,
+          kind:this.selectNowKind,
+          label:this.labelPosition,
+          searchInput:this.searchInput
+        };
+        blogSimplePageAPI(param).then(res => {
+          this.articleLoading = false;
+           if (res.code === 200){
+             if (!util.isEmpty(res.data)){
+                this.isLastPage = res.data.last;
+                this.articleList = res.data.content;
+             }
+           }else if (res.code === 2) {
+             this.$store.commit('signInDialogVisibleTrue');
+           } else {
+             this.$message.error(res.msg)
+           }
+          }
+        )
+      },
+
       openFullScreen() {
         this.$store.commit('openFullScreenLoading');
         setTimeout(() => {
@@ -284,10 +262,13 @@
       dropListOneGetApi("ugc_blog_options").then(res => {
         if (res.code === 200) {
           this.ugc_blog_options = res.data;
+          this.selectNowKind = this.ugc_blog_options[0].value;
+          this.getPageData();
         } else {
           console.error("博客类型下拉列表获取失败");
         }
       });
+
 
     }
   }
@@ -361,7 +342,6 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    margin-bottom: 500px;
   }
 
   .main-right .list-article .list-article-operate {

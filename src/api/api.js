@@ -12,7 +12,8 @@ export const getCodeAPI= data=>{return fetch(jobServer+'/api/login/code/send', d
 export const checkEmailAPI= data=>{return fetch(jobServer+'/api/login/isExist', data, 'POST')}; //true 已使用 检验邮箱是否已被使用
 export const checkCodeAPI= data=>{return fetch(jobServer+'/api/login/code/check/', data, 'POST')}; //true 检验验证码是否正确
 export const changePWDAPI= data=>{return fetch(jobServer+'/tApi/login/changePassword', data, 'PATCH')}; //true 检验验证码是否正确
-
+/***********************用户相关************************/
+export const getUserAPI= data=>{return fetch(jobServer+'/api/user', data, 'GET')}; //注销登录
 /***********************下拉列表************************/
 export const dropListOneGetApi= data=>{return fetch(jobServer+'/api/drop/one', data, 'GET',"")}; //获取下拉列表
 
@@ -20,8 +21,13 @@ export const dropListOneGetApi= data=>{return fetch(jobServer+'/api/drop/one', d
 export const getUnReadNumAPI = data=>{return fetch(collectionService +'/tApi/message/all', data, 'GET')};//获取最近联系人列表
 
 /***********************博客相关接口********************************/
-export const addBlogAPI= data=>{return fetch(jobServer+'/api/blog/', data, 'POST')}; //登录
-
+export const addBlogAPI= data=>{return fetch(jobServer+'/api/blog/', data, 'POST')}; //
+export const getBlogAPI= data=>{return fetch(jobServer+'/api/blog/', data, 'GET')}; //
+export const blogReadCount= data=>{return fetch(jobServer+'/api/blog/readCount', data, 'GET')}; //
+export const blogLikeCount= data=>{return fetch(jobServer+'/api/blog/likeCount', data, 'GET')}; // true喜欢 false 取消喜欢
+export const blogSimplePageAPI= data=>{return fetch(jobServer+'/api/blog/page', data, 'POST')}; //
+export const addCommentApi= data=>{return fetch(jobServer+'/api/blog/comment', data, 'POST')}; //
+export const likeUserApi= data=>{return fetch(jobServer+'/api/blog/likeUser', data, 'GET')}; //
 /***********************通用接口********************************/
 export const uploadFile= data=>{return fetch(jobServer+'/api/universal/upload', data, 'POST')}; //登录
 

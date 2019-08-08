@@ -133,7 +133,7 @@
       },
 
       saveAsDrift: function(){
-        this.editForm.status = 0;
+        this.editForm.status = 2;
         this.saveArticle();
       },
 
