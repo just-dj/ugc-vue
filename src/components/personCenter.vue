@@ -162,7 +162,7 @@
             <el-tab-pane label="收藏" name="favorite" class="mytab">
               <el-tabs v-model="favoriteList">
                 <el-tab-pane label="博客" name="myBlogList">
-                  收藏的博客列表
+<!--收藏的博客列表-->
                   <el-row :gutter="20" class="cards regular-cards cl">
                     <el-col :span="6">
                       <div class="list-group-content" style="background: #fff">
@@ -182,213 +182,136 @@
                               </div>
                               <div class="media-body">
                                 <h5 class="media-heading"><a
-                                  href="http://www.dgtle.com/home.php?mod=space&amp;do=thread&amp;uid=337464">与我约人歌</a><span>·</span>2019-6-5
+                                  href="http://www.dgtle.com/home.php?mod=space&amp;do=thread&amp;uid=337464">与我约人歌</a><span> · </span>2019-6-5
                                   10:21</h5>
                               </div>
                             </div>
+                            <el-row class="list-stat paTop-14" :gutter="20" style="line-height: 40px">
+                              <el-col :span="8">
+                                <span class="like-num"><i class="el-icon-moon"></i>557</span>
+                              </el-col>
+                              <el-col :span="8">
+                                <span class="like-num"><i class="el-icon-s-comment"></i>165</span>
+                              </el-col>
+                              <el-col :span="8">
+                                <el-button type="text" @click="handleDelete" style="color: #8c939d">取消收藏</el-button>
+                              </el-col>
+                            </el-row>
                           </el-row>
-
                         </div>
-                        <ul class="list-group">
-
-
-                          <li class="list-group-item">
-                            <div class="list-stat paTop-14">
-                              <a href="javascript:;" style="display: inline-block;">
-                                <div class="dgtle-fonts like-icon " data-groupfid="0" data-grouptid="1470598">
-                                  <i class="icobutton icobutton--thumbs-up Dgtle-fonts icon-Dgtlex-dgtlexicon-like">
-                                    <b class="fa fa-thumbs-up"></b>
-                                  </i>
-                                  <div data-name="mojs-shape" class=""
-                                       style="position: absolute; width: 0px; height: 0px; margin-left: 0px; margin-top: 0px; opacity: 0; left: 50%; top: 50%; transform: scale(0); transform-origin: 50% 50%;">
-                                    <div data-name="mojs-shape" class=""
-                                         style="position: absolute; width: 41px; height: 41px; margin-left: -20.5px; margin-top: -20.5px; opacity: 0; left: 50%; top: 50%; transform: scale(0); transform-origin: 50% 50%;">
-                                      <svg style="display: block; width: 100%; height: 100%; left: 0px; top: 0px;">
-                                        <line x1="0.5" x2="40.5" y1="20.5" y2="20.5" fill-opacity="1" stroke-linecap=""
-                                              stroke-dashoffset="" fill="white" stroke-dasharray="" stroke-opacity="1"
-                                              stroke-width="1" stroke="#EE9393"></line>
-                                      </svg>
-                                    </div>
-                                    <div data-name="mojs-shape" class=""
-                                         style="position: absolute; width: 41px; height: 41px; margin-left: -20.5px; margin-top: -20.5px; opacity: 0; left: 50%; top: 50%; transform: scale(0); transform-origin: 50% 50%;">
-                                      <svg style="display: block; width: 100%; height: 100%; left: 0px; top: 0px;">
-                                        <line x1="0.5" x2="40.5" y1="20.5" y2="20.5" fill-opacity="1" stroke-linecap=""
-                                              stroke-dashoffset="" fill="white" stroke-dasharray="" stroke-opacity="1"
-                                              stroke-width="1" stroke="#EE9393"></line>
-                                      </svg>
-                                    </div>
-                                    <div data-name="mojs-shape" class=""
-                                         style="position: absolute; width: 41px; height: 41px; margin-left: -20.5px; margin-top: -20.5px; opacity: 0; left: 50%; top: 50%; transform: scale(0); transform-origin: 50% 50%;">
-                                      <svg style="display: block; width: 100%; height: 100%; left: 0px; top: 0px;">
-                                        <line x1="0.5" x2="40.5" y1="20.5" y2="20.5" fill-opacity="1" stroke-linecap=""
-                                              stroke-dashoffset="" fill="white" stroke-dasharray="" stroke-opacity="1"
-                                              stroke-width="1" stroke="#EE9393"></line>
-                                      </svg>
-                                    </div>
-                                    <div data-name="mojs-shape" class=""
-                                         style="position: absolute; width: 41px; height: 41px; margin-left: -20.5px; margin-top: -20.5px; opacity: 0; left: 50%; top: 50%; transform: scale(0); transform-origin: 50% 50%;">
-                                      <svg style="display: block; width: 100%; height: 100%; left: 0px; top: 0px;">
-                                        <line x1="0.5" x2="40.5" y1="20.5" y2="20.5" fill-opacity="1" stroke-linecap=""
-                                              stroke-dashoffset="" fill="white" stroke-dasharray="" stroke-opacity="1"
-                                              stroke-width="1" stroke="#EE9393"></line>
-                                      </svg>
-                                    </div>
-                                    <div data-name="mojs-shape" class=""
-                                         style="position: absolute; width: 41px; height: 41px; margin-left: -20.5px; margin-top: -20.5px; opacity: 0; left: 50%; top: 50%; transform: scale(0); transform-origin: 50% 50%;">
-                                      <svg style="display: block; width: 100%; height: 100%; left: 0px; top: 0px;">
-                                        <line x1="0.5" x2="40.5" y1="20.5" y2="20.5" fill-opacity="1" stroke-linecap=""
-                                              stroke-dashoffset="" fill="white" stroke-dasharray="" stroke-opacity="1"
-                                              stroke-width="1" stroke="#EE9393"></line>
-                                      </svg>
-                                    </div>
-                                    <div data-name="mojs-shape" class=""
-                                         style="position: absolute; width: 41px; height: 41px; margin-left: -20.5px; margin-top: -20.5px; opacity: 0; left: 50%; top: 50%; transform: scale(0); transform-origin: 50% 50%;">
-                                      <svg style="display: block; width: 100%; height: 100%; left: 0px; top: 0px;">
-                                        <line x1="0.5" x2="40.5" y1="20.5" y2="20.5" fill-opacity="1" stroke-linecap=""
-                                              stroke-dashoffset="" fill="white" stroke-dasharray="" stroke-opacity="1"
-                                              stroke-width="1" stroke="#EE9393"></line>
-                                      </svg>
-                                    </div>
-                                    <div data-name="mojs-shape" class=""
-                                         style="position: absolute; width: 41px; height: 41px; margin-left: -20.5px; margin-top: -20.5px; opacity: 0; left: 50%; top: 50%; transform: scale(0); transform-origin: 50% 50%;">
-                                      <svg style="display: block; width: 100%; height: 100%; left: 0px; top: 0px;">
-                                        <line x1="0.5" x2="40.5" y1="20.5" y2="20.5" fill-opacity="1" stroke-linecap=""
-                                              stroke-dashoffset="" fill="white" stroke-dasharray="" stroke-opacity="1"
-                                              stroke-width="1" stroke="#EE9393"></line>
-                                      </svg>
-                                    </div>
-                                    <div data-name="mojs-shape" class=""
-                                         style="position: absolute; width: 41px; height: 41px; margin-left: -20.5px; margin-top: -20.5px; opacity: 0; left: 50%; top: 50%; transform: scale(0); transform-origin: 50% 50%;">
-                                      <svg style="display: block; width: 100%; height: 100%; left: 0px; top: 0px;">
-                                        <line x1="0.5" x2="40.5" y1="20.5" y2="20.5" fill-opacity="1" stroke-linecap=""
-                                              stroke-dashoffset="" fill="white" stroke-dasharray="" stroke-opacity="1"
-                                              stroke-width="1" stroke="#EE9393"></line>
-                                      </svg>
-                                    </div>
-                                    <div data-name="mojs-shape" class=""
-                                         style="position: absolute; width: 41px; height: 41px; margin-left: -20.5px; margin-top: -20.5px; opacity: 0; left: 50%; top: 50%; transform: scale(0); transform-origin: 50% 50%;">
-                                      <svg style="display: block; width: 100%; height: 100%; left: 0px; top: 0px;">
-                                        <line x1="0.5" x2="40.5" y1="20.5" y2="20.5" fill-opacity="1" stroke-linecap=""
-                                              stroke-dashoffset="" fill="white" stroke-dasharray="" stroke-opacity="1"
-                                              stroke-width="1" stroke="#EE9393"></line>
-                                      </svg>
-                                    </div>
-                                    <div data-name="mojs-shape" class=""
-                                         style="position: absolute; width: 41px; height: 41px; margin-left: -20.5px; margin-top: -20.5px; opacity: 0; left: 50%; top: 50%; transform: scale(0); transform-origin: 50% 50%;">
-                                      <svg style="display: block; width: 100%; height: 100%; left: 0px; top: 0px;">
-                                        <line x1="0.5" x2="40.5" y1="20.5" y2="20.5" fill-opacity="1" stroke-linecap=""
-                                              stroke-dashoffset="" fill="white" stroke-dasharray="" stroke-opacity="1"
-                                              stroke-width="1" stroke="#EE9393"></line>
-                                      </svg>
-                                    </div>
-                                    <div data-name="mojs-shape" class=""
-                                         style="position: absolute; width: 41px; height: 41px; margin-left: -20.5px; margin-top: -20.5px; opacity: 0; left: 50%; top: 50%; transform: scale(0); transform-origin: 50% 50%;">
-                                      <svg style="display: block; width: 100%; height: 100%; left: 0px; top: 0px;">
-                                        <line x1="0.5" x2="40.5" y1="20.5" y2="20.5" fill-opacity="1" stroke-linecap=""
-                                              stroke-dashoffset="" fill="white" stroke-dasharray="" stroke-opacity="1"
-                                              stroke-width="1" stroke="#EE9393"></line>
-                                      </svg>
-                                    </div>
-                                    <div data-name="mojs-shape" class=""
-                                         style="position: absolute; width: 41px; height: 41px; margin-left: -20.5px; margin-top: -20.5px; opacity: 0; left: 50%; top: 50%; transform: scale(0); transform-origin: 50% 50%;">
-                                      <svg style="display: block; width: 100%; height: 100%; left: 0px; top: 0px;">
-                                        <line x1="0.5" x2="40.5" y1="20.5" y2="20.5" fill-opacity="1" stroke-linecap=""
-                                              stroke-dashoffset="" fill="white" stroke-dasharray="" stroke-opacity="1"
-                                              stroke-width="1" stroke="#EE9393"></line>
-                                      </svg>
-                                    </div>
-                                    <div data-name="mojs-shape" class=""
-                                         style="position: absolute; width: 41px; height: 41px; margin-left: -20.5px; margin-top: -20.5px; opacity: 0; left: 50%; top: 50%; transform: scale(0); transform-origin: 50% 50%;">
-                                      <svg style="display: block; width: 100%; height: 100%; left: 0px; top: 0px;">
-                                        <line x1="0.5" x2="40.5" y1="20.5" y2="20.5" fill-opacity="1" stroke-linecap=""
-                                              stroke-dashoffset="" fill="white" stroke-dasharray="" stroke-opacity="1"
-                                              stroke-width="1" stroke="#EE9393"></line>
-                                      </svg>
-                                    </div>
-                                    <div data-name="mojs-shape" class=""
-                                         style="position: absolute; width: 41px; height: 41px; margin-left: -20.5px; margin-top: -20.5px; opacity: 0; left: 50%; top: 50%; transform: scale(0); transform-origin: 50% 50%;">
-                                      <svg style="display: block; width: 100%; height: 100%; left: 0px; top: 0px;">
-                                        <line x1="0.5" x2="40.5" y1="20.5" y2="20.5" fill-opacity="1" stroke-linecap=""
-                                              stroke-dashoffset="" fill="white" stroke-dasharray="" stroke-opacity="1"
-                                              stroke-width="1" stroke="#EE9393"></line>
-                                      </svg>
-                                    </div>
-                                    <div data-name="mojs-shape" class=""
-                                         style="position: absolute; width: 41px; height: 41px; margin-left: -20.5px; margin-top: -20.5px; opacity: 0; left: 50%; top: 50%; transform: scale(0); transform-origin: 50% 50%;">
-                                      <svg style="display: block; width: 100%; height: 100%; left: 0px; top: 0px;">
-                                        <line x1="0.5" x2="40.5" y1="20.5" y2="20.5" fill-opacity="1" stroke-linecap=""
-                                              stroke-dashoffset="" fill="white" stroke-dasharray="" stroke-opacity="1"
-                                              stroke-width="1" stroke="#EE9393"></line>
-                                      </svg>
-                                    </div>
-                                    <div data-name="mojs-shape" class=""
-                                         style="position: absolute; width: 41px; height: 41px; margin-left: -20.5px; margin-top: -20.5px; opacity: 0; left: 50%; top: 50%; transform: scale(0); transform-origin: 50% 50%;">
-                                      <svg style="display: block; width: 100%; height: 100%; left: 0px; top: 0px;">
-                                        <line x1="0.5" x2="40.5" y1="20.5" y2="20.5" fill-opacity="1" stroke-linecap=""
-                                              stroke-dashoffset="" fill="white" stroke-dasharray="" stroke-opacity="1"
-                                              stroke-width="1" stroke="#EE9393"></line>
-                                      </svg>
-                                    </div>
-                                    <div data-name="mojs-shape" class=""
-                                         style="position: absolute; width: 41px; height: 41px; margin-left: -20.5px; margin-top: -20.5px; opacity: 0; left: 50%; top: 50%; transform: scale(0); transform-origin: 50% 50%;">
-                                      <svg style="display: block; width: 100%; height: 100%; left: 0px; top: 0px;">
-                                        <line x1="0.5" x2="40.5" y1="20.5" y2="20.5" fill-opacity="1" stroke-linecap=""
-                                              stroke-dashoffset="" fill="white" stroke-dasharray="" stroke-opacity="1"
-                                              stroke-width="1" stroke="#EE9393"></line>
-                                      </svg>
-                                    </div>
-                                    <div data-name="mojs-shape" class=""
-                                         style="position: absolute; width: 41px; height: 41px; margin-left: -20.5px; margin-top: -20.5px; opacity: 0; left: 50%; top: 50%; transform: scale(0); transform-origin: 50% 50%;">
-                                      <svg style="display: block; width: 100%; height: 100%; left: 0px; top: 0px;">
-                                        <line x1="0.5" x2="40.5" y1="20.5" y2="20.5" fill-opacity="1" stroke-linecap=""
-                                              stroke-dashoffset="" fill="white" stroke-dasharray="" stroke-opacity="1"
-                                              stroke-width="1" stroke="#EE9393"></line>
-                                      </svg>
-                                    </div>
-                                    <div data-name="mojs-shape" class=""
-                                         style="position: absolute; width: 41px; height: 41px; margin-left: -20.5px; margin-top: -20.5px; opacity: 0; left: 50%; top: 50%; transform: scale(0); transform-origin: 50% 50%;">
-                                      <svg style="display: block; width: 100%; height: 100%; left: 0px; top: 0px;">
-                                        <line x1="0.5" x2="40.5" y1="20.5" y2="20.5" fill-opacity="1" stroke-linecap=""
-                                              stroke-dashoffset="" fill="white" stroke-dasharray="" stroke-opacity="1"
-                                              stroke-width="1" stroke="#EE9393"></line>
-                                      </svg>
-                                    </div>
-                                    <div data-name="mojs-shape" class=""
-                                         style="position: absolute; width: 41px; height: 41px; margin-left: -20.5px; margin-top: -20.5px; opacity: 0; left: 50%; top: 50%; transform: scale(0); transform-origin: 50% 50%;">
-                                      <svg style="display: block; width: 100%; height: 100%; left: 0px; top: 0px;">
-                                        <line x1="0.5" x2="40.5" y1="20.5" y2="20.5" fill-opacity="1" stroke-linecap=""
-                                              stroke-dashoffset="" fill="white" stroke-dasharray="" stroke-opacity="1"
-                                              stroke-width="1" stroke="#EE9393"></line>
-                                      </svg>
-                                    </div>
-                                  </div>
-                                  <div data-name="mojs-shape" class=""
-                                       style="position: absolute; width: 40px; height: 40px; margin-left: -20px; margin-top: -20px; opacity: 0; left: 50%; top: 50%; transform: scale(0); transform-origin: 50% 50%;">
-                                    <svg style="display: block; width: 100%; height: 100%; left: 0px; top: 0px;">
-                                      <ellipse rx="8" ry="8" cx="20" cy="20" fill-opacity="1" stroke-linecap=""
-                                               stroke-dashoffset="" fill="transparent" stroke-dasharray=""
-                                               stroke-opacity="1" stroke-width="10" stroke="#EE9393"></ellipse>
-                                    </svg>
-                                  </div>
-                                </div>
-                              </a>
-                              <span class="like-num">557</span>
-                              <a href="javascript:;"><i
-                                class="Dgtle-fonts icon-Dgtlex-dgtlexicon-comment"></i></a><span>165</span>
-                              <button type="button" class="btn btn-default btn-xs pull-right" title="pin">
-                                <a onclick="return confirm('是否删除此收藏');"
-                                   href="home.php?mod=spacecp&amp;ac=favorite&amp;op=delete&amp;favid=2194197&amp;type=all&amp;deletesubmit=true&amp;formhash62bd6751&amp;handlekey=a_delete_2194197">
-                                  取消收藏
-                                </a>
-                              </button>
-                            </div>
-                          </li>
-                        </ul>
                       </div>
                     </el-col>
-                    <el-col :span="6"></el-col>
-                    <el-col :span="6"></el-col>
-                    <el-col :span="6"></el-col>
+                    <el-col :span="6">
+                      <div class="list-group-content" style="background: #fff">
+                        <div class="img-box">
+                          <a href="#"><img src="http://justdj-umbrella.oss-cn-hangzhou.aliyuncs.com/background.jpg"></a>
+                        </div>
+                        <div class="cards-content">
+                          <h3><a href="#">这里是文章标题233333</a></h3>
+                          <p>我好难啊，毫无头绪，甚至有点想吃黄焖鸡米饭啊啊啊啊嘤嘤嘤</p>
+                          <el-row>
+                            <div class="media">
+                              <div class="media-left">
+                                <a href="javascript:;">
+                                  <img class="media-object img-rounded"
+                                       src="http://www.dgtle.com/uc_server/avatar.php?uid=337464">
+                                </a>
+                              </div>
+                              <div class="media-body">
+                                <h5 class="media-heading"><a
+                                  href="http://www.dgtle.com/home.php?mod=space&amp;do=thread&amp;uid=337464">与我约人歌</a><span> · </span>2019-6-5
+                                  10:21</h5>
+                              </div>
+                            </div>
+                            <el-row class="list-stat paTop-14" :gutter="20" style="line-height: 40px">
+                              <el-col :span="8">
+                                <span class="like-num"><i class="el-icon-moon"></i>557</span>
+                              </el-col>
+                              <el-col :span="8">
+                                <span class="like-num"><i class="el-icon-s-comment"></i>165</span>
+                              </el-col>
+                              <el-col :span="8">
+                                <el-button type="text" @click="handleDelete" style="color: #8c939d">取消收藏</el-button>
+                              </el-col>
+                            </el-row>
+                          </el-row>
+                        </div>
+                      </div>
+                    </el-col>
+                    <el-col :span="6">
+                    <div class="list-group-content" style="background: #fff">
+                      <div class="img-box">
+                        <a href="#"><img src="http://justdj-umbrella.oss-cn-hangzhou.aliyuncs.com/background.jpg"></a>
+                      </div>
+                      <div class="cards-content">
+                        <h3><a href="#">这里是文章标题233333</a></h3>
+                        <p>我好难啊，毫无头绪，甚至有点想吃黄焖鸡米饭啊啊啊啊嘤嘤嘤</p>
+                        <el-row>
+                          <div class="media">
+                            <div class="media-left">
+                              <a href="javascript:;">
+                                <img class="media-object img-rounded"
+                                     src="http://www.dgtle.com/uc_server/avatar.php?uid=337464">
+                              </a>
+                            </div>
+                            <div class="media-body">
+                              <h5 class="media-heading"><a
+                                href="http://www.dgtle.com/home.php?mod=space&amp;do=thread&amp;uid=337464">与我约人歌</a><span> · </span>2019-6-5
+                                10:21</h5>
+                            </div>
+                          </div>
+                          <el-row class="list-stat paTop-14" :gutter="20" style="line-height: 40px">
+                            <el-col :span="8">
+                              <span class="like-num"><i class="el-icon-moon"></i>557</span>
+                            </el-col>
+                            <el-col :span="8">
+                              <span class="like-num"><i class="el-icon-s-comment"></i>165</span>
+                            </el-col>
+                            <el-col :span="8">
+                              <el-button type="text" @click="handleDelete" style="color: #8c939d">取消收藏</el-button>
+                            </el-col>
+                          </el-row>
+                        </el-row>
+                      </div>
+                    </div>
+                  </el-col>
+                    <el-col :span="6">
+                      <div class="list-group-content" style="background: #fff">
+                        <div class="img-box">
+                          <a href="#"><img src="http://justdj-umbrella.oss-cn-hangzhou.aliyuncs.com/background.jpg"></a>
+                        </div>
+                        <div class="cards-content">
+                          <h3><a href="#">这里是文章标题233333</a></h3>
+                          <p>我好难啊，毫无头绪，甚至有点想吃黄焖鸡米饭啊啊啊啊嘤嘤嘤</p>
+                          <el-row>
+                            <div class="media">
+                              <div class="media-left">
+                                <a href="javascript:;">
+                                  <img class="media-object img-rounded"
+                                       src="http://www.dgtle.com/uc_server/avatar.php?uid=337464">
+                                </a>
+                              </div>
+                              <div class="media-body">
+                                <h5 class="media-heading"><a
+                                  href="http://www.dgtle.com/home.php?mod=space&amp;do=thread&amp;uid=337464">与我约人歌</a><span> · </span>2019-6-5
+                                  10:21</h5>
+                              </div>
+                            </div>
+                            <el-row class="list-stat paTop-14" :gutter="20" style="line-height: 40px">
+                              <el-col :span="8">
+                                <span class="like-num"><i class="el-icon-moon"></i>557</span>
+                              </el-col>
+                              <el-col :span="8">
+                                <span class="like-num"><i class="el-icon-s-comment"></i>165</span>
+                              </el-col>
+                              <el-col :span="8">
+                                <el-button type="text" @click="handleDelete" style="color: #8c939d">取消收藏</el-button>
+                              </el-col>
+                            </el-row>
+                          </el-row>
+                        </div>
+                      </div>
+                    </el-col>
                   </el-row>
                 </el-tab-pane>
                 <el-tab-pane label="会议" name="myArticleList">
@@ -431,7 +354,25 @@
             },
             mounted() {
                 this.openFullScreen();
-            }
+            },
+            handleDelete() {
+                this.$confirm('是否取消收藏该博客?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    this.$message({
+                        type: 'success',
+                        message: '已取消收藏!'
+                    });
+                }).catch(() => {
+                    // this.$message({
+                    //     type: 'info',
+                    //     message: '已取消删除'
+                    // });
+                    console.log("2333");
+                });
+            },
         }
     }
 </script>
@@ -593,7 +534,7 @@
     z-index: 1;
   }
 
-  >>> .mytab .el-tabs__nav-wrap::after {
+  >>> .mytab .el-tabs__nav-wrap:after {
     background: none;
   }
 
@@ -684,9 +625,12 @@
   }
 
   /*博客收藏*/
+  .list-group-content{
+    border-radius: 5px;
+  }
   .img-box img {
-    width: 225px;
-    height: 130px;
+    width: 100%;
+    /*height: 130px;*/
   }
 
   .cards-content {
@@ -707,7 +651,7 @@
     text-align: left;
   }
 
-  .cards-content .media-left a:visited {
+  .cards-content a:visited {
     color: #000000;
   }
 .media-left{
@@ -738,5 +682,11 @@
     line-height: 32px;
     margin-bottom: 0;
   }
-
+  .list-stat{
+    float: left;
+    margin-top: 20px;
+    font-size: 14px;
+    text-align: center;
+    color: #8c939d;
+  }
 </style>
