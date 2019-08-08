@@ -59,10 +59,15 @@
                   <div style="color: black;margin-right: 10px;font-size: 17px">
                     {{this.author.name}}
                   </div>
-                  <div class="button-collect">
-                <span class="el-icon-plus" style="color:#fff;width: 100%;height: 100%;display: flex;justify-content: center;align-items: center">
-                  关注
-                </span>
+                  <div @click="likeUser" v-if="!isAuthorLiked" class="button-collect">
+                    <span  class="el-icon-plus" style="color:#fff;width: 100%;height: 100%;display: flex;justify-content: center;align-items: center">
+                      关注
+                    </span>
+                  </div>
+                  <div v-else class="button-collect">
+                    <span style="color:#fff;width: 100%;height: 100%;display: flex;justify-content: center;align-items: center">
+                       已关注
+                    </span>
                   </div>
                 </div>
 
@@ -85,7 +90,7 @@
             </vue-editor>
           </div>
 
-          <div v-if="type==='read'" class="author-detailInfo" style="width: 100%;height: 150px;background-color: #aaa">
+          <div v-if="type==='read'" class="author-detailInfo" style="width: 100%;height: 150px;">
 
 
           </div>
@@ -163,7 +168,7 @@
 <script>
   import {VueEditor} from 'vue2-editor';
   import * as util from "../../common/utils/util";
-  import {addCommentApi, blogLikeCount, blogReadCount, getBlogAPI, getUserAPI} from "../../api/api";
+  import {addCommentApi, blogLikeCount, blogReadCount, getBlogAPI, getUserAPI, likeUserApi} from "../../api/api";
   import {isEmpty} from "../../common/utils/util";
   import {contains} from "../../common/utils/util";
 
@@ -178,7 +183,8 @@
         isLogin:false,
         author:'',
         isLiked: false,
-        userComment:''
+        userComment:'',
+        isAuthorLiked:false
       }
     },
     computed:{
@@ -192,6 +198,24 @@
       },
     },
     methods: {
+      likeUser:function(){
+        likeUserApi(this.article.authorId).then(res => {
+           if (res.code === 200){
+             if (isEmpty(this.user.likeUser)) {
+               this.user.likeUserId = [];
+             }
+             this.isAuthorLiked = true;
+             this.user.likeUserId.push(this.article.authorId);
+             localStorage.setItem("user",JSON.stringify(res.data));
+             this.$store.commit('setHeadImg', {name: 'stark', user: res.data});
+           }else if (res.code === 2) {
+             this.$store.commit('signInDialogVisibleTrue');
+           } else {
+             this.$message.error(res.msg)
+           }
+        })
+      },
+
       likeComment:function(item){
 
         if (isEmpty(item.likeUserId)){
@@ -334,9 +358,10 @@
 
         getBlogAPI(this.article.id).then(res => {
            if (res.code === 200){
-             console.log("正常")
+             console.log("正常");
              this.article = res.data;
              util.sort(this.article.comment,"commentTime","desc");
+             this.isAuthorLiked = ((this.article.authorId === this.user.id) || contains(this.user.likeUserId,this.article.authorId))
            }else if (res.code === 2) {
              this.$store.commit('signInDialogVisibleTrue');
            } else {

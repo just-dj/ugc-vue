@@ -52,7 +52,7 @@
             </div>
           </div>
           <img style="width: 219px;height: 100%;"
-               :src="item.url"/>
+               :src="item.cover"/>
         </div>
 
         <!--loading标志-->
@@ -69,6 +69,7 @@
 
     </el-main>
   </el-container>
+
 </template>
 
 <script>

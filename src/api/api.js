@@ -27,6 +27,7 @@ export const blogReadCount= data=>{return fetch(jobServer+'/api/blog/readCount',
 export const blogLikeCount= data=>{return fetch(jobServer+'/api/blog/likeCount', data, 'GET')}; // true喜欢 false 取消喜欢
 export const blogSimplePageAPI= data=>{return fetch(jobServer+'/api/blog/page', data, 'POST')}; //
 export const addCommentApi= data=>{return fetch(jobServer+'/api/blog/comment', data, 'POST')}; //
+export const likeUserApi= data=>{return fetch(jobServer+'/api/blog/likeUser', data, 'GET')}; //
 /***********************通用接口********************************/
 export const uploadFile= data=>{return fetch(jobServer+'/api/universal/upload', data, 'POST')}; //登录
 
