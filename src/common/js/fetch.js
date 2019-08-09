@@ -41,7 +41,6 @@ export default async (url = '', data = {}, type = 'GET', method = 'fetch') => {
           }
           resolve(obj)
         } else {
-          console.log("接口访问出错");
           reject(requestObj)
         }
       }

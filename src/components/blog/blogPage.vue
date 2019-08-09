@@ -17,11 +17,11 @@
     <el-main class="main-right" style="height: auto">
       <div class="top-article">
 
-        <el-carousel :interval="2000" type="card" height="200px">
-          <el-carousel-item v-for="(item,index) in swiperData" :key="index">
-            <div class="infoText">
-              <img  style="width: 100%;height: 100%" :src="item.headImg"/>
-              <!--<span class="spanOne"> {{item.nickname}}</span>-->
+        <el-carousel :interval="3500" type="card" height="200px">
+          <el-carousel-item v-for="(item,index) in topArticle" :key="index">
+            <div class="infoText" @click="toReadPage(item)">
+              <img  style="width: 100%;height: 100%" :src="item.cover"/>
+              <!--<span class="spanOne" style="position:absolute;top:85%;left:10px;text-align: center"> {{item.title}}</span>-->
             </div>
           </el-carousel-item>
         </el-carousel>
@@ -33,7 +33,7 @@
             <el-radio-button label="hot">最近热门</el-radio-button>
           </el-radio-group>
 
-          <el-input style="width: 218px" v-model="searchInput" placeholder="请输入关键字"></el-input>
+          <el-input style="width: 218px" v-model="searchInput" @change="getPageData" placeholder="请输入关键字"></el-input>
         </div>
         <!--文章列表-->
         <div class="list-item" v-for="(item,index) in articleList">
@@ -78,11 +78,13 @@
   import * as util from "../../common/utils/util"
   import {dropListOneGetApi} from "../../api/api";
   import {blogSimplePageAPI} from "../../api/api";
+  import {getTopBlogApi} from "../../api/api";
 
   export default {
     "name": "blogPage",
     data() {
       return {
+        topArticle:[],
         ugc_blog_options:[],
         pageNum: 0,
         pageSize: 8,
@@ -196,6 +198,7 @@
           label:this.labelPosition,
           searchInput:this.searchInput
         };
+
         blogSimplePageAPI(param).then(res => {
           this.articleLoading = false;
            if (res.code === 200){
@@ -257,8 +260,10 @@
     },
 
     mounted() {
+
       this.openFullScreen();
       this.scroll();
+
       dropListOneGetApi("ugc_blog_options").then(res => {
         if (res.code === 200) {
           this.ugc_blog_options = res.data;
@@ -269,6 +274,18 @@
         }
       });
 
+      getTopBlogApi('').then(res => {
+         if (res.code === 200){
+           if (!util.isEmpty(res.data)){
+
+             this.topArticle = res.data;
+           }
+         }else if (res.code === 2) {
+           this.$store.commit('signInDialogVisibleTrue');
+         } else {
+           this.$message.error(res.msg)
+         }
+      })
 
     }
   }

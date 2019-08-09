@@ -14,6 +14,12 @@ export const checkCodeAPI= data=>{return fetch(jobServer+'/api/login/code/check/
 export const changePWDAPI= data=>{return fetch(jobServer+'/tApi/login/changePassword', data, 'PATCH')}; //true 检验验证码是否正确
 /***********************用户相关************************/
 export const getUserAPI= data=>{return fetch(jobServer+'/api/user', data, 'GET')}; //注销登录
+
+/*****************角色相关************************/
+export const getModuleTreeApi= data=>{return fetch(jobServer+'/api/role/roleGroup', data, 'GET')}; //
+export const getAllRoleApi= data=>{return fetch(jobServer+'/api/role/all', data, 'POST')}; //
+export const addRoleApi= data=>{return fetch(jobServer+'/api/role/', data, 'POST')}; //
+export const editRoleApi= data=>{return fetch(jobServer+'/api/role/', data, 'PATCH')}; //
 /***********************下拉列表************************/
 export const dropListOneGetApi= data=>{return fetch(jobServer+'/api/drop/one', data, 'GET',"")}; //获取下拉列表
 
@@ -26,8 +32,12 @@ export const getBlogAPI= data=>{return fetch(jobServer+'/api/blog/', data, 'GET'
 export const blogReadCount= data=>{return fetch(jobServer+'/api/blog/readCount', data, 'GET')}; //
 export const blogLikeCount= data=>{return fetch(jobServer+'/api/blog/likeCount', data, 'GET')}; // true喜欢 false 取消喜欢
 export const blogSimplePageAPI= data=>{return fetch(jobServer+'/api/blog/page', data, 'POST')}; //
+export const blogManagerPageAPI= data=>{return fetch(jobServer+'/api/blog/page/manager', data, 'POST')}; //
 export const addCommentApi= data=>{return fetch(jobServer+'/api/blog/comment', data, 'POST')}; //
 export const likeUserApi= data=>{return fetch(jobServer+'/api/blog/likeUser', data, 'GET')}; //
+export const changeBlogStatusApi= data=>{return fetch(jobServer+'/api/blog/status', data, 'POST')}; //
+export const changeBlogTopApi= data=>{return fetch(jobServer+'/api/blog/top', data, 'POST')}; //
+export const getTopBlogApi= data=>{return fetch(jobServer+'/api/blog/top', data, 'GET')}; //
 /***********************通用接口********************************/
 export const uploadFile= data=>{return fetch(jobServer+'/api/universal/upload', data, 'POST')}; //登录
 

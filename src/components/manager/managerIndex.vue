@@ -116,7 +116,41 @@
       return {};
     },
     computed: {},
-    methods: {},
+    methods: {
+      isEmpty: function (v) {
+        switch (typeof v) {
+          case 'undefined':
+            return true;
+          case 'string':
+            if (v.replace(/(^[ \t\n\r]*)|([ \t\n\r]*$)/g, '').length === 0) return true;
+            break;
+          case 'boolean':
+            if (!v) return true;
+            break;
+          case 'number':
+            if (0 === v || isNaN(v)) return true;
+            break;
+          case 'object':
+            if (null === v || v.length === 0) return true;
+            for (let i in v) {
+              return false;
+            }
+            return true;
+        }
+        return false;
+      },
+
+      contains: function (arr, val) {
+        console.log("调用比较函数 arr" + JSON.stringify(arr) + "      " + val + "   empty " + this.isEmpty(arr));
+        if (this.isEmpty(arr)) {
+          console.log("为空")
+          return false;
+        }
+        return arr.indexOf(val) != -1 ? true : false;
+      },
+
+
+    },
 
     beforeCreate: function () {
 
