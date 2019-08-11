@@ -45,7 +45,8 @@
               <span style="font-size: 16px;color: #cccccc">{{item.subTitle}}</span>
             </div>
             <div class="item-left-other">
-              <span style="text-align:right;width:60px;margin-right: 70px;font-weight: bold">{{item.authorName}}</span>
+              <span v-if="!item.kind==='0'" style="text-align:right;width:60px;margin-right: 70px;font-weight: bold">{{item.authorName}}</span>
+              <span v-else style="text-align:right;width:60px;margin-right: 70px;font-weight: bold">**</span>
               <span style="text-align:right;width:60px;margin-right: 70px">{{item.likeCount}}点赞</span>
               <span style="text-align:right;width:70px;margin-right: 70px">{{item.readCount}}阅读</span>
               <span style="text-align:right;width:100px;margin-right: 70px">{{getDuring(item.presentTime)}}</span>
@@ -90,7 +91,7 @@
         pageSize: 8,
         isLastPage:false,
         // 当前选中模块
-        selectNowKind:'dsj',
+        selectNowKind:'0',
         // new or hot
         labelPosition: "new",
         // 搜索关键词
@@ -98,21 +99,7 @@
         articleList:[],
         fullScreenLoading: false,
         articleLoading:false,
-        swiperData:[
-          {
-            headImg:"https://c2liantong.oss-cn-beijing.aliyuncs.com/18652432-61146d3b3189d83b.jpg",
-            nickname:"强仔"
-          },
-          {
-            headImg:"http://justdj-umbrella.oss-cn-hangzhou.aliyuncs.com/background.jpg",
-            nickname:"强子"
-          },
-          {
-            headImg:"\n" +
-            "https://c2liantong.oss-cn-beijing.aliyuncs.com/12797375-239fdb759f575719.png",
-            nickname:"强强"
-          }
-        ],
+        swiperData:[],
         forbidScroll:false,
         top:0,
       }
@@ -208,6 +195,7 @@
              }
            }else if (res.code === 2) {
              this.$store.commit('signInDialogVisibleTrue');
+             this.$router.push({path: '/meetingPage',query: {isError: true}});
            } else {
              this.$message.error(res.msg)
            }
@@ -255,17 +243,7 @@
 
     },
 
-    created: function () {
-    },
-
     mounted() {
-      if (this.$route.query.isError) {
-        this.$message.error("权限错误，请重新登录");
-      }
-
-
-
-      console.log("当前路径 hahhah" +this.$route.path);
 
       this.openFullScreen();
       this.scroll();
@@ -288,6 +266,7 @@
            }
          }else if (res.code === 2) {
            this.$store.commit('signInDialogVisibleTrue');
+           this.$router.push({path: '/meetingPage',query: {isError: true}});
          } else {
            this.$message.error(res.msg)
          }

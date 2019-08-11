@@ -3,7 +3,7 @@ let routes = [
     path: '/',
     component: (resolve) => require(['../components/home.vue'], resolve),
     // component: home,
-    redirect: '/blogPage',
+    redirect: '/meetingPage',
     name: '导航',
     iconCls: 'el-icon-message',//图标样式class
     children: [

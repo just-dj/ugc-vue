@@ -17,9 +17,9 @@
                  text-color="#fff"
                  active-text-color="#409EFF"
                  @select="handleSelect">
+          <el-menu-item index="/meetingPage" key="3">时事新闻</el-menu-item>
           <el-menu-item index="/blogPage" key="1">博客</el-menu-item>
           <el-menu-item index="/bbsPage" key="2">论坛</el-menu-item>
-          <el-menu-item index="/meetingPage" key="3">会议纪要</el-menu-item>
           <el-menu-item index="/accountManager" key="4" v-if="index">系统管理</el-menu-item>
           <!--<el-menu-item index="/accountManager" key="4" >系统管理</el-menu-item>-->
 
@@ -310,6 +310,7 @@
             this.signOut();
           } else if (res.code === 2) {
             this.$store.commit('signInDialogVisibleTrue');
+            this.$router.push({path: '/meetingPage',query: {isError: true}});
           } else {
             this.$message.error(res.msg);
           }
@@ -349,11 +350,10 @@
 
       // 登录弹窗打开
       signInDialogOpen: function () {
-        console.log("弹窗弹出来了")
         let path = this.$route.path;
         if (!(path === "/blogPage" || path === "/bbsPage" || path === "/meetingPage")){
           console.log("执行具体逻辑");
-          this.$router.push({path: '/blogPage'});
+          this.$router.push({path: '/meetingPage'});
         }else {
           console.log("执行普通逻辑");
         }
@@ -427,7 +427,7 @@
             sessionStorage.clear();
             localStorage.clear();
             this.index = false;
-            this.$router.push({path: '/blogPage'})
+            this.$router.push({path: '/meetingPage'})
           } else {
             this.$message.error({message: res.msg});
             this.isLogin = false;
@@ -462,12 +462,17 @@
         this.$store.commit('setHeadImg', {name: 'stark', user: JSON.parse(localStorage.getItem("user"))});
 
       } else {
-        this.$store.commit('signInDialogVisibleTrue');
+        // this.$store.commit('signInDialogVisibleTrue');
         console.log("还未登录 ");
       }
     },
 
     mounted() {
+
+      if (this.$route.query.isError) {
+        this.$message.error("权限错误，请重新登录");
+      }
+
       if (!this.isEmpty(this.user)) {
         //用户已经登录
         // this.getUnReadMessage();
