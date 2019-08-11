@@ -41,6 +41,21 @@ export const likeUserApi= data=>{return fetch(jobServer+'/api/blog/likeUser', da
 export const changeBlogStatusApi= data=>{return fetch(jobServer+'/api/blog/status', data, 'POST')}; //
 export const changeBlogTopApi= data=>{return fetch(jobServer+'/api/blog/top', data, 'POST')}; //
 export const getTopBlogApi= data=>{return fetch(jobServer+'/api/blog/top', data, 'GET')}; //
+
+/***********************博客相关接口********************************/
+export const addMeetingAPI = data=>{return fetch(jobServer+'/api/meeting/', data, 'POST')}; //
+// export const getMeetingAPI= data=>{return fetch(jobServer+'/api/meeting/', data, 'GET')}; //
+// export const getAllMeeting= data=>{return fetch(jobServer+'/api/meeting/all', data, 'GET')}; //
+// export const getAllMeetingDraft= data=>{return fetch(jobServer+'/api/meeting/draft', data, 'GET')}; //
+// export const meetingReadCount= data=>{return fetch(jobServer+'/api/meeting/readCount', data, 'GET')}; //
+// export const meetingLikeCount= data=>{return fetch(jobServer+'/api/meeting/likeCount', data, 'GET')}; // true喜欢 false 取消喜欢
+export const meetingSimplePageAPI= data=>{return fetch(jobServer+'/api/meeting/page', data, 'POST')}; //
+// export const meetingManagerPageAPI= data=>{return fetch(jobServer+'/api/meeting/page/manager', data, 'POST')}; //
+// export const addCommentApi= data=>{return fetch(jobServer+'/api/meeting/comment', data, 'POST')}; //
+// export const likeUserApi= data=>{return fetch(jobServer+'/api/meeting/likeUser', data, 'GET')}; //
+// export const changeMeetingStatusApi= data=>{return fetch(jobServer+'/api/meeting/status', data, 'POST')}; //
+// export const changeMeetingTopApi= data=>{return fetch(jobServer+'/api/meeting/top', data, 'POST')}; //
+// export const getTopMeetingApi= data=>{return fetch(jobServer+'/api/meeting/top', data, 'GET')}; //
 /***********************通用接口********************************/
 export const uploadFile= data=>{return fetch(jobServer+'/api/universal/upload', data, 'POST')}; //登录
 

@@ -3,7 +3,8 @@
     <el-container class="el-container main-page" style="background-color: #ffffff" v-loading.fullscreen.lock="this.$store.state.fullScreenLoading">
       <el-header style="position: relative;background-color: #545c64;padding: 0 1rem;">
         <div class="home-log" style="background-color: #545c64;color: #fff;box-sizing: border-box;">
-          UGC
+
+          <img style="width: 133px;height: 35px" src="/static/img/logo.png"/>
           <!--<span style="font-size: 1rem;margin-left: 10px;color: #ffffff" @click="cityDialogVisible = true">-->
           <!--<i class="el-icon-location-outline"></i>-->
           <!--北京-->
@@ -292,7 +293,13 @@
     },
     methods: {
       toEditPage:function(){
-        this.$router.push({path: '/editBlogPage'})
+        let temp = this.$route.path;
+        console.log(temp);
+        if (temp === '/blogPage'){
+          this.$router.push({path: '/editBlogPage'})
+        } else if (temp === '/meetingPage'){
+          this.$router.push({path: '/editMeetingPage'})
+        }
       },
 
       // getUnReadMessage: function () {
@@ -506,13 +513,14 @@
   }
 
   .home-log {
-    width: 160px;
+    width: 288px;
     height: 100%;
     background-color: #eee;
     margin-right: 15px;
     font-size: 1.4rem;
     display: flex;
     justify-content: left;
+    align-items: center;
     padding-bottom: 4px;
   }
 

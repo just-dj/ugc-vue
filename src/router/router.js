@@ -56,6 +56,14 @@ let routes = [
         hidden: true
       },
       {
+        path: '/editMeetingPage',
+        component: (resolve) => require(['../components/meeting/editMeetingPage.vue'], resolve),
+        // component: blogPage,
+        meta: {keepAlive: true},
+        name: '编辑会议纪要',
+        hidden: true
+      },
+      {
         path: '/readMeetingPage',
         component: (resolve) => require(['../components/meeting/readMeetingPage.vue'], resolve),
         // component: blogPage,

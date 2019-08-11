@@ -6,9 +6,11 @@
 
       <div class="left-menu" style="position: fixed;left: 140px;top: 81px;max-height: 770px;height: 593px">
         <!--<div style="width: 100%;height: 100%">-->
-          <el-scrollbar>
-            <el-button v-for="(item ,index) in ugc_blog_options" @click="getData(item.value)" class="left-menu-item">{{item.label}}</el-button>
-          </el-scrollbar>
+        <el-scrollbar>
+          <el-button v-for="(item ,index) in ugc_blog_options" @click="getData(item.value)" class="left-menu-item">
+            {{item.label}}
+          </el-button>
+        </el-scrollbar>
         <!--</div>-->
       </div>
 
@@ -20,7 +22,7 @@
         <el-carousel :interval="3000" type="card" height="200px">
           <el-carousel-item v-for="(item,index) in topArticle" :key="index">
             <div class="infoText" @click="toReadPage(item)">
-              <img  style="width: 100%;height: 100%" :src="item.cover"/>
+              <img style="width: 100%;height: 100%" :src="item.cover"/>
               <!--<span class="spanOne" style="position:absolute;top:85%;left:10px;text-align: center"> {{item.title}}</span>-->
             </div>
           </el-carousel-item>
@@ -85,49 +87,49 @@
     "name": "blogPage",
     data() {
       return {
-        topArticle:[],
-        ugc_blog_options:[],
+        topArticle: [],
+        ugc_blog_options: [],
         pageNum: 0,
         pageSize: 8,
-        isLastPage:false,
+        isLastPage: false,
         // 当前选中模块
-        selectNowKind:'0',
+        selectNowKind: '0',
         // new or hot
         labelPosition: "new",
         // 搜索关键词
         searchInput: '',
-        articleList:[],
+        articleList: [],
         fullScreenLoading: false,
-        articleLoading:false,
-        swiperData:[],
-        forbidScroll:false,
-        top:0,
+        articleLoading: false,
+        swiperData: [],
+        forbidScroll: false,
+        top: 0,
       }
     },
-    computed: {
-    },
+    computed: {},
     methods: {
-      labelChange:function(){
+      labelChange: function () {
         this.openFullScreen();
         this.getPageData();
       },
-      toReadPage:function(item){
+      toReadPage: function (item) {
         this.$router.push({path: '/readBlogPage', query: {article: JSON.stringify(item)}})
       },
-      orderScroll: function(){
+      orderScroll: function () {
         console.log("滚动")
       },
-      scroll:function() {
+
+      scroll: function () {
         const el = document.querySelector('.main-right');
         const offsetHeight = el.offsetHeight;
         el.onscroll = () => {
           const scrollTop = el.scrollTop;
-          if (this.forbidScroll){
+          if (this.forbidScroll) {
             this.top = scrollTop;
             return;
           }
           //向下滚动
-          if (scrollTop > this.top){
+          if (scrollTop > this.top) {
             console.log("下")
             const scrollHeight = el.scrollHeight;
             if ((offsetHeight + scrollTop) - scrollHeight >= -100) {
@@ -135,9 +137,9 @@
               this.forbidScroll = true;
               setTimeout(() => {
                 this.forbidScroll = false;
-              },5000);
+              }, 1500);
               //是否为空
-              if (this.isLastPage){
+              if (this.isLastPage) {
                 this.$message.info("没有更多！");
                 return;
               }
@@ -147,58 +149,60 @@
               //调用分页函数
               this.getPageData();
             }
-          }else{
+          } else {
             console.log("上")
           }
           this.top = scrollTop;
         }
       },
 
-      getData:function(kind){
-        if (this.selectNowKind === kind){
+      getData: function (kind) {
+        if (this.selectNowKind === kind) {
           return;
         }
-          this.selectNowKind = kind;
-          this.pageNum = 0;
-          this.openFullScreen();
+        this.selectNowKind = kind;
+        this.pageNum = 0;
+        this.openFullScreen();
         this.getPageData();
       },
 
-      getDuring:function(createTime){
+      getDuring: function (createTime) {
         let temp = Date.now() - createTime;
-        if (temp < 60 * 1000){
+        if (temp < 60 * 1000) {
           return "刚刚";
-        } else if (temp < 60 * 60 * 1000){
-          return parseInt(temp / (60 * 1000) )　 + "分钟前";
-        }else if (temp < 24 * 60 * 60 * 1000){
-          return parseInt(temp / (60 * 60 * 1000) ) + "小时前";
+        } else if (temp < 60 * 60 * 1000) {
+          return parseInt(temp / (60 * 1000)) + "分钟前";
+        } else if (temp < 24 * 60 * 60 * 1000) {
+          return parseInt(temp / (60 * 60 * 1000)) + "小时前";
         } else {
-          return parseInt(temp / (24 * 60 * 60 * 1000) ) + "天前";
+          return parseInt(temp / (24 * 60 * 60 * 1000)) + "天前";
         }
       },
 
-      getPageData:function(){
+      getPageData: function () {
         let param = {
-          pageNum:this.pageNum,
-          pageSize:this.pageSize,
-          kind:this.selectNowKind,
-          label:this.labelPosition,
-          searchInput:this.searchInput
+          pageNum: this.pageNum,
+          pageSize: this.pageSize,
+          kind: this.selectNowKind,
+          label: this.labelPosition,
+          searchInput: this.searchInput
         };
 
         blogSimplePageAPI(param).then(res => {
-          this.articleLoading = false;
-           if (res.code === 200){
-             if (!util.isEmpty(res.data)){
+            this.articleLoading = false;
+            if (res.code === 200) {
+              if (!util.isEmpty(res.data)) {
                 this.isLastPage = res.data.last;
-                this.articleList = res.data.content;
-             }
-           }else if (res.code === 2) {
-             this.$store.commit('signInDialogVisibleTrue');
-             this.$router.push({path: '/meetingPage',query: {isError: true}});
-           } else {
-             this.$message.error(res.msg)
-           }
+                res.data.content.forEach(a => {
+                  this.articleList.push(a);
+                });
+              }
+            } else if (res.code === 2) {
+              this.$store.commit('signInDialogVisibleTrue');
+              this.$router.push({path: '/meetingPage', query: {isError: true}});
+            } else {
+              this.$message.error(res.msg)
+            }
           }
         )
       },
@@ -246,6 +250,7 @@
     mounted() {
 
       this.openFullScreen();
+
       this.scroll();
 
       dropListOneGetApi("ugc_blog_options").then(res => {
@@ -259,17 +264,17 @@
       });
 
       getTopBlogApi('').then(res => {
-         if (res.code === 200){
-           if (!util.isEmpty(res.data)){
+        if (res.code === 200) {
+          if (!util.isEmpty(res.data)) {
 
-             this.topArticle = res.data;
-           }
-         }else if (res.code === 2) {
-           this.$store.commit('signInDialogVisibleTrue');
-           this.$router.push({path: '/meetingPage',query: {isError: true}});
-         } else {
-           this.$message.error(res.msg)
-         }
+            this.topArticle = res.data;
+          }
+        } else if (res.code === 2) {
+          this.$store.commit('signInDialogVisibleTrue');
+          this.$router.push({path: '/meetingPage', query: {isError: true}});
+        } else {
+          this.$message.error(res.msg)
+        }
       })
 
     }
@@ -290,12 +295,12 @@
 
   }
 
-   .left-menu .left-menu-item {
+  .left-menu .left-menu-item {
     margin-bottom: 15px;
     min-width: 125px;
   }
 
-   .left-menu .left-menu-item:hover {
+  .left-menu .left-menu-item:hover {
     -webkit-transition: all .2s linear;
     transition: all .2s linear;
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
@@ -328,13 +333,13 @@
     overflow-x: auto
   }
 
-   .main-right .top-article {
+  .main-right .top-article {
     width: 69%;
     height: 30%;
     margin-bottom: 45px;
   }
 
-  .top-article .swiper-container{
+  .top-article .swiper-container {
     width: 100%;
     height: 100%;
   }
@@ -391,17 +396,17 @@
     justify-content: flex-start;
   }
 
-  .item-left-title:hover{
-    color: rgb(64,158,255);
+  .item-left-title:hover {
+    color: rgb(64, 158, 255);
   }
 
-  .list-article .list-item .list-item-left .item-left-introduce{
+  .list-article .list-item .list-item-left .item-left-introduce {
     width: 100%;
     height: 20%;
     display: flex;
     justify-content: flex-start;
     overflow: hidden;
-    text-overflow:ellipsis;
+    text-overflow: ellipsis;
     white-space: nowrap;
   }
 
@@ -413,12 +418,12 @@
     margin-top: 15px;
   }
 
-  >>> .el-scrollbar{
+  >>> .el-scrollbar {
     width: 100%;
     height: 593px;
   }
 
-  >>> .el-scrollbar__view{
+  >>> .el-scrollbar__view {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
