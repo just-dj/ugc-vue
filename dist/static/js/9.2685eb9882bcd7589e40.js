@@ -1,0 +1,1 @@
+webpackJsonp([9],{"2QBF":function(e,n,t){"use strict";Object.defineProperty(n,"__esModule",{value:!0});var a={render:function(){var e=this.$createElement;return(this._self._c||e)("section",[this._v("\n  bbs详情\n")])},staticRenderFns:[]};var c=t("VU/8")({name:"readBBSPage"},a,!1,function(e){t("v18G")},"data-v-5cca2c34",null);n.default=c.exports},v18G:function(e,n){}});
