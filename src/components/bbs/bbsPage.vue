@@ -168,16 +168,16 @@
         searchInput: '',
         swiperData:[
           {
-            headImg:"https://c2liantong.oss-cn-beijing.aliyuncs.com/18652432-61146d3b3189d83b.jpg",
+            headImg:"https://justdj-ugc.oss-cn-hangzhou.aliyuncs.com/10.jpg",
             nickname:"强仔"
           },
           {
-            headImg:"http://justdj-umbrella.oss-cn-hangzhou.aliyuncs.com/background.jpg",
+            headImg:"https://justdj-ugc.oss-cn-hangzhou.aliyuncs.com/3.jpg",
             nickname:"强子"
           },
           {
             headImg:"\n" +
-            "https://c2liantong.oss-cn-beijing.aliyuncs.com/12797375-239fdb759f575719.png",
+            "https://justdj-ugc.oss-cn-hangzhou.aliyuncs.com/16.jpg",
             nickname:"强强"
           }
         ]
@@ -280,7 +280,6 @@
       },
 
       contains: function (arr, val) {
-        console.log("调用比较函数 arr" + JSON.stringify(arr) + "      " + val + "   empty " + this.isEmpty(arr));
         if (this.isEmpty(arr)) {
           console.log("为空")
           return false;

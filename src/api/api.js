@@ -14,7 +14,8 @@ export const checkCodeAPI= data=>{return fetch(jobServer+'/api/login/code/check/
 export const changePWDAPI= data=>{return fetch(jobServer+'/tApi/login/changePassword', data, 'PATCH')}; //true 检验验证码是否正确
 /***********************用户相关************************/
 export const getUserAPI= data=>{return fetch(jobServer+'/api/user', data, 'GET')}; //注销登录
-
+export const getUserPageAPI= data=>{return fetch(jobServer+'/api/user/pageFind', data, 'POST')}; //注销登录
+export const updateUserAPI= data=>{return fetch(jobServer+'/api/user/', data, 'PATCH')}; //注销登录
 /*****************角色相关************************/
 export const getModuleTreeApi= data=>{return fetch(jobServer+'/api/role/roleGroup', data, 'GET')}; //
 export const getAllRoleApi= data=>{return fetch(jobServer+'/api/role/all', data, 'POST')}; //

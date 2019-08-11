@@ -216,7 +216,6 @@
       },
 
       contains: function (arr, val) {
-        console.log("调用比较函数 arr" + JSON.stringify(arr) + "      " + val + "   empty " + this.isEmpty(arr));
         if (this.isEmpty(arr)) {
           console.log("为空")
           return false;

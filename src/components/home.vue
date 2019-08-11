@@ -20,8 +20,8 @@
           <el-menu-item index="/blogPage" key="1">博客</el-menu-item>
           <el-menu-item index="/bbsPage" key="2">论坛</el-menu-item>
           <el-menu-item index="/meetingPage" key="3">会议纪要</el-menu-item>
-          <!--<el-menu-item index="/accountManager" key="4" v-if="managerIndex">系统管理</el-menu-item>-->
-          <el-menu-item index="/accountManager" key="4" >系统管理</el-menu-item>
+          <el-menu-item index="/accountManager" key="4" v-if="index">系统管理</el-menu-item>
+          <!--<el-menu-item index="/accountManager" key="4" >系统管理</el-menu-item>-->
 
         </el-menu>
 
@@ -92,7 +92,9 @@
       </el-dialog>
 
       <!--登录弹窗-->
-      <el-dialog title="登录" :visible.sync="signInDialogVisible"
+      <el-dialog title="登录"
+                 :modal="false"
+                 :visible.sync="signInDialogVisible"
                  center
                  width="31%"
                  :close-on-click-modal="false"
@@ -248,7 +250,11 @@
         },
         cityDialogVisible: false,
         isLogin: false,
-        managerIndex: false
+        index: false,
+        add:false,
+        del:false,
+        update:false,
+        query:false
       };
     },
     computed: {
@@ -334,7 +340,6 @@
       },
 
       contains: function (arr, val) {
-        console.log("调用比较函数 arr" + JSON.stringify(arr) + "      " + val + "   empty " + this.isEmpty(arr));
         if (this.isEmpty(arr)) {
           console.log("为空")
           return false;
@@ -344,6 +349,14 @@
 
       // 登录弹窗打开
       signInDialogOpen: function () {
+        console.log("弹窗弹出来了")
+        let path = this.$route.path;
+        if (!(path === "/blogPage" || path === "/bbsPage" || path === "/meetingPage")){
+          console.log("执行具体逻辑");
+          this.$router.push({path: '/blogPage'});
+        }else {
+          console.log("执行普通逻辑");
+        }
       },
 
 
@@ -383,7 +396,7 @@
       },
 
       handleSelect: function (a, b) {
-        console.log("当前路径" + this.$route.path);
+
       },
 
       //登录
@@ -413,7 +426,7 @@
             this.$message.success("退出登录成功");
             sessionStorage.clear();
             localStorage.clear();
-            this.managerIndex = false;
+            this.index = false;
             this.$router.push({path: '/blogPage'})
           } else {
             this.$message.error({message: res.msg});
@@ -435,7 +448,7 @@
         localStorage.setItem("permission", JSON.stringify(res.data.p));
         //this.getUnReadMessage();
         console.log("比较结果 " + this.contains(JSON.parse(localStorage.getItem("module")), "5d429e79bb9fe01c646d1fd6"))
-        this.managerIndex = this.contains(JSON.parse(localStorage.getItem("module")), "5d429e79bb9fe01c646d1fd6");
+        this.index = this.contains(JSON.parse(localStorage.getItem("module")), "5d429e79bb9fe01c646d1fd6");
         this.signInDialogVisible = false;
         this.isLogin = true;
       }
@@ -445,10 +458,11 @@
       if (!util.isEmpty(localStorage.getItem("token"))) {
         console.log("已经登录 ");
         this.isLogin = true;
-        this.managerIndex = this.contains(JSON.parse(localStorage.getItem("module")), "5d429e79bb9fe01c646d1fd6");
+        this.index = this.contains(JSON.parse(localStorage.getItem("module")), "5d429e79bb9fe01c646d1fd6");
         this.$store.commit('setHeadImg', {name: 'stark', user: JSON.parse(localStorage.getItem("user"))});
 
       } else {
+        this.$store.commit('signInDialogVisibleTrue');
         console.log("还未登录 ");
       }
     },

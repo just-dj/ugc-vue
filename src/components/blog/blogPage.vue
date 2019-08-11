@@ -17,7 +17,7 @@
     <el-main class="main-right" style="height: auto">
       <div class="top-article">
 
-        <el-carousel :interval="3500" type="card" height="200px">
+        <el-carousel :interval="3000" type="card" height="200px">
           <el-carousel-item v-for="(item,index) in topArticle" :key="index">
             <div class="infoText" @click="toReadPage(item)">
               <img  style="width: 100%;height: 100%" :src="item.cover"/>
@@ -246,7 +246,6 @@
       },
 
       contains: function (arr, val) {
-        console.log("调用比较函数 arr" + JSON.stringify(arr) + "      " + val + "   empty " + this.isEmpty(arr));
         if (this.isEmpty(arr)) {
           console.log("为空")
           return false;
@@ -260,6 +259,13 @@
     },
 
     mounted() {
+      if (this.$route.query.isError) {
+        this.$message.error("权限错误，请重新登录");
+      }
+
+
+
+      console.log("当前路径 hahhah" +this.$route.path);
 
       this.openFullScreen();
       this.scroll();
