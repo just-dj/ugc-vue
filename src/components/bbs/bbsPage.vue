@@ -13,7 +13,7 @@
       </div>
     </el-aside>
 
-    <el-main class="main-right" style="height: auto;padding: 20px 60px 0">
+    <el-main class="main-right" style="height: auto;">
       <div class="top-article">
         <el-carousel :interval="2000" type="card" height="200px">
           <el-carousel-item v-for="(item ,index) in swiperData" :key="index">
@@ -341,6 +341,7 @@
   }
 
   .main-right {
+    padding-right: 173px;
     width: 60%;
     display: flex;
     flex-direction: column;

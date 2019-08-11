@@ -66,7 +66,7 @@
       <el-button type="primary" @click="saveArticle">发表</el-button>
       <el-button @click="saveAsDrift">暂存</el-button>
       <el-button @click="toReadPage">预览</el-button>
-      <el-button type="danger" @click="editForm.content = ''">清空</el-button>
+      <el-button type="danger" @click="clearEditForm">清空</el-button>
 
     </div>
 
@@ -104,6 +104,16 @@
     },
 
     methods: {
+
+      clearEditForm:function(){
+        this.editForm = {
+          title: '',
+          kind: '',
+          content: '',
+          cover: '',
+          status: 1
+        }
+      },
 
       toReadPage:function(){
         this.$router.push({path: '/readBlogPage', query: {article: JSON.stringify(this.editForm)}})
@@ -226,6 +236,13 @@
     },
     mounted() {
       this.openFullScreen();
+
+      let temp = JSON.parse(this.$route.query.article);
+
+      if (!this.isEmpty(temp)){
+        this.editForm = temp;
+      }
+
       this.uploadUrl = process.env.SERVER_URL + '/api/universal/upload';
       dropListOneGetApi("ugc_blog_options").then(res => {
         if (res.code === 200) {

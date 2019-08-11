@@ -30,6 +30,8 @@ export const getUnReadNumAPI = data=>{return fetch(collectionService +'/tApi/mes
 /***********************博客相关接口********************************/
 export const addBlogAPI= data=>{return fetch(jobServer+'/api/blog/', data, 'POST')}; //
 export const getBlogAPI= data=>{return fetch(jobServer+'/api/blog/', data, 'GET')}; //
+export const getAllBlog= data=>{return fetch(jobServer+'/api/blog/all', data, 'GET')}; //
+export const getAllBlogDraft= data=>{return fetch(jobServer+'/api/blog/draft', data, 'GET')}; //
 export const blogReadCount= data=>{return fetch(jobServer+'/api/blog/readCount', data, 'GET')}; //
 export const blogLikeCount= data=>{return fetch(jobServer+'/api/blog/likeCount', data, 'GET')}; // true喜欢 false 取消喜欢
 export const blogSimplePageAPI= data=>{return fetch(jobServer+'/api/blog/page', data, 'POST')}; //

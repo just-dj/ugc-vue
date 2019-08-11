@@ -1,6 +1,6 @@
 <!--个人中心-->
 <template>
-  <section style="width: 100%;height: 100%;" v-loading.fullscreen.lock="fullScreenLoading">
+  <section style="width: 100%;height: 100%;">
     <div style="background-color: #fafafa">
       <!--头部背景和用户头像部分-->
       <div class="personal-head"
@@ -13,7 +13,13 @@
             <div class="user-info">
               <div class="personal-avatar">
                 <div class="user-photo">
-                  <img src="http://www.dgtle.com/uc_server/avatar.php?uid=960557" alt="">
+                  <img v-show="isEmpty(user.headImg)"
+                       src="https://justdj-umbrella.oss-cn-hangzhou.aliyuncs.com/default_header_img.png"
+                       style="width: 100%;height: 100%"/>
+                  <img v-show="!isEmpty(user.headImg)" :src="user.headImg"
+                       style="width: 100%;height: 100%;border-radius: 50%"/>
+
+                  <!--<img src="http://www.dgtle.com/uc_server/avatar.php?uid=960557" alt="">-->
                 </div>
                 <!--              <a class="change-photo" href="#">-->
                 <!--                <i class="Dgtle-fonts icon-Dgtlex-dgtlexicon-picture"></i>-->
@@ -21,9 +27,9 @@
                 <!--              </a>-->
               </div>
               <div class="personal-detail">
-                <span>越人猫</span>
+                <span>{{this.user.name}}</span>
                 <!-- <span class="Dgtle-fonts icon-Dgtlex-dgtlexicon-avatar"></span> -->
-                <a href="#" class="personal-label"><span>大佬</span></a>
+                <a href="#" class="personal-label" v-for="(item,index) in user.label"><span>{{item}}</span></a>
               </div>
             </div>
           </div>
@@ -53,23 +59,79 @@
         <!--关注列表选项卡部分-->
         <div class="personal-nav cl">
           <el-tabs v-model="activeName" @tab-click="handleClick" tab-position="center" style="text-align: center">
+            <el-tab-pane label="博客" name="blog" class="mytab">
+              <el-tabs v-model="blogTab" @tab-click="handleBlogClick">
+                <el-tab-pane label="我的博客" name="blogList">
+                  <div v-if="isEmpty(blogList)">
+                    你还没有写过博客
+                  </div>
+                  <div v-else style="width: 100%;">
+                    <div class="list-item" v-for="(item,index) in blogList">
+                      <div class="list-item-left">
+                        <div class="item-left-title" @click="toReadPage(item)">
+                          <span style="font-size: 18px;font-weight: bold">{{item.title}}</span>
+                        </div>
+                        <div class="item-left-introduce">
+                          <span style="font-size: 16px;color: #cccccc">{{item.subTitle}}</span>
+                        </div>
+                        <div class="item-left-other">
+                          <span style="text-align:right;width:60px;margin-right: 70px;font-weight: bold">{{item.authorName}}</span>
+                          <span style="text-align:right;width:60px;margin-right: 70px">{{item.likeCount}}点赞</span>
+                          <span style="text-align:right;width:70px;margin-right: 70px">{{item.readCount}}阅读</span>
+                          <span style="text-align:right;width:100px;margin-right: 70px">{{getDuring(item.presentTime)}}</span>
+                        </div>
+                      </div>
+                      <img style="width: 219px;height: 100%;"
+                           :src="item.cover"/>
+                    </div>
+                  </div>
+                </el-tab-pane>
+                <el-tab-pane label="草稿箱" name="draftList">
+                  <div v-if="isEmpty(blogDraftList)">
+                    你还没有草稿
+                  </div>
+                  <div v-else style="width: 100%;">
+                    <div class="list-item" v-for="(item,index) in blogDraftList">
+                      <div class="list-item-left">
+                        <div class="item-left-title" @click="toEditPage(item)">
+                          <span style="font-size: 18px;font-weight: bold">{{item.title}}</span>
+                        </div>
+                        <div class="item-left-introduce">
+                          <span style="font-size: 16px;color: #cccccc">{{item.subTitle}}</span>
+                        </div>
+                        <div class="item-left-other">
+                          <span style="text-align:right;width:60px;margin-right: 70px;font-weight: bold">{{item.authorName}}</span>
+                          <span style="text-align:right;width:60px;margin-right: 70px">{{item.likeCount}}点赞</span>
+                          <span style="text-align:right;width:70px;margin-right: 70px">{{item.readCount}}阅读</span>
+                          <span style="text-align:right;width:100px;margin-right: 70px">{{getDuring(item.presentTime)}}</span>
+                        </div>
+                      </div>
+                      <img style="width: 219px;height: 100%;"
+                           :src="item.cover"/>
+                    </div>
+                  </div>
+                </el-tab-pane>
+              </el-tabs>
+            </el-tab-pane>
+
             <el-tab-pane label="论坛" name="community" class="mytab">
-              <el-tabs v-model="postsLists">
-                <el-tab-pane label="我的贴子" name="postsList">
-                  <div class="tablist">
+              <el-tabs v-model="bbsTab">
+                <el-tab-pane label="我的贴子" name="bbsList">
+                  <div>
                     这里显示我发表过的文章、帖子、博客的列表
                   </div>
                 </el-tab-pane>
                 <el-tab-pane label="草稿箱" name="draftList">
-                  <div class="tablist">
+                  <div>
 
                   </div>
                 </el-tab-pane>
               </el-tabs>
             </el-tab-pane>
+
             <el-tab-pane label="关注" name="follow" class="mytab">
-              <el-tabs v-model="followList">
-                <el-tab-pane label="我关注的人 (2)" name="myfollow">
+              <el-tabs v-model="followTab">
+                <el-tab-pane label="我关注的人 (2)" name="myFollow">
                   <div class="tablist">
                     <ul class="follow cl">
                       <li>
@@ -113,7 +175,7 @@
                     </ul>
                   </div>
                 </el-tab-pane>
-                <el-tab-pane label="关注我的人 (0)" name="followme">
+                <el-tab-pane label="关注我的人 (0)" name="followMe">
                   <div class="tablist">
                     <ul class="follow cl">
                       <li>
@@ -162,7 +224,7 @@
             <el-tab-pane label="收藏" name="favorite" class="mytab">
               <el-tabs v-model="favoriteList">
                 <el-tab-pane label="博客" name="myBlogList">
-<!--收藏的博客列表-->
+                  <!--收藏的博客列表-->
                   <el-row :gutter="20" class="cards regular-cards cl">
                     <el-col :span="6">
                       <div class="list-group-content" style="background: #fff">
@@ -239,42 +301,42 @@
                       </div>
                     </el-col>
                     <el-col :span="6">
-                    <div class="list-group-content" style="background: #fff">
-                      <div class="img-box">
-                        <a href="#"><img src="http://justdj-umbrella.oss-cn-hangzhou.aliyuncs.com/background.jpg"></a>
-                      </div>
-                      <div class="cards-content">
-                        <h3><a href="#">这里是文章标题233333</a></h3>
-                        <p>我好难啊，毫无头绪，甚至有点想吃黄焖鸡米饭啊啊啊啊嘤嘤嘤</p>
-                        <el-row>
-                          <div class="media">
-                            <div class="media-left">
-                              <a href="javascript:;">
-                                <img class="media-object img-rounded"
-                                     src="http://www.dgtle.com/uc_server/avatar.php?uid=337464">
-                              </a>
+                      <div class="list-group-content" style="background: #fff">
+                        <div class="img-box">
+                          <a href="#"><img src="http://justdj-umbrella.oss-cn-hangzhou.aliyuncs.com/background.jpg"></a>
+                        </div>
+                        <div class="cards-content">
+                          <h3><a href="#">这里是文章标题233333</a></h3>
+                          <p>我好难啊，毫无头绪，甚至有点想吃黄焖鸡米饭啊啊啊啊嘤嘤嘤</p>
+                          <el-row>
+                            <div class="media">
+                              <div class="media-left">
+                                <a href="javascript:;">
+                                  <img class="media-object img-rounded"
+                                       src="http://www.dgtle.com/uc_server/avatar.php?uid=337464">
+                                </a>
+                              </div>
+                              <div class="media-body">
+                                <h5 class="media-heading"><a
+                                  href="http://www.dgtle.com/home.php?mod=space&amp;do=thread&amp;uid=337464">与我约人歌</a><span> · </span>2019-6-5
+                                  10:21</h5>
+                              </div>
                             </div>
-                            <div class="media-body">
-                              <h5 class="media-heading"><a
-                                href="http://www.dgtle.com/home.php?mod=space&amp;do=thread&amp;uid=337464">与我约人歌</a><span> · </span>2019-6-5
-                                10:21</h5>
-                            </div>
-                          </div>
-                          <el-row class="list-stat paTop-14" :gutter="20" style="line-height: 40px">
-                            <el-col :span="8">
-                              <span class="like-num"><i class="el-icon-moon"></i>557</span>
-                            </el-col>
-                            <el-col :span="8">
-                              <span class="like-num"><i class="el-icon-s-comment"></i>165</span>
-                            </el-col>
-                            <el-col :span="8">
-                              <el-button type="text" @click="handleDelete" style="color: #8c939d">取消收藏</el-button>
-                            </el-col>
+                            <el-row class="list-stat paTop-14" :gutter="20" style="line-height: 40px">
+                              <el-col :span="8">
+                                <span class="like-num"><i class="el-icon-moon"></i>557</span>
+                              </el-col>
+                              <el-col :span="8">
+                                <span class="like-num"><i class="el-icon-s-comment"></i>165</span>
+                              </el-col>
+                              <el-col :span="8">
+                                <el-button type="text" @click="handleDelete" style="color: #8c939d">取消收藏</el-button>
+                              </el-col>
+                            </el-row>
                           </el-row>
-                        </el-row>
+                        </div>
                       </div>
-                    </div>
-                  </el-col>
+                    </el-col>
                     <el-col :span="6">
                       <div class="list-group-content" style="background: #fff">
                         <div class="img-box">
@@ -323,6 +385,8 @@
               </el-tabs>
             </el-tab-pane>
           </el-tabs>
+
+
         </div>
       </div>
     </div>
@@ -330,51 +394,159 @@
 </template>
 
 <script>
-    export default {
-        name: "personCenter",
-        data() {
-            return {
-                fullScreenLoading: false,
-                activeName: 'community',
-                followList: 'myfollow',
-                favoriteList: 'myBlogList',
-                community: 'postsLists',
-                postsLists: 'postsList'
-            }
+  import {getAllBlog, getAllBlogDraft} from "../api/api";
+  import * as util from "../common/utils/util";
+
+  export default {
+    name: "personCenter",
+    data() {
+      return {
+        fullScreenLoading: false,
+        activeName: 'blog',
+        blogTab: 'blogList',
+        bbsTab: 'bbsList',
+        followTab: 'myFollow',
+
+
+        favoriteList: 'myBlogList',
+        community: 'bbsTab',
+        blogList:[],
+        blogDraftList:[]
+      }
+    },
+    computed: {
+      user: {
+        get: function () {
+          return this.$store.state.user;
         },
-        methods: {
-            openFullScreen() {
-                this.fullScreenLoading = true;
-                setTimeout(() => {
-                    this.fullScreenLoading = false;
-                }, 200 + Math.random() * 150);
-            },
-            handleClick(tab, event) {
-                console.log(tab, event);
-            },
-            mounted() {
-                this.openFullScreen();
-            },
-            handleDelete() {
-                this.$confirm('是否取消收藏该博客?', '提示', {
-                    confirmButtonText: '确定',
-                    cancelButtonText: '取消',
-                    type: 'warning'
-                }).then(() => {
-                    this.$message({
-                        type: 'success',
-                        message: '已取消收藏!'
-                    });
-                }).catch(() => {
-                    // this.$message({
-                    //     type: 'info',
-                    //     message: '已取消删除'
-                    // });
-                    console.log("2333");
-                });
-            },
+        set: function () {
+
         }
+      },
+    },
+    methods: {
+
+      toEditPage:function(item){
+        this.$router.push({path: '/editBlogPage',query: {article: JSON.stringify(item)}});
+      },
+
+      toReadPage:function(item){
+        this.$router.push({path: '/readBlogPage', query: {article: JSON.stringify(item)}})
+      },
+
+      getDuring:function(createTime){
+        let temp = Date.now() - createTime;
+        if (temp < 60 * 1000){
+          return "刚刚";
+        } else if (temp < 60 * 60 * 1000){
+          return parseInt(temp / (60 * 1000) )　 + "分钟前";
+        }else if (temp < 24 * 60 * 60 * 1000){
+          return parseInt(temp / (60 * 60 * 1000) ) + "小时前";
+        } else {
+          return parseInt(temp / (24 * 60 * 60 * 1000) ) + "天前";
+        }
+      },
+
+      openFullScreen() {
+        this.$store.commit('openFullScreenLoading');
+        setTimeout(() => {
+          this.$store.commit('closeFullScreenLoading');
+        }, 200 + Math.random() * 150);
+      },
+
+      handleClick(tab, event) {
+        console.log(tab, event);
+      },
+
+      handleBlogClick(){
+        if (this.blogTab === "blogTab") {
+          this.getAllBlogFunction();
+        }else {
+          this.getAllBlogDraftFunction();
+        }
+
+      },
+
+      isEmpty: function (v) {
+        switch (typeof v) {
+          case 'undefined':
+            return true;
+          case 'string':
+            if (v.replace(/(^[ \t\n\r]*)|([ \t\n\r]*$)/g, '').length === 0) return true;
+            break;
+          case 'boolean':
+            if (!v) return true;
+            break;
+          case 'number':
+            if (0 === v || isNaN(v)) return true;
+            break;
+          case 'object':
+            if (null === v || v.length === 0) return true;
+            for (let i in v) {
+              return false;
+            }
+            return true;
+        }
+        return false;
+      },
+
+      handleDelete() {
+        this.$confirm('是否取消收藏该博客?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.$message({
+            type: 'success',
+            message: '已取消收藏!'
+          });
+        }).catch(() => {
+          // this.$message({
+          //     type: 'info',
+          //     message: '已取消删除'
+          // });
+          console.log("2333");
+        });
+      },
+
+      getAllBlogDraftFunction(){
+        getAllBlogDraft("").then(res =>{
+           if (res.code === 200){
+             if (!util.isEmpty(res.data)){
+               this.blogDraftList = res.data;
+             }
+           }else if (res.code === 2) {
+             this.$store.commit('signInDialogVisibleTrue');
+             this.$router.push({path: '/blogPage',query: {isError: true}});
+           } else {
+             this.$message.error(res.msg)
+           }
+        })
+      },
+
+      getAllBlogFunction(){
+        getAllBlog().then(res => {
+          if (res.code === 200){
+            if (!util.isEmpty(res.data)){
+              this.blogList = res.data;
+            }
+          }else if (res.code === 2) {
+            this.$store.commit('signInDialogVisibleTrue');
+            this.$router.push({path: '/blogPage',query: {isError: true}});
+          } else {
+            this.$message.error(res.msg)
+          }
+        })
+      }
+
+    },
+    mounted() {
+      this.openFullScreen();
+
+      this.getAllBlogFunction();
+
     }
+  }
 </script>
 
 <style scoped>
@@ -625,9 +797,10 @@
   }
 
   /*博客收藏*/
-  .list-group-content{
+  .list-group-content {
     border-radius: 5px;
   }
+
   .img-box img {
     width: 100%;
     /*height: 130px;*/
@@ -654,14 +827,17 @@
   .cards-content a:visited {
     color: #000000;
   }
-.media-left{
-  vertical-align: top;
-  float: left;
-}
-.media-body{
-  vertical-align: top;
-  /*float: left;*/
-}
+
+  .media-left {
+    vertical-align: top;
+    float: left;
+  }
+
+  .media-body {
+    vertical-align: top;
+    /*float: left;*/
+  }
+
   .img-rounded {
     border-radius: 6px;
   }
@@ -682,11 +858,69 @@
     line-height: 32px;
     margin-bottom: 0;
   }
-  .list-stat{
+
+  .list-stat {
     float: left;
     margin-top: 20px;
     font-size: 14px;
     text-align: center;
     color: #8c939d;
+  }
+
+
+  .list-item {
+    width: 100%;
+    height: 120px;
+    min-height: 120px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px;
+    border-bottom: 1px solid #eeeeee;
+  }
+
+  .list-item:hover {
+    -webkit-transition: all .2s linear;
+    transition: all .2s linear;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    transform: translate3d(0, -2px, 0);
+  }
+
+  .list-item .list-item-left {
+    height: 100%;
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+  }
+
+  .list-item .list-item-left .item-left-title {
+    width: 100%;
+    height: 30%;
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  .item-left-title:hover{
+    color: rgb(64,158,255);
+  }
+
+  .list-item .list-item-left .item-left-introduce{
+    width: 100%;
+    height: 20%;
+    display: flex;
+    justify-content: flex-start;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+  }
+
+  .list-item .list-item-left .item-left-other {
+    width: 100%;
+    height: 15%;
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 15px;
   }
 </style>

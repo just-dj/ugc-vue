@@ -332,7 +332,8 @@
   }
 
   .main-right {
-    width: 70%;
+    padding-right: 173px;
+    width: 55%;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
