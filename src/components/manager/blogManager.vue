@@ -289,6 +289,7 @@
              }
            }else if (res.code === 2) {
              this.$store.commit('signInDialogVisibleTrue');
+             this.$router.push({path: '/meetingPage',query: {isError: true}});
            } else {
              this.$message.error(res.msg)
            }

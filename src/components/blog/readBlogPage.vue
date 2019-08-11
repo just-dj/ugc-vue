@@ -14,7 +14,7 @@
             {{article.title}}
           </div>
 
-          <div class="author-info">
+          <div class="author-info" v-if="isShow">
             <div v-if="type==='preview'" style="padding:0px 16px;width:100%;height:100%;display: flex;justify-content: flex-start;align-items: center">
 
               <img v-show="isEmpty(user.headImg)"
@@ -46,6 +46,7 @@
 
               </div>
             </div>
+
             <div v-else style="padding:0px 16px;width:100%;height:100%;display: flex;justify-content: flex-start;align-items: center">
 
               <img v-show="isEmpty(author.headImg)"
@@ -56,7 +57,7 @@
 
               <div class="author-info-right" style="height: 100%;width: 60%">
                 <div class="authorInfo-top">
-                  <div style="color: black;margin-right: 10px;font-size: 17px">
+                  <div  style="color: black;margin-right: 10px;font-size: 17px">
                     {{this.author.name}}
                   </div>
                   <div @click="likeUser" v-if="!isAuthorLiked" class="button-collect">
@@ -125,16 +126,22 @@
                 <div class="author-info" style="margin-bottom: 15px">
                   <div style="padding:0px 16px;width:100%;height:100%;display: flex;justify-content: flex-start;align-items: center">
 
-                    <img v-show="isEmpty(item.commentUserHeadURL)"
+                    <img v-if="item.kind === '0'"
                          src="https://justdj-umbrella.oss-cn-hangzhou.aliyuncs.com/default_header_img.png"
                          style="width: 50px;height: 50px"/>
-                    <img v-show="!isEmpty(item.commentUserHeadURL)" :src="item.commentUserHeadURL"
+                    <img v-else-if="isEmpty(item.commentUserHeadURL)"
+                         src="https://justdj-umbrella.oss-cn-hangzhou.aliyuncs.com/default_header_img.png"
+                         style="width: 50px;height: 50px"/>
+                    <img v-else :src="item.commentUserHeadURL"
                          style="width: 50px;height: 50px;border-radius: 50%"/>
 
                     <div class="author-info-right" style="height: 100%;width: 60%">
                       <div class="authorInfo-top">
-                        <div style="color: black;margin-right: 10px;font-size: 17px;">
+                        <div v-if="isShow" style="color: black;margin-right: 10px;font-size: 17px;">
                           {{item.commentUserName}}
+                        </div>
+                        <div v-else style="color: black;margin-right: 10px;font-size: 17px;">
+                          ***
                         </div>
                       </div>
 
@@ -177,6 +184,7 @@
     components: {VueEditor},
     data() {
       return {
+        isShow:false,
         id: '',
         article: {},
         type: 'preview',
@@ -210,6 +218,7 @@
              this.$store.commit('setHeadImg', {name: 'stark', user: res.data});
            }else if (res.code === 2) {
              this.$store.commit('signInDialogVisibleTrue');
+             this.$router.push({path: '/meetingPage',query: {isError: true}});
            } else {
              this.$message.error(res.msg)
            }
@@ -232,6 +241,7 @@
 
            }else if (res.code === 2) {
              this.$store.commit('signInDialogVisibleTrue');
+             this.$router.push({path: '/meetingPage',query: {isError: true}});
            } else {
              this.$message.error(res.msg)
            }
@@ -261,6 +271,7 @@
              this.userComment = "";
            }else if (res.code === 2) {
              this.$store.commit('signInDialogVisibleTrue');
+             this.$router.push({path: '/meetingPage',query: {isError: true}});
            } else {
              this.$message.error(res.msg)
            }
@@ -301,6 +312,7 @@
             this.article = res.data;
           }else if (res.code === 2) {
             this.$store.commit('signInDialogVisibleTrue');
+            this.$router.push({path: '/meetingPage',query: {isError: true}});
           } else {
             this.$message.error(res.msg)
           }
@@ -355,7 +367,6 @@
         this.type = "preview";
       }else {
         this.type = "read";
-
         getBlogAPI(this.article.id).then(res => {
            if (res.code === 200){
              console.log("正常");
@@ -364,6 +375,7 @@
              this.isAuthorLiked = ((this.article.authorId === this.user.id) || contains(this.user.likeUserId,this.article.authorId))
            }else if (res.code === 2) {
              this.$store.commit('signInDialogVisibleTrue');
+             this.$router.push({path: '/meetingPage',query: {isError: true}});
            } else {
              this.$message.error(res.msg)
            }
@@ -379,11 +391,13 @@
              }
            }else if (res.code === 2) {
              this.$store.commit('signInDialogVisibleTrue');
+             this.$router.push({path: '/meetingPage',query: {isError: true}});
            } else {
              this.$message.error(res.msg)
            }
         });
 
+        this.isShow = !(this.article.kind === '0' && !contains(this.user.roleId,'5d429a16bb9fe01c646d1fd5') );
 
       }
     }

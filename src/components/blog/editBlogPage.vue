@@ -132,6 +132,7 @@
                 }
               } else if (res.code === 2) {
                 this.$store.commit('signInDialogVisibleTrue');
+                this.$router.push({path: '/meetingPage',query: {isError: true}});
               } else {
                 this.$message.error(res.msg)
               }
@@ -236,10 +237,8 @@
     },
     mounted() {
       this.openFullScreen();
-
-      let temp = JSON.parse(this.$route.query.article);
-
-      if (!this.isEmpty(temp)){
+      if (!this.isEmpty(this.$route.query.article)){
+        let temp = JSON.parse(this.$route.query.article);
         this.editForm = temp;
       }
 
