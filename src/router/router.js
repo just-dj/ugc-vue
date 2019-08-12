@@ -1,3 +1,6 @@
+import blogPage from '../components/blog/blogPage.vue'
+import meetingPage from '../components/meeting/meetingPage.vue'
+
 let routes = [
   {
     path: '/',
@@ -9,8 +12,8 @@ let routes = [
     children: [
       {
         path: '/blogPage',
-        component: (resolve) => require(['../components/blog/blogPage.vue'], resolve),
-        // component: blogPage,
+        // component: (resolve) => require(['../components/blog/blogPage.vue'], resolve),
+        component: blogPage,
         meta: {keepAlive: false},
         name: '博客',
         hidden: true
@@ -49,8 +52,8 @@ let routes = [
       },
       {
         path: '/meetingPage',
-        component: (resolve) => require(['../components/meeting/meetingPage.vue'], resolve),
-        // component: meetingPage,
+        // component: (resolve) => require(['../components/meeting/meetingPage.vue'], resolve),
+        component: meetingPage,
         meta: {keepAlive: false},
         name: '会议纪要',
         hidden: true

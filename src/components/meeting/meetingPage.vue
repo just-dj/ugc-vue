@@ -214,7 +214,7 @@
         this.$store.commit('openFullScreenLoading');
         setTimeout(() => {
           this.$store.commit('closeFullScreenLoading');
-        }, 200 + Math.random() * 150);
+        }, 300 + Math.random() * 150);
       },
 
       isEmpty: function (v) {
