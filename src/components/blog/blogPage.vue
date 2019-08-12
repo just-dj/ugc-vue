@@ -47,7 +47,7 @@
               <span style="font-size: 16px;color: #cccccc">{{item.subTitle}}</span>
             </div>
             <div class="item-left-other">
-              <span v-if="!item.kind==='0'" style="text-align:right;width:60px;margin-right: 70px;font-weight: bold">{{item.authorName}}</span>
+              <span v-if="!(item.kind === '0')" style="text-align:right;width:60px;margin-right: 70px;font-weight: bold">{{item.authorName}}</span>
               <span v-else style="text-align:right;width:60px;margin-right: 70px;font-weight: bold">**</span>
               <span style="text-align:right;width:60px;margin-right: 70px">{{item.likeCount}}点赞</span>
               <span style="text-align:right;width:70px;margin-right: 70px">{{item.readCount}}阅读</span>
