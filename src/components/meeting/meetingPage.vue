@@ -25,7 +25,9 @@
           </el-carousel-item>
         </el-carousel>
       </div>
-      <div class="list-article">
+
+
+      <div   class="list-article">
         <div class="list-article-operate">
           <el-radio-group v-model="labelPosition" size="medium" @change="labelChange">
             <el-radio-button label="new">最新发表</el-radio-button>
@@ -34,8 +36,13 @@
 
           <el-input style="width: 218px" v-model="searchInput" placeholder="请输入关键字"></el-input>
         </div>
+
+        <div v-show="articleList.length <= 0" style="font-size: 20px" >
+          当前板块没有文章!!
+        </div>
+
         <!--表头-->
-        <div class="list-item-title">
+        <div v-show="articleList.length > 0" class="list-item-title">
           <div class="title center" style="font-size: 18px;font-weight: bold;">
             标题
           </div>
@@ -49,9 +56,8 @@
             发表时间
           </div>
         </div>
-
         <!--文章列表-->
-        <div class="list-item" v-for="(item,index) in articleList">
+        <div v-show="articleList.length > 0" class="list-item" v-for="(item,index) in articleList">
           <div class="title " style="overflow: hidden;text-overflow: ellipsis;white-space: nowrap;" @click="toReadPage(item)">
             {{item.title}}
           </div>

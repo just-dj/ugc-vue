@@ -37,8 +37,13 @@
 
           <el-input style="width: 218px" v-model="searchInput" @change="getPageData" placeholder="请输入关键字"></el-input>
         </div>
+
+        <div v-if="articleList.length <= 0" style="font-size: 20px" >
+          当前板块没有文章!!
+        </div>
+
         <!--文章列表-->
-        <div class="list-item" v-for="(item,index) in articleList">
+        <div v-else class="list-item" v-for="(item,index) in articleList">
           <div class="list-item-left">
             <div class="item-left-title" @click="toReadPage(item)">
               <span style="font-size: 18px;font-weight: bold;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">{{item.title}}</span>
@@ -57,6 +62,7 @@
           <img style="width: 219px;height: 100%;"
                :src="item.cover"/>
         </div>
+
 
         <!--loading标志-->
         <div class="loading"
