@@ -137,6 +137,11 @@
     },
     methods: {
       toReadPage:function(item){
+        if (this.isEmpty(this.$store.state.user)){
+          this.$store.commit('signInDialogVisibleTrue');
+          return;
+        }
+
         this.$router.push({path: '/readMeetingPage', query: {article: JSON.stringify(item)}})
       },
       labelChange:function(){

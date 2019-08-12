@@ -119,6 +119,10 @@
         this.getPageData();
       },
       toReadPage: function (item) {
+        if (this.isEmpty(this.$store.state.user)){
+          this.$store.commit('signInDialogVisibleTrue');
+          return;
+        }
         this.$router.push({path: '/readBlogPage', query: {article: JSON.stringify(item)}})
       },
       orderScroll: function () {

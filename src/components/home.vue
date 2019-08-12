@@ -293,6 +293,11 @@
     },
     methods: {
       toEditPage:function(){
+        if(!this.isLogin){
+          this.$store.commit('signInDialogVisibleTrue');
+          return;
+        }
+
         let temp = this.$route.path;
         console.log(temp);
         if (temp === '/blogPage'){

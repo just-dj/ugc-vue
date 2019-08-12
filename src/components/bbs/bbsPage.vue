@@ -187,6 +187,11 @@
     },
     methods: {
       toReadPage:function(id){
+        if (this.isEmpty(this.$store.state.user)){
+          this.$store.commit('signInDialogVisibleTrue');
+          return;
+        }
+
         this.$router.push({path: '/readBBSPage', query: {id: id}})
       },
       labelChange:function(){

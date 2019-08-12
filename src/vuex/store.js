@@ -17,6 +17,8 @@ const state = {
 const mutations = {
   signInDialogVisibleTrue(state) {
     state.signInDialogVisible = true;
+    localStorage.clear();
+    sessionStorage.clear();
   },
   signInDialogVisibleFalse(state) {
     state.signInDialogVisible = false;

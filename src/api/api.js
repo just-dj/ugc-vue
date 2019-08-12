@@ -1,7 +1,6 @@
 import fetch from '../common/js/fetch.js';
 
 let jobServer = process.env.SERVER_URL;
-let collectionService = process.env.COLLECTION_URL;
 
 /***********************登陆注册************************/
 export const signInAPI= data=>{return fetch(jobServer+'/api/login/in', data, 'POST')}; //登录
