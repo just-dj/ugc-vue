@@ -52,7 +52,7 @@
 
         <!--文章列表-->
         <div class="list-item" v-for="(item,index) in articleList">
-          <div class="title "  @click="toReadPage(item)">
+          <div class="title " style="overflow: hidden;text-overflow: ellipsis;white-space: nowrap;" @click="toReadPage(item)">
             {{item.title}}
           </div>
 
@@ -194,6 +194,7 @@
           return;
         }
         this.selectNowKind = kind;
+        this.articleList = [];
         this.pageNum = 1;
         this.openFullScreen();
         this.getPageData();

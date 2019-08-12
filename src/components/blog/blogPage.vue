@@ -41,7 +41,7 @@
         <div class="list-item" v-for="(item,index) in articleList">
           <div class="list-item-left">
             <div class="item-left-title" @click="toReadPage(item)">
-              <span style="font-size: 18px;font-weight: bold">{{item.title}}</span>
+              <span style="font-size: 18px;font-weight: bold;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">{{item.title}}</span>
             </div>
             <div class="item-left-introduce">
               <span style="font-size: 16px;color: #cccccc">{{item.subTitle}}</span>
@@ -161,6 +161,7 @@
           return;
         }
         this.selectNowKind = kind;
+        this.articleList = [];
         this.pageNum = 0;
         this.openFullScreen();
         this.getPageData();
