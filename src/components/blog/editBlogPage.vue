@@ -123,6 +123,7 @@
 
         this.$refs["editForm"].validate((valid) => {
           if (valid) {
+             this.editForm.status = 1;
             addBlogAPI(this.editForm).then(res => {
               if (res.code === 200) {
                 if (this.editForm.status === 1){
@@ -145,7 +146,27 @@
 
       saveAsDrift: function(){
         this.editForm.status = 2;
-        this.saveArticle();
+        this.$refs["editForm"].validate((valid) => {
+          if (valid) {
+
+            addBlogAPI(this.editForm).then(res => {
+              if (res.code === 200) {
+                if (this.editForm.status === 1){
+                  this.$message.success("发表成功");
+                } else {
+                  this.$message.success("暂存成功");
+                }
+              } else if (res.code === 2) {
+                this.$store.commit('signInDialogVisibleTrue');
+                this.$router.push({path: '/meetingPage',query: {isError: true}});
+              } else {
+                this.$message.error(res.msg)
+              }
+            })
+          } else {
+            return false;
+          }
+        });
       },
 
       uploadSuccess: function (response, file, fileList) {
