@@ -353,7 +353,7 @@
   }
 
   .main-right .top-article {
-    width: 69%;
+    width: 100%;
     height: 30%;
     margin-bottom: 45px;
   }
@@ -488,5 +488,11 @@
     align-items: center;
     width: 100%;
   }
+
+
+  .infoText{
+    border: 1px solid #aaa;
+  }
+
 
 </style>

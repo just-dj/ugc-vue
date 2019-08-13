@@ -22,7 +22,7 @@
         <el-carousel :interval="3000" type="card" height="200px">
           <el-carousel-item v-for="(item,index) in topArticle" :key="index">
             <div class="infoText" @click="toReadPage(item)">
-              <img style="width: 100%;height: 100%" :src="item.cover"/>
+              <img style="width: 100%;height: 100%; " :src="item.cover" />
               <!--<span class="spanOne" style="position:absolute;top:85%;left:10px;text-align: center"> {{item.title}}</span>-->
             </div>
           </el-carousel-item>
@@ -96,7 +96,7 @@
         topArticle: [],
         ugc_blog_options: [],
         pageNum: 0,
-        pageSize: 8,
+        pageSize:4,
         isLastPage: false,
         // 当前选中模块
         selectNowKind: '0',
@@ -347,7 +347,7 @@
   }
 
   .main-right .top-article {
-    width: 69%;
+    width: 100%;
     height: 30%;
     margin-bottom: 45px;
   }
@@ -442,6 +442,10 @@
     justify-content: flex-start;
     align-items: center;
     width: 100%;
+  }
+
+  .infoText{
+    border: 1px solid #aaa;
   }
 
 </style>
