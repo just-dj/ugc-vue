@@ -115,6 +115,7 @@
     computed: {},
     methods: {
       labelChange: function () {
+        this.articleList = [];
         this.openFullScreen();
         this.getPageData();
       },
