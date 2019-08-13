@@ -16,12 +16,12 @@
                  router
                  background-color="#545c64"
                  text-color="#fff"
-                 active-text-color="#409EFF"
+                 active-text-color="#DA2627"
                  @select="handleSelect">
           <el-menu-item index="/meetingPage" key="3">时事新闻</el-menu-item>
           <el-menu-item index="/blogPage" key="1">博客</el-menu-item>
           <el-menu-item index="/bbsPage" key="2">论坛</el-menu-item>
-          <el-menu-item index="/accountManager" key="4" v-if="index">系统管理</el-menu-item>
+          <el-menu-item index="/articleCount" key="4" v-if="index">系统管理</el-menu-item>
           <!--<el-menu-item index="/accountManager" key="4" >系统管理</el-menu-item>-->
 
         </el-menu>

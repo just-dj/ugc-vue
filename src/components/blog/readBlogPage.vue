@@ -109,6 +109,7 @@
           <div class="comment" v-if="type==='read'" >
               <div style="width: 100%;height:145px;">
                 <el-input
+                  :disabled="!update"
                   type="textarea"
                   :rows="3"
                   placeholder="输入你的评论"
@@ -116,7 +117,7 @@
                 </el-input>
                 <div style="margin-top:20px;width:100%;display: flex;justify-content: flex-end;align-items: center">
                   <el-button type="text" style="margin-right: 20px;color: #aaa" @click="userComment = ''">取消</el-button>
-                  <el-button type="success" style="border-radius: 20px" @click="sendComment">发送</el-button>
+                  <el-button :disabled="!update" type="success" style="border-radius: 20px" @click="sendComment">发送</el-button>
                 </div>
               </div>
 
@@ -189,6 +190,7 @@
         article: {},
         type: 'preview',
         isLogin:false,
+        update:false,
         author:'',
         isLiked: false,
         userComment:'',
@@ -279,10 +281,10 @@
 
       },
 
-
       back:function () {
         this.$router.go(-1);
       },
+
       isEmpty: function (v) {
         switch (typeof v) {
           case 'undefined':
@@ -356,6 +358,15 @@
         this.isLogin = true;
         this.$store.commit('setHeadImg', {name: 'stark', user: JSON.parse(localStorage.getItem("user"))});
 
+      } else {
+        console.log("还未登录 ");
+      }
+    },
+    created(){
+      if (!this.isEmpty(localStorage.getItem("token"))) {
+        console.log("已经登录 ");
+        this.isLogin = true;
+        this.update = this.contains(JSON.parse(localStorage.getItem("permission")), "5d429edbbb9fe01c646d1fd7_4");
       } else {
         console.log("还未登录 ");
       }

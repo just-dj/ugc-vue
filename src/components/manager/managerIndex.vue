@@ -10,7 +10,7 @@
                  router
                  background-color="#545c64"
                  text-color="#fff"
-                 active-text-color="#409EFF">
+                 active-text-color="#DA2627">
           <el-menu-item index="/blogPage" key="blogPage">
             <template slot="title">
               <i class="el-icon-arrow-left"></i>

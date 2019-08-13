@@ -4,7 +4,9 @@ import Vue from 'vue'
 
 // elementUI
 import ElementUI from 'element-ui';
-import 'element-ui/lib/theme-chalk/index.css';
+// import 'element-ui/lib/theme-chalk/index.css';
+import '../theme/index.css';
+
 // const ElementUI = require('element-ui')
 import echarts from 'echarts'
 import App from './App'

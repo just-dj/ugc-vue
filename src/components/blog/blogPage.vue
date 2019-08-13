@@ -408,7 +408,7 @@
   }
 
   .item-left-title:hover {
-    color: rgb(64, 158, 255);
+    color: #DA2627;
   }
 
   .list-article .list-item .list-item-left .item-left-introduce {
