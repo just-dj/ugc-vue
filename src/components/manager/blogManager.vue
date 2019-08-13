@@ -183,7 +183,7 @@
       }
     },
     methods: {
-      switchChange:function(status,row){
+      switchChange:function(row){
         changeBlogStatusApi(row).then();
       },
       isTopChange:function(status,row){
