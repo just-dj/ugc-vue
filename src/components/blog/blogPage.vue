@@ -116,7 +116,7 @@
     methods: {
       labelChange: function () {
         this.articleList = [];
-        this.openFullScreen();
+        // this.openFullScreen();
         this.getPageData();
       },
       toReadPage: function (item) {
@@ -199,8 +199,9 @@
           label: this.labelPosition,
           searchInput: this.searchInput
         };
-
+        this.$store.commit('openFullScreenLoading');
         blogSimplePageAPI(param).then(res => {
+          this.$store.commit('closeFullScreenLoading');
             this.articleLoading = false;
             if (res.code === 200) {
               if (!util.isEmpty(res.data)) {
