@@ -119,15 +119,19 @@
         searchInput: '',
         swiperData:[
           {
-            headImg:"https://justdj-ugc.oss-cn-hangzhou.aliyuncs.com/6.jpg",
+            headImg:"https://justdj-ugc.oss-cn-hangzhou.aliyuncs.com/51.jpg",
             nickname:"强仔"
           },
           {
-            headImg:"https://justdj-ugc.oss-cn-hangzhou.aliyuncs.com/15.jpg",
+            headImg:"https://justdj-ugc.oss-cn-hangzhou.aliyuncs.com/52.jpg",
             nickname:"强子"
           },
           {
-            headImg:"https://justdj-ugc.oss-cn-hangzhou.aliyuncs.com/19.jpg",
+            headImg:"https://justdj-ugc.oss-cn-hangzhou.aliyuncs.com/53.jpg",
+            nickname:"强强"
+          },
+          {
+            headImg:"https://justdj-ugc.oss-cn-hangzhou.aliyuncs.com/54.jpg",
             nickname:"强强"
           }
         ]
