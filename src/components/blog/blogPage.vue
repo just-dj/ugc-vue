@@ -349,7 +349,7 @@
   .main-right .top-article {
     width: 100%;
     height: 30%;
-    margin-bottom: 45px;
+    margin-bottom: 25px;
   }
 
   .top-article .swiper-container {
@@ -367,11 +367,11 @@
 
   .main-right .list-article .list-article-operate {
     width: 100%;
-    height: 41px;
+    height: 35px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 40px;
+    margin-bottom: 30px;
     margin-top: 20px;
   }
 
