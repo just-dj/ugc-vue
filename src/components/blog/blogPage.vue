@@ -349,7 +349,6 @@
   .main-right .top-article {
     width: 100%;
     height: 30%;
-    margin-bottom: 25px;
   }
 
   .top-article .swiper-container {
@@ -371,8 +370,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 30px;
-    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-top: 15px;
   }
 
   .main-right .list-article .list-item {
