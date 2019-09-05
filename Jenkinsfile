@@ -8,7 +8,7 @@ pipeline {
   stages {
     stage('build') {
       steps {
-        bat(script: 'docker build  -t test/test:latest   .', returnStdout: true)
+        bat(script: 'docker build  -t justdj/ugc_vue:latest   .', returnStdout: true)
       }
     }
   }
