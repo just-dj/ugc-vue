@@ -6,20 +6,9 @@ pipeline {
 
   }
   stages {
-    stage('pull') {
-      agent {
-        node {
-          label 'master'
-        }
-
-      }
-      steps {
-        bat(returnStdout: true, script: ' git pull https://github.com/just-dj/ugc-vue.git')
-      }
-    }
     stage('build') {
       steps {
-        bat(script: 'docker build  .', returnStdout: true)
+        bat(script: 'docker build  -t \'test/test:latest\'   .', returnStdout: true)
       }
     }
   }
