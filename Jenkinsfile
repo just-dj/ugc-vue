@@ -6,9 +6,9 @@ pipeline {
 
   }
   stages {
-    stage('') {
+    stage('error') {
       steps {
-        bat(encoding: 'UTF_8', returnStdout: true, script: 'docker bild -t justdj/ugc_vue:latest')
+        bat(encoding: 'UTF_8', returnStdout: true, script: 'docker bild -t justdj/ugc_vue:latest', returnStatus: true)
       }
     }
   }
