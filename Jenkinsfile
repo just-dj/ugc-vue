@@ -14,12 +14,12 @@ pipeline {
 
       }
       steps {
-        bat(encoding: 'UTF_8', returnStdout: true, script: ' git pull https://github.com/just-dj/ugc-vue.git', returnStatus: true)
+        bat(returnStdout: true, script: ' git pull https://github.com/just-dj/ugc-vue.git')
       }
     }
     stage('build') {
       steps {
-        bat(script: 'docker build  -t test/test:lates .', encoding: 'UTF-8', returnStatus: true, returnStdout: true)
+        bat(script: 'docker build  .', returnStdout: true)
       }
     }
   }
